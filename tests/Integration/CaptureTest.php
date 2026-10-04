@@ -97,6 +97,39 @@ final class CaptureTest extends IntegrationTestCase {
 		$this->assertStringEndsWith( ':meta', $latest->source );
 	}
 
+	public function test_save_after_a_write_that_bypassed_all_hooks_marks_the_gap(): void {
+		global $wpdb;
+		$product = $this->simple( '100' );
+		$id      = $product->get_id();
+		$this->age( array( $id ), 60 );
+
+		// An ERP sync writes the price with SQL at some unknown moment (no hooks, no record).
+		foreach ( array( '_regular_price', '_price' ) as $key ) {
+			$wpdb->update(
+				$wpdb->postmeta,
+				array( 'meta_value' => '60' ),
+				array(
+					'post_id'  => $id,
+					'meta_key' => $key, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				)
+			);
+		}
+		wp_cache_delete( $id, 'post_meta' );
+		clean_post_cache( $id );
+		$this->plugin->recorder->reset();
+
+		// Weeks later the product is saved for an unrelated reason, then put on sale.
+		$product = $this->fresh( $id );
+		$product->set_name( 'Renamed' );
+		$product->save();
+
+		$latest = $this->plugin->repository->latest( $id );
+		$this->assertNotNull( $latest );
+		$this->assertSame( '60.000000', $latest->regular );
+		$this->assertNotNull( $latest->unknown_since, 'The moment of the out-of-band change is unknown.' );
+		$this->assertEqualsWithDelta( time() - 60 * self::DAY, $latest->unknown_since, 5 );
+	}
+
 	public function test_rest_api_update_is_recorded(): void {
 		$product = $this->simple( '100' );
 		$admin   = get_users(

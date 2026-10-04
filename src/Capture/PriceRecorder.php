@@ -58,6 +58,14 @@ final class PriceRecorder {
 	private array $modified_before_save = array();
 
 	/**
+	 * Products whose stored price differed from their latest record before a save: id => start of the unknown
+	 * period (the price was written by something that bypassed every hook, at an unknown moment).
+	 *
+	 * @var array<int, int>
+	 */
+	private array $changed_out_of_band = array();
+
+	/**
 	 * Option holding the period the plugin was inactive, until the resume job has checked every product.
 	 */
 	public const RESUME_OPTION = 'pnscripts_omnibus_resume';
@@ -95,12 +103,44 @@ final class PriceRecorder {
 	 * @param mixed $product Product about to be saved.
 	 */
 	public function on_before_product_save( mixed $product ): void {
-		if ( $product instanceof WC_Product && $product->get_id() > 0 ) {
-			$modified = $product->get_date_modified( 'edit' );
-			if ( $modified ) {
-				$this->modified_before_save[ $product->get_id() ] = $modified->getTimestamp();
-			}
+		if ( ! $product instanceof WC_Product || $product->get_id() <= 0 ) {
+			return;
 		}
+		$id       = $product->get_id();
+		$modified = $product->get_date_modified( 'edit' );
+		if ( $modified ) {
+			$this->modified_before_save[ $id ] = $modified->getTimestamp();
+		}
+
+		if ( ! self::supports( $product ) || isset( $this->queue[ $id ] ) ) {
+			return; // Meta written in this request: the change happened now and is recorded as such.
+		}
+		if ( ! array_key_exists( $id, $this->latest ) ) {
+			$this->latest[ $id ] = $this->repository->latest( $id );
+		}
+		$latest = $this->latest[ $id ];
+		if ( null !== $latest && $latest->has_configuration() && ! $latest->same_state( self::stored_snapshot( $product ) ) ) {
+			$this->changed_out_of_band[ $id ] = $latest->changed_at;
+		}
+	}
+
+	/**
+	 * Price state as loaded from the database, ignoring changes pending in this save.
+	 *
+	 * @param WC_Product $product Product about to be saved.
+	 */
+	private static function stored_snapshot( WC_Product $product ): PriceRecord {
+		$data = $product->get_data();
+		$from = $data['date_on_sale_from'] ?? null;
+		$to   = $data['date_on_sale_to'] ?? null;
+		return new PriceRecord(
+			0,
+			Money::normalize( $data['regular_price'] ?? null ),
+			Money::normalize( $data['sale_price'] ?? null ),
+			$from instanceof \DateTimeInterface ? $from->getTimestamp() : null,
+			$to instanceof \DateTimeInterface ? $to->getTimestamp() : null,
+			Money::normalize( $data['price'] ?? null )
+		);
 	}
 
 	/**
@@ -126,8 +166,11 @@ final class PriceRecorder {
 	 */
 	public function on_product_saved( mixed $product ): void {
 		if ( $product instanceof WC_Product ) {
-			$this->record( $product, $this->sources->detect() );
-			unset( $this->queue[ $product->get_id() ] );
+			$id    = $product->get_id();
+			$since = $this->changed_out_of_band[ $id ] ?? null;
+			unset( $this->changed_out_of_band[ $id ] );
+			$this->record( $product, $this->sources->detect(), $since, null, null !== $since );
+			unset( $this->queue[ $id ] );
 		}
 	}
 
@@ -380,5 +423,6 @@ final class PriceRecorder {
 		$this->latest               = array();
 		$this->queue                = array();
 		$this->modified_before_save = array();
+		$this->changed_out_of_band  = array();
 	}
 }
