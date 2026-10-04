@@ -85,7 +85,9 @@ final class HistoryRepository {
 	}
 
 	/**
-	 * All records of a product in time order (bounded by retention).
+	 * Records of a product in time order (bounded by retention). When the product has more than MAX_ROWS rows,
+	 * the newest ones are returned: the history then simply starts later, which the calculator treats as
+	 * incomplete instead of missing the current price.
 	 *
 	 * @param int $product_id Product id.
 	 * @return list<PriceRecord>
@@ -94,14 +96,15 @@ final class HistoryRepository {
 		global $wpdb;
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
-				'SELECT * FROM %i WHERE product_id = %d ORDER BY changed_at ASC, id ASC LIMIT %d',
+				'SELECT * FROM %i WHERE product_id = %d ORDER BY changed_at DESC, id DESC LIMIT %d',
 				Schema::table(),
 				$product_id,
 				self::MAX_ROWS
 			),
 			ARRAY_A
 		);
-		return array_values( array_map( array( self::class, 'hydrate' ), is_array( $rows ) ? $rows : array() ) );
+		$rows = is_array( $rows ) ? array_reverse( $rows ) : array();
+		return array_values( array_map( array( self::class, 'hydrate' ), $rows ) );
 	}
 
 	/**
