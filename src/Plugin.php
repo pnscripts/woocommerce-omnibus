@@ -190,9 +190,25 @@ final class Plugin {
 	 * Load bundled translations and make sure the table exists (also on network sites).
 	 */
 	public function on_init(): void {
-		load_plugin_textdomain( 'pnscripts-omnibus', false, dirname( plugin_basename( PNSCRIPTS_OMNIBUS_FILE ) ) . '/languages' );
+		self::load_bundled_translations();
 		if ( (string) get_option( Schema::VERSION_OPTION, '' ) !== PNSCRIPTS_OMNIBUS_DB_VERSION ) {
 			Lifecycle::install_site();
+		}
+	}
+
+	/**
+	 * Bundled translations (bg_BG, pl_PL, de_DE) are used only when no language pack from
+	 * translate.wordpress.org is installed, so community translations always win.
+	 */
+	private static function load_bundled_translations(): void {
+		$locale   = determine_locale();
+		$official = WP_LANG_DIR . '/plugins/pnscripts-omnibus-' . $locale;
+		if ( is_readable( $official . '.mo' ) || is_readable( $official . '.l10n.php' ) ) {
+			return;
+		}
+		$bundled = PNSCRIPTS_OMNIBUS_DIR . 'languages/pnscripts-omnibus-' . $locale . '.mo';
+		if ( is_readable( $bundled ) ) {
+			load_textdomain( 'pnscripts-omnibus', $bundled, $locale );
 		}
 	}
 

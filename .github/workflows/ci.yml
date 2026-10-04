@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Coding standards and static analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+      - run: composer install --no-interaction --no-progress
+      - name: PHP_CodeSniffer (WPCS 3)
+        run: vendor/bin/phpcs
+      - name: PHPStan level 8
+        run: vendor/bin/phpstan analyse --memory-limit=1G --no-progress
+
+  php81-syntax:
+    name: PHP 8.1 syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+      - run: find src pnscripts-omnibus.php uninstall.php -name '*.php' -print0 | xargs -0 -n1 php -l
+
+  unit:
+    name: Unit tests (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.2', '8.3', '8.4']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - run: composer install --no-interaction --no-progress
+      - run: vendor/bin/phpunit --testsuite Unit
+
+  integration:
+    name: Integration (WP ${{ matrix.wp }}, WC ${{ matrix.wc }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - { wp: 'latest', wc: 'latest-stable', php: '8.3' }
+          - { wp: '6.5.12', wc: '9.0.4', php: '8.2' } # minimum supported versions
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: sqlite3, pdo_sqlite, intl
+          tools: wp-cli
+          coverage: none
+      - run: composer install --no-interaction --no-progress
+      - run: bin/install-wp-tests.sh ${{ matrix.wp }} ${{ matrix.wc }}
+      - run: vendor/bin/phpunit -c phpunit-integration.xml.dist
+
+  plugin-check:
+    name: Plugin Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build release folder
+        run: bin/build-zip.sh
+      - uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: build/pnscripts-omnibus

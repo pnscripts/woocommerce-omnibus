@@ -70,15 +70,4 @@ final class Schema {
 		dbDelta( $sql );
 		update_option( self::VERSION_OPTION, PNSCRIPTS_OMNIBUS_DB_VERSION, true );
 	}
-
-	/**
-	 * Drop the table (uninstall with the user's opt-in only).
-	 */
-	public static function drop(): void {
-		global $wpdb;
-		$table = self::table();
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange,WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from $wpdb->prefix and a constant.
-		$wpdb->query( "DROP TABLE IF EXISTS {$table}" );
-		delete_option( self::VERSION_OPTION );
-	}
 }

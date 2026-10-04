@@ -1,0 +1,25 @@
+# Files and folders excluded from the release zip (bin/build-zip.sh, WordPress.org SVN trunk).
+/.git
+/.github
+/.gitignore
+/.gitattributes
+/.distignore
+/.phpunit.cache
+/.phpunit.result.cache
+/assets/screenshots
+/bin
+/build
+/node_modules
+/tests
+/vendor
+/composer.json
+/composer.lock
+/phpcs.xml.dist
+/phpstan.neon.dist
+/phpunit.xml.dist
+/phpunit-integration.xml.dist
+/README.md
+/CHANGELOG.md
+/SECURITY.md
+/AGENTS.md
+/CLAUDE.md

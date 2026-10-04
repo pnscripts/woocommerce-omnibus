@@ -1,0 +1,567 @@
+# Copyright (C) 2026 PN Scripts
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: PN Omnibus 1.0.0\n"
+"Report-Msgid-Bugs-To: https://pnscripts.com/marketplace/pnscripts-omnibus\n"
+"Last-Translator: PN Scripts (machine-assisted, needs native review)\n"
+"Language-Team: PN Scripts <https://pnscripts.com>\n"
+"MIME-Version: 1.0\n"
+"Language: bg_BG\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-04T14:15:47+00:00\n"
+"PO-Revision-Date: 2026-10-04 17:00+0300\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: pnscripts-omnibus\n"
+
+#. Plugin Name of the plugin
+#: pnscripts-omnibus.php:3
+msgid "Omnibus Lowest Price 30 Days for WooCommerce – PN Omnibus"
+msgstr "Omnibus: най-ниска цена за 30 дни за WooCommerce – PN Omnibus"
+
+#. Plugin URI of the plugin
+#: pnscripts-omnibus.php:4
+msgid "https://pnscripts.com/marketplace/pnscripts-omnibus"
+msgstr "https://pnscripts.com/marketplace/pnscripts-omnibus"
+
+#. Description of the plugin
+#: pnscripts-omnibus.php:5
+msgid "Records every product and variation price change and shows the lowest price in the 30 days before a discount (EU Price Indication Directive, Art. 6a). Shows nothing when the history is incomplete."
+msgstr "Записва всяка промяна в цената на продуктите и вариациите и показва най-ниската цена през 30-те дни преди намалението (Директива за обозначаване на цените, чл. 6а). Не показва нищо, когато историята е непълна."
+
+#. Author of the plugin
+#: pnscripts-omnibus.php:12
+msgid "PN Scripts"
+msgstr "PN Scripts"
+
+#. Author URI of the plugin
+#: pnscripts-omnibus.php:13
+msgid "https://pnscripts.com"
+msgstr "https://pnscripts.com"
+
+#: src/Admin/CategoryFields.php:41
+#: src/Admin/CategoryFields.php:53
+#: src/Admin/ProductPanel.php:204
+#: src/Admin/SettingsPage.php:257
+msgid "Perishable goods"
+msgstr "Бързо развалящи се стоки"
+
+#: src/Admin/CategoryFields.php:42
+msgid "Products in this category perish or expire quickly. Only used when the perishable-goods exemption is enabled in PN Omnibus settings."
+msgstr "Продуктите в тази категория се развалят бързо или имат кратък срок на годност. Използва се само ако изключението за бързо развалящи се стоки е включено в настройките на PN Omnibus."
+
+#: src/Admin/CategoryFields.php:59
+msgid "Products in this category perish or expire quickly."
+msgstr "Продуктите в тази категория се развалят бързо или имат кратък срок на годност."
+
+#: src/Admin/Labels.php:26
+msgid "Shown"
+msgstr "Показва се"
+
+#: src/Admin/Labels.php:27
+msgid "Not on sale"
+msgstr "Не е в промоция"
+
+#: src/Admin/Labels.php:28
+msgid "Exempt"
+msgstr "Изключение"
+
+#: src/Admin/Labels.php:29
+msgid "Unknown, hidden"
+msgstr "Неизвестна, скрита"
+
+#: src/Admin/Labels.php:40
+msgid "No price history has been recorded yet."
+msgstr "Все още няма записана история на цените."
+
+#: src/Admin/Labels.php:41
+msgid "Prices during part of the period are unknown (the plugin was inactive or prices were changed outside WooCommerce)."
+msgstr "Цените за част от периода са неизвестни (плъгинът е бил неактивен или цените са променени извън WooCommerce)."
+
+#: src/Admin/Labels.php:42
+msgid "The recorded history does not cover the whole period before the discount yet."
+msgstr "Записаната история все още не обхваща целия период преди намалението."
+
+#: src/Admin/Labels.php:43
+msgid "The product was launched less than the period before the discount and the current rules hide the notice for such products."
+msgstr "Продуктът е пуснат в продажба по-скоро от периода преди намалението, а текущите правила скриват съобщението за такива продукти."
+
+#: src/Admin/Labels.php:44
+msgid "The product was already on sale when recording started, so the start of the discount is unknown."
+msgstr "Продуктът вече е бил в промоция, когато записването е започнало, затова началото на намалението е неизвестно."
+
+#: src/Admin/Labels.php:45
+msgid "There is no price before the discount (the product was launched on sale or had no price)."
+msgstr "Няма цена преди намалението (продуктът е пуснат директно с промоционална цена или не е имал цена)."
+
+#: src/Admin/Labels.php:46
+msgid "WooCommerce shows a discount that is not in the recorded prices (for example a price changed by another plugin on the fly)."
+msgstr "WooCommerce показва намаление, което го няма в записаните цени (например цена, променена в момента от друг плъгин)."
+
+#: src/Admin/Labels.php:47
+msgid "Marked as perishable and the perishable-goods exemption is enabled."
+msgstr "Маркиран е като бързо развалящ се и изключението за бързо развалящи се стоки е включено."
+
+#: src/Admin/Labels.php:48
+msgid "Variable and grouped products are evaluated per variation or child product."
+msgstr "Вариативните и групираните продукти се оценяват поотделно за всяка вариация или подпродукт."
+
+#: src/Admin/Labels.php:61
+msgid "Product editor"
+msgstr "Редактор на продукта"
+
+#: src/Admin/Labels.php:62
+msgid "Quick edit"
+msgstr "Бърза редакция"
+
+#: src/Admin/Labels.php:63
+msgid "Bulk edit"
+msgstr "Групова редакция"
+
+#: src/Admin/Labels.php:64
+msgid "CSV import"
+msgstr "Импорт от CSV"
+
+#: src/Admin/Labels.php:65
+msgid "REST API"
+msgstr "REST API"
+
+#: src/Admin/Labels.php:66
+msgid "WP-CLI"
+msgstr "WP-CLI"
+
+#: src/Admin/Labels.php:67
+msgid "Background task"
+msgstr "Фонова задача"
+
+#: src/Admin/Labels.php:68
+msgid "Scheduled sale"
+msgstr "Планирана промоция"
+
+#: src/Admin/Labels.php:69
+msgid "AJAX"
+msgstr "AJAX"
+
+#: src/Admin/Labels.php:70
+msgid "Code"
+msgstr "Код"
+
+#: src/Admin/Labels.php:71
+#: src/Admin/SettingsPage.php:297
+msgid "First record"
+msgstr "Първи запис"
+
+#: src/Admin/Labels.php:72
+msgid "After inactivity"
+msgstr "След неактивност"
+
+#: src/Admin/Labels.php:73
+msgid "Repair"
+msgstr "Поправка"
+
+#: src/Admin/Labels.php:74
+msgid "Imported (Omnibus by iWorks)"
+msgstr "Импортирано (Omnibus от iWorks)"
+
+#: src/Admin/Labels.php:75
+msgid "Imported (WC Price History)"
+msgstr "Импортирано (WC Price History)"
+
+#: src/Admin/Labels.php:76
+msgid "Imported (Omnibus by iLabs)"
+msgstr "Импортирано (Omnibus от iLabs)"
+
+#: src/Admin/ProductPanel.php:64
+msgid "Price history and lowest prior price"
+msgstr "История на цените и най-ниска предишна цена"
+
+#: src/Admin/ProductPanel.php:83
+msgid "Recorded automatically on every price change. This plugin helps display prices; you remain responsible for compliance."
+msgstr "Записва се автоматично при всяка промяна на цената. Плъгинът помага за показването на цените; отговорността за спазването на изискванията остава ваша."
+
+#: src/Admin/ProductPanel.php:88
+msgid "No variations yet."
+msgstr "Все още няма вариации."
+
+#: src/Admin/ProductPanel.php:98
+msgid "Grouped products have no own price; see each child product."
+msgstr "Групираните продукти нямат собствена цена; вижте всеки от подпродуктите."
+
+#: src/Admin/ProductPanel.php:116
+msgid "No prices recorded yet."
+msgstr "Все още няма записани цени."
+
+#: src/Admin/ProductPanel.php:121
+msgid "From"
+msgstr "От"
+
+#: src/Admin/ProductPanel.php:122
+msgid "Regular"
+msgstr "Редовна"
+
+#: src/Admin/ProductPanel.php:123
+msgid "Sale"
+msgstr "Промоционална"
+
+#: src/Admin/ProductPanel.php:124
+msgid "Sale schedule"
+msgstr "Период на промоцията"
+
+#: src/Admin/ProductPanel.php:125
+msgid "Price"
+msgstr "Цена"
+
+#: src/Admin/ProductPanel.php:126
+msgid "Source"
+msgstr "Източник"
+
+#: src/Admin/ProductPanel.php:135
+msgid "Prices as entered in the shop (before the tax display setting). Newest first, up to 30 rows."
+msgstr "Цените са такива, каквито са въведени в магазина (преди настройката за показване на ДДС). Най-новите са първи, до 30 реда."
+
+#: src/Admin/ProductPanel.php:162
+msgid "(unknown before)"
+msgstr "(преди това неизвестна)"
+
+#. translators: 1: number of days, 2: date when the discount started
+#: src/Admin/ProductPanel.php:181
+#, php-format
+msgid "lowest price in the %1$d days before the discount that started on %2$s:"
+msgstr "най-ниска цена през %1$d-те дни преди намалението, започнало на %2$s:"
+
+#: src/Admin/ProductPanel.php:205
+msgid "Goods that perish or expire quickly. Only used when the perishable-goods exemption is enabled in PN Omnibus settings."
+msgstr "Стоки, които се развалят бързо или имат кратък срок на годност. Използва се само ако изключението за бързо развалящи се стоки е включено в настройките на PN Omnibus."
+
+#: src/Admin/SettingsPage.php:68
+msgid "PN Omnibus: lowest price in the 30 days before a discount"
+msgstr "PN Omnibus: най-ниска цена през 30-те дни преди намаление"
+
+#: src/Admin/SettingsPage.php:69
+msgid "PN Omnibus"
+msgstr "PN Omnibus"
+
+#: src/Admin/SettingsPage.php:86
+#: src/Admin/SettingsPage.php:143
+msgid "Settings"
+msgstr "Настройки"
+
+#: src/Admin/SettingsPage.php:138
+msgid "Sorry, you are not allowed to access this page."
+msgstr "Нямате право на достъп до тази страница."
+
+#: src/Admin/SettingsPage.php:144
+msgid "Coverage report"
+msgstr "Отчет за покритието"
+
+#: src/Admin/SettingsPage.php:145
+msgid "Import and tools"
+msgstr "Импорт и инструменти"
+
+#: src/Admin/SettingsPage.php:159
+msgid "PN Omnibus: lowest price before a discount"
+msgstr "PN Omnibus: най-ниска цена преди намаление"
+
+#: src/Admin/SettingsPage.php:171
+msgid "This plugin helps display prices; you remain responsible for compliance. It does not give legal advice. Check the rules that apply to your shop."
+msgstr "Плъгинът помага за показването на цените; отговорността за спазването на изискванията остава ваша. Той не дава правни съвети. Проверете правилата, които се отнасят до вашия магазин."
+
+#: src/Admin/SettingsPage.php:200
+msgid "The action could not be started. Action Scheduler (part of WooCommerce) is not available."
+msgstr "Действието не можа да започне. Action Scheduler (част от WooCommerce) не е наличен."
+
+#: src/Admin/SettingsPage.php:201
+msgid "Started in the background. Refresh this page to see the progress."
+msgstr "Стартирано във фонов режим. Презаредете страницата, за да видите напредъка."
+
+#: src/Admin/SettingsPage.php:215
+msgid "Rules"
+msgstr "Правила"
+
+#: src/Admin/SettingsPage.php:218
+msgid "Preset"
+msgstr "Предварителна настройка"
+
+#: src/Admin/SettingsPage.php:224
+msgid "A preset fills the three rules below when you save. Presets are starting points, not legal advice: confirm the rules of the country you sell to. Choose \"Custom rules\" to set them yourself."
+msgstr "Предварителната настройка попълва трите правила по-долу при запазване. Тя е отправна точка, а не правен съвет: проверете правилата на държавата, в която продавате. Изберете „Собствени правила“, за да ги зададете сами."
+
+#: src/Admin/SettingsPage.php:228
+msgid "Period before the discount (days)"
+msgstr "Период преди намалението (дни)"
+
+#: src/Admin/SettingsPage.php:237
+msgid "At least 30 days. The period ends when the current discount started and begins at midnight that many days earlier. For progressive discounts it ends when the first discount started."
+msgstr "Поне 30 дни. Периодът завършва в момента, в който е започнало текущото намаление, и започва в полунощ съответния брой дни по-рано. При поетапни намаления завършва в началото на първото намаление."
+
+#: src/Admin/SettingsPage.php:239
+msgid "Products on the market for less than the period"
+msgstr "Продукти, които се продават от по-малко време от периода"
+
+#: src/Admin/SettingsPage.php:241
+msgid "Hide the notice (strict)"
+msgstr "Скриване на съобщението (строго)"
+
+#: src/Admin/SettingsPage.php:242
+msgid "Use the lowest price since the product was launched (only where your country allows a shorter period)"
+msgstr "Използване на най-ниската цена от пускането на продукта в продажба (само ако държавата ви допуска по-кратък период)"
+
+#: src/Admin/SettingsPage.php:258
+msgid "Do not show the notice for products (or categories) marked as perishable. Only where your country exempts perishable goods."
+msgstr "Без съобщение за продукти (или категории), маркирани като бързо развалящи се. Само ако държавата ви освобождава бързо развалящите се стоки."
+
+#: src/Admin/SettingsPage.php:264
+msgid "Display"
+msgstr "Показване"
+
+#: src/Admin/SettingsPage.php:266
+msgid "Product page"
+msgstr "Страница на продукта"
+
+#: src/Admin/SettingsPage.php:266
+msgid "Show the notice under the price on product pages (classic templates and the Product Price block)."
+msgstr "Показване на съобщението под цената на страниците на продуктите (класически шаблони и блокът „Цена на продукта“)."
+
+#: src/Admin/SettingsPage.php:267
+msgid "Shop and category pages"
+msgstr "Страници на магазина и категориите"
+
+#: src/Admin/SettingsPage.php:267
+msgid "Show the notice in product lists, related products and product blocks."
+msgstr "Показване на съобщението в списъци с продукти, свързани продукти и продуктови блокове."
+
+#: src/Admin/SettingsPage.php:268
+msgid "Variations"
+msgstr "Вариации"
+
+#: src/Admin/SettingsPage.php:268
+msgid "Show the notice for the selected variation of variable products."
+msgstr "Показване на съобщението за избраната вариация на вариативни продукти."
+
+#: src/Admin/SettingsPage.php:269
+msgid "Incomplete history"
+msgstr "Непълна история"
+
+#: src/Admin/SettingsPage.php:269
+msgid "Hide the notice when the price history does not cover the whole period (recommended). When unchecked, the text below is shown instead."
+msgstr "Скриване на съобщението, когато историята на цените не обхваща целия период (препоръчително). Ако не е отметнато, вместо него се показва текстът по-долу."
+
+#: src/Admin/SettingsPage.php:271
+msgid "Notice text"
+msgstr "Текст на съобщението"
+
+#: src/Admin/SettingsPage.php:272
+msgid "Notice text (period since launch)"
+msgstr "Текст на съобщението (период от пускането в продажба)"
+
+#: src/Admin/SettingsPage.php:273
+msgid "Text when the history is incomplete"
+msgstr "Текст при непълна история"
+
+#: src/Admin/SettingsPage.php:274
+msgid "Placeholders"
+msgstr "Заместители"
+
+#: src/Admin/SettingsPage.php:275
+msgid "{price} the lowest price, {days} the number of days, {date} the day the discount started. Leave a text empty to use the translated default."
+msgstr "{price} най-ниската цена, {days} броят дни, {date} денят, в който е започнало намалението. Оставете текста празен, за да се използва преведеният текст по подразбиране."
+
+#. translators: %s: shortcode
+#: src/Admin/SettingsPage.php:279
+#, php-format
+msgid "To place the notice elsewhere, use the shortcode %s."
+msgstr "За да поставите съобщението на друго място, използвайте кратък код %s."
+
+#: src/Admin/SettingsPage.php:285
+msgid "Data"
+msgstr "Данни"
+
+#: src/Admin/SettingsPage.php:287
+msgid "Keep history for (days)"
+msgstr "Пазене на историята (дни)"
+
+#: src/Admin/SettingsPage.php:294
+msgid "Older prices are deleted daily, except the ones still needed for a running discount. Minimum 31 days."
+msgstr "По-старите цени се изтриват ежедневно, освен тези, които са нужни за текущо намаление. Минимум 31 дни."
+
+#: src/Admin/SettingsPage.php:298
+msgid "When recording starts for an existing product, assume its current price has applied since the product was last modified. Leave unchecked if other software changes prices without updating products (strict)."
+msgstr "Когато записването започне за съществуващ продукт, да се приема, че текущата му цена важи от последната промяна на продукта. Оставете неотметнато, ако друг софтуер променя цени, без да обновява продуктите (строго)."
+
+#: src/Admin/SettingsPage.php:303
+msgid "Uninstall"
+msgstr "Деинсталиране"
+
+#: src/Admin/SettingsPage.php:304
+msgid "Delete the price history and settings when the plugin is deleted."
+msgstr "Изтриване на историята на цените и настройките при изтриване на плъгина."
+
+#. translators: %d: number of products and variations
+#: src/Admin/SettingsPage.php:386
+#, php-format
+msgid "%d product or variation is on sale."
+msgid_plural "%d products and variations are on sale."
+msgstr[0] "%d продукт или вариация е в промоция."
+msgstr[1] "%d продукта и вариации са в промоция."
+
+#: src/Admin/SettingsPage.php:389
+msgid "For each one: whether the lowest prior price is known and shown, and if not, why."
+msgstr "За всеки от тях: дали най-ниската предишна цена е известна и се показва, а ако не – защо."
+
+#: src/Admin/SettingsPage.php:397
+msgid "Product"
+msgstr "Продукт"
+
+#: src/Admin/SettingsPage.php:398
+msgid "Current price"
+msgstr "Текуща цена"
+
+#: src/Admin/SettingsPage.php:399
+msgid "Lowest prior price"
+msgstr "Най-ниска предишна цена"
+
+#: src/Admin/SettingsPage.php:400
+msgid "Discount started"
+msgstr "Начало на намалението"
+
+#: src/Admin/SettingsPage.php:401
+#: src/Admin/SettingsPage.php:450
+msgid "Status"
+msgstr "Състояние"
+
+#. translators: 1: number of stored price records, 2: number of products and variations
+#: src/Admin/SettingsPage.php:454
+#, php-format
+msgid "%1$d price records for %2$d products and variations."
+msgstr "%1$d записа на цени за %2$d продукта и вариации."
+
+#. translators: 1: date and time, 2: number of products checked, 3: number of records added
+#: src/Admin/SettingsPage.php:467
+#, php-format
+msgid "Last catalogue check finished %1$s: %2$d products checked, %3$d records added."
+msgstr "Последната проверка на каталога завърши на %1$s: проверени продукти %2$d, добавени записи %3$d."
+
+#. translators: %d: number of products checked so far
+#: src/Admin/SettingsPage.php:474
+#, php-format
+msgid "Catalogue check running: %d products checked so far."
+msgstr "Проверката на каталога продължава: досега са проверени %d продукта."
+
+#: src/Admin/SettingsPage.php:480
+msgid "Check the catalogue"
+msgstr "Проверка на каталога"
+
+#: src/Admin/SettingsPage.php:481
+msgid "Records the current price of products that have no history yet, and marks products whose price changed without passing through WooCommerce. Runs in the background."
+msgstr "Записва текущата цена на продуктите, които все още нямат история, и отбелязва продуктите, чиято цена е променена, без да мине през WooCommerce. Изпълнява се във фонов режим."
+
+#: src/Admin/SettingsPage.php:482
+msgid "Check the catalogue now"
+msgstr "Проверка на каталога сега"
+
+#: src/Admin/SettingsPage.php:484
+msgid "Import history from another plugin"
+msgstr "Импорт на история от друг плъгин"
+
+#: src/Admin/SettingsPage.php:485
+msgid "Reads (never changes) the price history saved by another plugin and adds the prices from before PN Omnibus started recording each product. Only import from a plugin that was active until now; a plugin that was switched off long ago has gaps that cannot be detected. Running an import twice is safe."
+msgstr "Чете (без да променя) историята на цените, записана от друг плъгин, и добавя цените отпреди PN Omnibus да започне да записва всеки продукт. Импортирайте само от плъгин, който е бил активен досега; плъгин, изключен преди дълго време, има пропуски, които не могат да бъдат открити. Повторното импортиране е безопасно."
+
+#: src/Admin/SettingsPage.php:486
+msgid "Plugin"
+msgstr "Плъгин"
+
+#: src/Admin/SettingsPage.php:486
+msgid "Data found"
+msgstr "Намерени данни"
+
+#: src/Admin/SettingsPage.php:486
+msgid "Last import"
+msgstr "Последен импорт"
+
+#. translators: 1: date and time, 2: imported records, 3: skipped entries
+#: src/Admin/SettingsPage.php:500
+#, php-format
+msgid "%1$s: %2$d imported, %3$d skipped"
+msgstr "%1$s: импортирани %2$d, пропуснати %3$d"
+
+#: src/Admin/SettingsPage.php:505
+msgid "Running…"
+msgstr "В процес…"
+
+#: src/Admin/SettingsPage.php:512
+msgid "Import"
+msgstr "Импортиране"
+
+#: src/Admin/SettingsPage.php:518
+msgid "Background tasks"
+msgstr "Фонови задачи"
+
+#. translators: %d: number of pending background tasks
+#: src/Admin/SettingsPage.php:524
+#, php-format
+msgid "Pending tasks: %d."
+msgstr "Чакащи задачи: %d."
+
+#: src/Admin/SettingsPage.php:539
+msgid "View in WooCommerce → Status → Scheduled Actions"
+msgstr "Вижте в WooCommerce → Състояние → Планирани действия"
+
+#: src/Admin/SettingsPage.php:565
+msgid "Sorry, you are not allowed to do that."
+msgstr "Нямате право да направите това."
+
+#. translators: Keep the placeholders {days} (number of days) and {price} (formatted price) unchanged.
+#: src/Display/NoticeRenderer.php:41
+msgid "Lowest price in the {days} days before the discount: {price}"
+msgstr "Най-ниска цена през последните {days} дни преди намалението: {price}"
+
+#. translators: Keep the placeholders {days} (number of days) and {price} (formatted price) unchanged.
+#: src/Display/NoticeRenderer.php:49
+msgid "Lowest price since this product was launched ({days} days) before the discount: {price}"
+msgstr "Най-ниска цена от пускането на продукта в продажба ({days} дни) преди намалението: {price}"
+
+#. translators: Keep the placeholder {days} (number of days) unchanged.
+#: src/Display/NoticeRenderer.php:57
+msgid "The lowest price in the {days} days before the discount is not available."
+msgstr "Най-ниската цена през последните {days} дни преди намалението не е налична."
+
+#: src/Import/Importers.php:45
+msgid "Omnibus — show the lowest price (by iWorks)"
+msgstr "Omnibus — show the lowest price (от iWorks)"
+
+#: src/Import/Importers.php:46
+msgid "WC Price History for Omnibus"
+msgstr "WC Price History for Omnibus"
+
+#: src/Import/Importers.php:47
+msgid "Omnibus by iLabs"
+msgstr "Omnibus by iLabs"
+
+#. translators: %s: minimum WooCommerce version
+#: src/Plugin.php:259
+#, php-format
+msgid "PN Omnibus needs WooCommerce %s or newer to be active."
+msgstr "PN Omnibus изисква активиран WooCommerce %s или по-нова версия."
+
+#: src/Settings.php:126
+msgid "EU, strict: 30 days, no optional exemptions"
+msgstr "ЕС, строго: 30 дни, без незадължителни изключения"
+
+#: src/Settings.php:127
+msgid "Bulgaria: 30 days, no optional exemptions"
+msgstr "България: 30 дни, без незадължителни изключения"
+
+#: src/Settings.php:128
+msgid "Germany: 30 days, perishable goods may be excluded"
+msgstr "Германия: 30 дни, бързо развалящите се стоки може да бъдат изключени"
+
+#: src/Settings.php:129
+msgid "Poland: 30 days, products offered for less than 30 days use the period since launch"
+msgstr "Полша: 30 дни, за продукти, предлагани от по-малко от 30 дни, се използва периодът от пускането в продажба"
+
+#: src/Settings.php:130
+msgid "Custom rules"
+msgstr "Собствени правила"
