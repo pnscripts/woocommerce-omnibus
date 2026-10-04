@@ -267,6 +267,47 @@ final class ReferenceDisplayTest extends IntegrationTestCase {
 		$this->assertSame( '', do_shortcode( '[' . Shortcode::TAG . ' id="' . $product->get_id() . '"]' ), 'Drafts are not shown to visitors.' );
 	}
 
+	public function test_shortcode_hides_variations_of_non_public_parents_and_protected_products(): void {
+		list( $parent, $variations ) = $this->variable( array( '100' ) );
+		$variation                   = $variations[0];
+		$this->age( array( $variation->get_id() ), 50 );
+		$variation = $this->fresh( $variation->get_id() );
+		$variation->set_sale_price( '80' );
+		$variation->save();
+		$this->age( array( $variation->get_id() ), 10 );
+		$tag = '[' . Shortcode::TAG . ' id="' . $variation->get_id() . '"]';
+
+		$this->assertStringContainsString( 'pnscripts-omnibus-notice', do_shortcode( $tag ), 'Published parent: shown.' );
+
+		foreach ( array( 'draft', 'private', 'pending' ) as $status ) {
+			wp_update_post(
+				array(
+					'ID'          => $parent->get_id(),
+					'post_status' => $status,
+				)
+			);
+			$this->assertSame( '', do_shortcode( $tag ), 'Parent ' . $status . ': hidden from visitors.' );
+		}
+
+		wp_update_post(
+			array(
+				'ID'            => $parent->get_id(),
+				'post_status'   => 'publish',
+				'post_password' => 'secret',
+			)
+		);
+		$this->assertSame( '', do_shortcode( $tag ), 'Password-protected parent: hidden.' );
+
+		$simple = $this->product_on_sale();
+		wp_update_post(
+			array(
+				'ID'            => $simple->get_id(),
+				'post_password' => 'secret',
+			)
+		);
+		$this->assertSame( '', do_shortcode( '[' . Shortcode::TAG . ' id="' . $simple->get_id() . '"]' ), 'Password-protected product: hidden.' );
+	}
+
 	public function test_already_on_sale_at_install_is_unknown_until_history_is_complete(): void {
 		$product = $this->simple( '100', '80' );
 		$this->age( array( $product->get_id() ), 45 );

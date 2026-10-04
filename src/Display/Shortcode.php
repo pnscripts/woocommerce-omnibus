@@ -52,9 +52,31 @@ final class Shortcode {
 		if ( ! $current instanceof WC_Product || $current->is_type( array( 'variable', 'grouped' ) ) ) {
 			return '';
 		}
-		if ( 'publish' !== $current->get_status() && ! current_user_can( 'edit_post', $current->get_id() ) ) {
+		if ( ! self::visible( $current ) ) {
 			return '';
 		}
 		return $this->renderer->html( $current, 'shortcode' );
+	}
+
+	/**
+	 * Whether the current visitor may see the product's price: the product and, for variations, its parent must
+	 * be published and not password-protected, unless the visitor can edit them.
+	 *
+	 * @param WC_Product $product Product or variation.
+	 */
+	private static function visible( WC_Product $product ): bool {
+		foreach ( array_filter( array( $product->get_id(), $product->get_parent_id() ) ) as $post_id ) {
+			$post = get_post( $post_id );
+			if ( ! $post instanceof \WP_Post ) {
+				return false;
+			}
+			if ( current_user_can( 'edit_post', $post_id ) ) {
+				continue;
+			}
+			if ( 'publish' !== $post->post_status || post_password_required( $post ) ) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
