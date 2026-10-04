@@ -1,0 +1,153 @@
+<?php
+/**
+ * One stored price state of a product or variation.
+ *
+ * @package Pnscripts\Omnibus
+ */
+
+declare(strict_types=1);
+
+namespace Pnscripts\Omnibus\Domain;
+
+/**
+ * A price state captured at a point in time.
+ *
+ * A record with a regular price describes the full WooCommerce price configuration (regular, sale and
+ * sale schedule), so the effective price at any later moment can be derived until the next record.
+ * Imported records from other plugins usually only know the effective price ("price"), optionally with
+ * an on-sale flag.
+ *
+ * All timestamps are Unix timestamps (UTC).
+ */
+final class PriceRecord {
+
+	/**
+	 * Constructor.
+	 *
+	 * @param int         $changed_at    When this state started (UTC timestamp).
+	 * @param string|null $regular       Regular price (normalised) or null when unknown/empty.
+	 * @param string|null $sale          Sale price (normalised) or null.
+	 * @param int|null    $sale_from     Scheduled sale start (UTC timestamp) or null.
+	 * @param int|null    $sale_to       Scheduled sale end, inclusive (UTC timestamp) or null.
+	 * @param string|null $price         Effective price stored by WooCommerce at capture time.
+	 * @param bool|null   $on_sale       For records without a configuration: whether the price was a reduction.
+	 * @param int|null    $unknown_since Prices between this moment and $changed_at are unknown (tracking gap).
+	 * @param string      $source        Where the change came from (admin, rest, import:omnibus, ...).
+	 * @param int         $id            Storage id, 0 when not stored.
+	 */
+	public function __construct(
+		public readonly int $changed_at,
+		public readonly ?string $regular,
+		public readonly ?string $sale,
+		public readonly ?int $sale_from,
+		public readonly ?int $sale_to,
+		public readonly ?string $price,
+		public readonly ?bool $on_sale = null,
+		public readonly ?int $unknown_since = null,
+		public readonly string $source = '',
+		public readonly int $id = 0
+	) {
+	}
+
+	/**
+	 * Whether this record carries a full WooCommerce price configuration.
+	 */
+	public function has_configuration(): bool {
+		return null !== $this->regular;
+	}
+
+	/**
+	 * Whether two records describe the same price state (ignoring time, source and gaps).
+	 *
+	 * @param PriceRecord $other Other record.
+	 */
+	public function same_state( PriceRecord $other ): bool {
+		return self::same_price( $this->regular, $other->regular )
+			&& self::same_price( $this->sale, $other->sale )
+			&& $this->sale_from === $other->sale_from
+			&& $this->sale_to === $other->sale_to
+			&& self::same_price( $this->price, $other->price );
+	}
+
+	/**
+	 * Moments inside (from, to) where the effective price of this record changes because of the sale schedule.
+	 *
+	 * @param int      $from Interval start (exclusive).
+	 * @param int|null $to   Interval end (exclusive), null for open.
+	 * @return list<int>
+	 */
+	public function breakpoints( int $from, ?int $to ): array {
+		if ( ! $this->has_configuration() || null === $this->sale ) {
+			return array();
+		}
+		$points = array();
+		if ( null !== $this->sale_from ) {
+			$points[] = $this->sale_from;
+		}
+		if ( null !== $this->sale_to ) {
+			$points[] = $this->sale_to + 1;
+		}
+		$points = array_values(
+			array_filter(
+				array_unique( $points ),
+				static fn ( int $t ): bool => $t > $from && ( null === $to || $t < $to )
+			)
+		);
+		sort( $points );
+		return $points;
+	}
+
+	/**
+	 * Effective price state at a moment covered by this record.
+	 *
+	 * @param int         $at              UTC timestamp.
+	 * @param string|null $current_regular Current regular price, used for records without configuration and without an on-sale flag.
+	 * @return array{kind: string, price: string|null, reduced: bool}
+	 */
+	public function state_at( int $at, ?string $current_regular ): array {
+		if ( null !== $this->regular ) {
+			$sale_active = null !== $this->sale
+				&& Money::compare( $this->sale, $this->regular ) < 0
+				&& ( null === $this->sale_from || $this->sale_from <= $at )
+				&& ( null === $this->sale_to || $at <= $this->sale_to );
+			if ( $sale_active && null !== $this->sale ) {
+				return array(
+					'kind'    => PriceSegment::PRICED,
+					'price'   => $this->sale,
+					'reduced' => true,
+				);
+			}
+			return array(
+				'kind'    => PriceSegment::PRICED,
+				'price'   => $this->regular,
+				'reduced' => false,
+			);
+		}
+		if ( null !== $this->price ) {
+			$reduced = $this->on_sale ?? ( null !== $current_regular && Money::compare( $this->price, $current_regular ) < 0 );
+			return array(
+				'kind'    => PriceSegment::PRICED,
+				'price'   => $this->price,
+				'reduced' => $reduced,
+			);
+		}
+		return array(
+			'kind'    => PriceSegment::NO_PRICE,
+			'price'   => null,
+			'reduced' => false,
+		);
+	}
+
+	/**
+	 * Null-safe price equality.
+	 *
+	 * @param string|null $a First.
+	 * @param string|null $b Second.
+	 */
+	private static function same_price( ?string $a, ?string $b ): bool {
+		if ( null === $a || null === $b ) {
+			return $a === $b;
+		}
+		return 0 === Money::compare( $a, $b );
+	}
+}

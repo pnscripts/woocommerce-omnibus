@@ -1,0 +1,45 @@
+.pnscripts-omnibus-history td,
+.pnscripts-omnibus-history th {
+	white-space: nowrap;
+}
+
+.pnscripts-omnibus-panel h4 {
+	margin: 1.5em 0 0.5em;
+}
+
+.pnscripts-omnibus-result {
+	padding: 6px 10px;
+	border-left: 4px solid #dcdcde;
+	background: #f6f7f7;
+}
+
+.pnscripts-omnibus-result--known {
+	border-left-color: #00a32a;
+}
+
+.pnscripts-omnibus-result--unknown {
+	border-left-color: #dba617;
+}
+
+.pnscripts-omnibus-status--known {
+	color: #007017;
+	font-weight: 600;
+}
+
+.pnscripts-omnibus-status--unknown {
+	color: #996800;
+	font-weight: 600;
+}
+
+.pnscripts-omnibus-gap {
+	color: #996800;
+}
+
+.pnscripts-omnibus-disclaimer {
+	font-style: italic;
+}
+
+.pnscripts-omnibus-tool {
+	display: inline-block;
+	margin: 0 0 8px;
+}
