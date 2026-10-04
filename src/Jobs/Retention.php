@@ -84,12 +84,8 @@ final class Retention {
 				$keep = min( $keep, $calculator->window_start( $anchor, $days ) );
 			}
 
-			$boundary = null;
-			foreach ( $records as $record ) {
-				if ( $record->changed_at <= $keep ) {
-					$boundary = $record->changed_at;
-				}
-			}
+			// Queried rather than taken from $records: those are capped to the newest rows.
+			$boundary = $this->repository->latest_at_or_before( $product_id, $keep );
 			if ( null !== $boundary ) {
 				$deleted += $this->repository->delete_before( $product_id, $boundary );
 			}

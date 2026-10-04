@@ -53,4 +53,29 @@ final class HistoryRepositoryTest extends IntegrationTestCase {
 		$this->assertSame( ReferenceResult::KNOWN, $result->status );
 		$this->assertSame( '60.000000', $result->price );
 	}
+
+	public function test_retention_prunes_products_with_more_rows_than_the_cap(): void {
+		global $wpdb;
+		$product = $this->simple( '100' );
+		$id      = $product->get_id();
+		$this->plugin->repository->delete_product( $id );
+
+		$values = array();
+		foreach ( array( 300, 250, 200 ) as $days ) {
+			$values[] = $wpdb->prepare( '(%d, 0, %s, %s, %s, %s, %s, %s)', $id, HistoryRepository::to_datetime( time() - $days * self::DAY ), '100', '100', 'EUR', 'admin', HistoryRepository::to_datetime( time() ) );
+		}
+		$recent = time() - 80 * self::DAY;
+		for ( $i = 0; $i < 5000; $i++ ) {
+			$price    = 0 === $i % 2 ? '100' : '101';
+			$values[] = $wpdb->prepare( '(%d, 0, %s, %s, %s, %s, %s, %s)', $id, HistoryRepository::to_datetime( $recent + $i * 60 ), $price, $price, 'EUR', 'admin', HistoryRepository::to_datetime( time() ) );
+		}
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared -- Test fixture; values prepared above.
+		$wpdb->query( 'INSERT INTO ' . Schema::table() . ' (product_id, parent_id, changed_at, regular_price, price, currency, source, created_at) VALUES ' . implode( ',', $values ) );
+
+		$this->plugin->retention->prune( $id - 1, 10 );
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$left = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i WHERE product_id = %d', Schema::table(), $id ) );
+		$this->assertSame( 5001, $left, 'Rows older than the price in force at the cutoff are deleted.' );
+	}
 }

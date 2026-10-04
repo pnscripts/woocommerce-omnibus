@@ -147,6 +147,25 @@ final class HistoryRepository {
 	}
 
 	/**
+	 * Start of the latest record at or before a moment (the record in force then), null when none.
+	 *
+	 * @param int $product_id Product id.
+	 * @param int $at         UTC timestamp (inclusive).
+	 */
+	public function latest_at_or_before( int $product_id, int $at ): ?int {
+		global $wpdb;
+		$value = $wpdb->get_var(
+			$wpdb->prepare(
+				'SELECT MAX(changed_at) FROM %i WHERE product_id = %d AND changed_at <= %s',
+				Schema::table(),
+				$product_id,
+				self::to_datetime( $at )
+			)
+		);
+		return is_string( $value ) && '' !== $value ? self::from_datetime( $value ) : null;
+	}
+
+	/**
 	 * Whether an imported row already exists.
 	 *
 	 * @param int    $product_id Product id.
