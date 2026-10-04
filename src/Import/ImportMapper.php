@@ -15,6 +15,8 @@ use Exception;
 use Pnscripts\Omnibus\Domain\Money;
 use Pnscripts\Omnibus\Domain\PriceRecord;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Pure mapping functions (no WordPress), one per known data layout. Unparseable entries are skipped.
  */

@@ -17,6 +17,8 @@ use Pnscripts\Omnibus\Jobs\Retention;
 use Pnscripts\Omnibus\Storage\HistoryRepository;
 use Pnscripts\Omnibus\Storage\Schema;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Static lifecycle callbacks.
  */

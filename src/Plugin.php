@@ -32,6 +32,8 @@ use Pnscripts\Omnibus\Reference\ReferenceService;
 use Pnscripts\Omnibus\Storage\HistoryRepository;
 use Pnscripts\Omnibus\Storage\Schema;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Wires the services. Access from add-ons: the pnscripts_omnibus_loaded action passes the instance.
  */

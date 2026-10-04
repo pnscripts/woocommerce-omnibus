@@ -21,6 +21,8 @@ use Pnscripts\Omnibus\Settings;
 use Pnscripts\Omnibus\Storage\HistoryRepository;
 use WC_Product;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Admin page with three tabs. Every action checks the manage_woocommerce capability and a nonce.
  */

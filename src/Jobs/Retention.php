@@ -15,6 +15,8 @@ use Pnscripts\Omnibus\Domain\ReferencePriceCalculator;
 use Pnscripts\Omnibus\Settings;
 use Pnscripts\Omnibus\Storage\HistoryRepository;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Daily pruning. Per product it keeps:
  * - every record newer than the retention cutoff;

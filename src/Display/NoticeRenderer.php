@@ -14,6 +14,8 @@ use Pnscripts\Omnibus\Reference\ReferenceService;
 use Pnscripts\Omnibus\Settings;
 use WC_Product;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Renders the notice HTML for a product.
  */

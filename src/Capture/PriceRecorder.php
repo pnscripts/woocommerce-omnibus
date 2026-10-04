@@ -15,6 +15,8 @@ use Pnscripts\Omnibus\Domain\PriceRecord;
 use Pnscripts\Omnibus\Storage\HistoryRepository;
 use WC_Product;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Records a new row whenever the price state of a product changes.
  *

@@ -12,6 +12,8 @@ namespace Pnscripts\Omnibus\Domain;
 use DateTimeImmutable;
 use DateTimeZone;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Computes the lowest price applied during the period before the current reduction.
  *

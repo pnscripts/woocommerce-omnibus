@@ -19,6 +19,8 @@ use Pnscripts\Omnibus\Settings;
 use Pnscripts\Omnibus\Storage\HistoryRepository;
 use WC_Product;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Connects products, stored history, settings and the calculator. Results are cached per product for a few
  * minutes and invalidated whenever a price is recorded.

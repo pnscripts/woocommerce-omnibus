@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Pnscripts\Omnibus\Licensing;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * A licence never gates features of this (free) plugin; an add-on can provide its own implementation
  * through the pnscripts_omnibus_license filter to unlock the add-on's own features and updates.

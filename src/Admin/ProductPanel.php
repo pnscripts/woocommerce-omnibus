@@ -17,6 +17,8 @@ use Pnscripts\Omnibus\Storage\HistoryRepository;
 use WC_Product;
 use WP_Post;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Read-only history view plus the per-product perishable checkbox.
  */

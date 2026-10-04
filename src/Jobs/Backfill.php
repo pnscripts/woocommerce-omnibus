@@ -15,6 +15,8 @@ use Pnscripts\Omnibus\Settings;
 use Pnscripts\Omnibus\Storage\HistoryRepository;
 use WC_Product;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Walks the catalogue in batches (by post id) in Action Scheduler; never on page load.
  *

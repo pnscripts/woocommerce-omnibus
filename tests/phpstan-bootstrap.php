@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-define( 'PNSCRIPTS_OMNIBUS_VERSION', '1.0.0' );
+define( 'PNSCRIPTS_OMNIBUS_VERSION', '1.0.1' );
 define( 'PNSCRIPTS_OMNIBUS_DB_VERSION', '1' );
 define( 'PNSCRIPTS_OMNIBUS_FILE', __FILE__ );
 define( 'PNSCRIPTS_OMNIBUS_DIR', __DIR__ . '/' );

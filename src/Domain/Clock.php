@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Pnscripts\Omnibus\Domain;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Returns the current UTC timestamp. Replaceable in tests through the pnscripts_omnibus_now filter.
  */

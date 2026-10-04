@@ -11,6 +11,8 @@ namespace Pnscripts\Omnibus;
 
 use Pnscripts\Omnibus\Domain\ReferencePolicy;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Settings stored in the pnscripts_omnibus_settings option.
  *

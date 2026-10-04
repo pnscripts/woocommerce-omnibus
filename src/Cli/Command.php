@@ -17,6 +17,8 @@ use Pnscripts\Omnibus\Storage\HistoryRepository;
 use WC_Product;
 use WP_CLI;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Inspect and maintain the price history.
  *

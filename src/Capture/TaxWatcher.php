@@ -11,6 +11,8 @@ namespace Pnscripts\Omnibus\Capture;
 
 use Pnscripts\Omnibus\Storage\HistoryRepository;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Stored prices are kept as entered. They are converted for display with the tax settings of today, so a change
  * of the tax rates (when entered and displayed prices differ in tax treatment) or of the "prices entered with tax"

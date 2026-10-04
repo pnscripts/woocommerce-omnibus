@@ -11,6 +11,8 @@ namespace Pnscripts\Omnibus\Display;
 
 use WC_Product;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Prints the notice anywhere: [pnscripts_omnibus_price] for the current product or [pnscripts_omnibus_price id="123"].
  */

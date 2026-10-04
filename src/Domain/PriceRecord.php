@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Pnscripts\Omnibus\Domain;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * A price state captured at a point in time.
  *

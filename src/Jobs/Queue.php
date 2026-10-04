@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Pnscripts\Omnibus\Jobs;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Enqueues background actions in the plugin's group.
  */

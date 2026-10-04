@@ -4,7 +4,7 @@ Tags: omnibus, lowest price, price history, discount, sale price
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -138,10 +138,16 @@ Omnibus — show the lowest price (iWorks), WC Price History for Omnibus, and Om
 
 == Changelog ==
 
+= 1.0.1 =
+* Direct-access guard in every PHP file (WordPress.org review). No functional change.
+
 = 1.0.0 =
 * First release.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Hardening only, no functional change.
 
 = 1.0.0 =
 First release.

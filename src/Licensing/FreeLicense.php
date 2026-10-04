@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Pnscripts\Omnibus\Licensing;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Free plan: no remote calls, no keys, nothing locked.
  */

@@ -11,6 +11,8 @@ namespace Pnscripts\Omnibus\Admin;
 
 use Pnscripts\Omnibus\Domain\ReferenceResult;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Translated labels for statuses, reasons and sources.
  */

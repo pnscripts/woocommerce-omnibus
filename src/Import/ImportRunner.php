@@ -12,6 +12,8 @@ namespace Pnscripts\Omnibus\Import;
 use Pnscripts\Omnibus\Jobs\Queue;
 use Pnscripts\Omnibus\Storage\HistoryRepository;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Imports only extend history backwards: for each product, entries at or after the first price this plugin
  * recorded itself are skipped, so our own capture always wins. Re-running an import is safe (duplicates are skipped).

@@ -12,6 +12,8 @@ namespace Pnscripts\Omnibus\Storage;
 use Pnscripts\Omnibus\Domain\Money;
 use Pnscripts\Omnibus\Domain\PriceRecord;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Reads and writes rows of the price history table. Every query is prepared.
  *

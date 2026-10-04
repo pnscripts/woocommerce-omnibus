@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Pnscripts\Omnibus\Capture;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Best-effort, informational source label stored with each record.
  */

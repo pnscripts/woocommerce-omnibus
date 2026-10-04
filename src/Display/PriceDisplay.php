@@ -12,6 +12,8 @@ namespace Pnscripts\Omnibus\Display;
 use Pnscripts\Omnibus\Settings;
 use WC_Product;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Appends the notice to the price HTML. WooCommerce uses the same price HTML in classic templates,
  * the Product Price block (single product and product collections), product variations

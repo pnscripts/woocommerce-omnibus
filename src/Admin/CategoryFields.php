@@ -13,6 +13,8 @@ use Pnscripts\Omnibus\Reference\ReferenceService;
 use Pnscripts\Omnibus\Storage\HistoryRepository;
 use WP_Term;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Adds a checkbox to the product category add/edit forms.
  */

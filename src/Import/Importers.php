@@ -11,6 +11,8 @@ namespace Pnscripts\Omnibus\Import;
 
 use Pnscripts\Omnibus\Domain\PriceRecord;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Knows where three popular plugins store their history and reads it in id-ordered batches.
  * Nothing is ever written to their data.
