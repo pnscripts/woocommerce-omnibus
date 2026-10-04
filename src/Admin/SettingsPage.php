@@ -359,22 +359,35 @@ final class SettingsPage {
 	 */
 	private function render_report(): void {
 		$ids = array_values( array_unique( array_map( 'intval', wc_get_product_ids_on_sale() ) ) );
-		sort( $ids );
-
-		$rows = array();
-		foreach ( $ids as $id ) {
-			$product = wc_get_product( $id );
-			if ( $product instanceof WC_Product && ! $product->is_type( array( 'variable', 'grouped' ) ) ) {
-				$rows[] = $product;
-			}
+		if ( array() !== $ids ) {
+			// Variable and grouped parents have no own price; found with one query instead of loading every product.
+			$parents = wc_get_products(
+				array(
+					'include' => $ids,
+					'type'    => array( 'variable', 'grouped' ),
+					'status'  => array_keys( get_post_statuses() ),
+					'limit'   => -1,
+					'return'  => 'ids',
+				)
+			);
+			$ids     = array_values( array_diff( $ids, array_map( 'intval', is_array( $parents ) ? $parents : array() ) ) );
 		}
+		sort( $ids );
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Pagination only.
 		$page  = isset( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1;
-		$total = count( $rows );
+		$total = count( $ids );
 		$pages = max( 1, (int) ceil( $total / self::PER_PAGE ) );
 		$page  = min( $page, $pages );
-		$slice = array_slice( $rows, ( $page - 1 ) * self::PER_PAGE, self::PER_PAGE );
+
+		// Only the products of the current page are loaded.
+		$slice = array();
+		foreach ( array_slice( $ids, ( $page - 1 ) * self::PER_PAGE, self::PER_PAGE ) as $id ) {
+			$product = wc_get_product( $id );
+			if ( $product instanceof WC_Product && ! $product->is_type( array( 'variable', 'grouped' ) ) ) {
+				$slice[] = $product;
+			}
+		}
 
 		$results = array();
 		foreach ( $slice as $product ) {
