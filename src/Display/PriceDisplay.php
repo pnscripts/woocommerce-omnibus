@@ -37,14 +37,6 @@ final class PriceDisplay {
 	public function register(): void {
 		add_filter( 'woocommerce_get_price_html', array( $this, 'filter_price_html' ), 100, 2 );
 		add_filter( 'woocommerce_available_variation', array( $this, 'filter_available_variation' ), 100, 3 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'register_style' ) );
-	}
-
-	/**
-	 * Register the small stylesheet; it is enqueued only when a notice is printed.
-	 */
-	public function register_style(): void {
-		wp_register_style( NoticeRenderer::STYLE_HANDLE, PNSCRIPTS_OMNIBUS_URL . 'assets/css/frontend.css', array(), PNSCRIPTS_OMNIBUS_VERSION );
 	}
 
 	/**

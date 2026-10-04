@@ -222,6 +222,16 @@ final class ReferenceDisplayTest extends IntegrationTestCase {
 		$this->assertStringContainsString( 'pnscripts-omnibus-notice', (string) $data['price_html'] );
 	}
 
+	public function test_store_api_price_html_used_by_blocks_contains_notice(): void {
+		$product  = $this->product_on_sale();
+		$response = rest_do_request( new \WP_REST_Request( 'GET', '/wc/store/v1/products/' . $product->get_id() ) );
+
+		$this->assertSame( 200, $response->get_status() );
+		$data = $response->get_data();
+		$this->assertIsArray( $data );
+		$this->assertStringContainsString( 'pnscripts-omnibus-notice', (string) $data['price_html'] );
+	}
+
 	public function test_shortcode(): void {
 		$product = $this->product_on_sale();
 

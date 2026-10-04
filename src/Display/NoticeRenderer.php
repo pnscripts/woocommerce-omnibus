@@ -90,9 +90,7 @@ final class NoticeRenderer {
 				esc_attr( $result->status ),
 				$html
 			);
-			if ( wp_style_is( self::STYLE_HANDLE, 'registered' ) ) {
-				wp_enqueue_style( self::STYLE_HANDLE );
-			}
+			self::enqueue_style();
 		}
 
 		/**
@@ -105,6 +103,17 @@ final class NoticeRenderer {
 		 */
 		$filtered = apply_filters( 'pnscripts_omnibus_notice_html', $html, $product, $result, $context );
 		return is_string( $filtered ) ? $filtered : $html;
+	}
+
+	/**
+	 * Enqueue the small stylesheet when a notice is printed. Block themes render templates before wp_head,
+	 * so the style is registered here on demand rather than on wp_enqueue_scripts.
+	 */
+	public static function enqueue_style(): void {
+		if ( ! wp_style_is( self::STYLE_HANDLE, 'registered' ) ) {
+			wp_register_style( self::STYLE_HANDLE, PNSCRIPTS_OMNIBUS_URL . 'assets/css/frontend.css', array(), PNSCRIPTS_OMNIBUS_VERSION );
+		}
+		wp_enqueue_style( self::STYLE_HANDLE );
 	}
 
 	/**
