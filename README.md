@@ -17,7 +17,7 @@ This is the free edition (planned for WordPress.org). It has no locked features 
 
 - **Capture**: every price state of simple/external products and each variation (regular, sale, sale schedule, stored price) on every `WC_Product::save()` (product editor, quick and bulk edit, CSV import, REST API, WP-CLI, scheduled sale start/end, third-party code) and on direct price meta writes. Stored in `{prefix}pnscripts_omnibus_price_history`, only when the state changes.
 - **Rules**: anchor = start of the current uninterrupted reduction (progressive reductions keep the first anchor); period = midnight N calendar days before the anchor day in the shop time zone (N ≥ 30); every price in force during the period counts; gaps, short history and unknown reduction starts give "unknown"; new-product rule (hide, or period since launch); optional perishable-goods exemption per product/category.
-- **Display**: appended to WooCommerce price HTML, which covers classic templates, the Product Price block, product collections, variations (`woocommerce_available_variation`) and the Store API; shortcode `[pnscripts_omnibus_price id="…"]`; prices converted with `wc_get_price_to_display()` (tax display of the shop).
+- **Display**: appended to WooCommerce price HTML, which covers classic templates, the Product Price block, product collections, variations (`woocommerce_available_variation`) and the Store API; shortcode `[pnscripts_omnibus_price id="…"]`; prices converted with `wc_get_price_to_display()` (tax display of the shop); hidden while the period reaches back before a tax configuration change (`Capture\TaxWatcher`) or a shop currency change.
 - **Background work** (Action Scheduler): first baseline of the catalogue, repair, resume after the plugin was inactive (the inactive period becomes "unknown" for products changed meanwhile), daily retention (default 90 days, minimum 31, never deleting rows a running reduction needs).
 - **Imports** (read-only): Omnibus by iWorks (post type `iw_omnibus_price_log` and `_iwo_price_*` meta), WC Price History (`{prefix}wc_price_history` table and `_wc_price_history` meta), Omnibus by iLabs (`omnibus_by_ilabs_prices_history` meta). Imports only fill the time before this plugin's own first record of each product.
 - **Admin**: WooCommerce → PN Omnibus (settings with presets, coverage report, import and tools), history metabox on the product screen, perishable flags.
@@ -50,7 +50,7 @@ src/Plugin.php, Lifecycle.php, Settings.php
 | `pnscripts_omnibus_loaded` | action | Receives the `Plugin` service container |
 | `pnscripts_omnibus_capture_record` | filter | Change or skip a record before it is stored (dynamic-pricing capture) |
 | `pnscripts_omnibus_price_recorded` | action | After a record is stored (evidence log/export) |
-| `pnscripts_omnibus_currency` | filter | Currency stored with a record |
+| `pnscripts_omnibus_currency` | filter | Currency stored with a record and used to read the history |
 | `pnscripts_omnibus_reference_result` | filter | Final `ReferenceResult` for a product |
 | `pnscripts_omnibus_launch_time` | filter | Launch timestamp used by the new-product rule |
 | `pnscripts_omnibus_display_price` | filter | Amount shown (e.g. currency conversion) |

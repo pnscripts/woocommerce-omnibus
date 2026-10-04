@@ -14,6 +14,7 @@ use Pnscripts\Omnibus\Admin\ProductPanel;
 use Pnscripts\Omnibus\Admin\SettingsPage;
 use Pnscripts\Omnibus\Capture\PriceRecorder;
 use Pnscripts\Omnibus\Capture\SourceDetector;
+use Pnscripts\Omnibus\Capture\TaxWatcher;
 use Pnscripts\Omnibus\Cli\Command;
 use Pnscripts\Omnibus\Display\NoticeRenderer;
 use Pnscripts\Omnibus\Display\PriceDisplay;
@@ -168,6 +169,7 @@ final class Plugin {
 		add_action( 'action_scheduler_init', array( $this, 'maybe_schedule_in_cron' ) );
 
 		$this->recorder->register();
+		( new TaxWatcher() )->register();
 		$this->backfill->register();
 		$this->retention->register();
 		$this->import_runner->register();

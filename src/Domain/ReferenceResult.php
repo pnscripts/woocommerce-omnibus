@@ -28,6 +28,7 @@ final class ReferenceResult {
 	public const REASON_NOT_CAPTURED        = 'not_captured';
 	public const REASON_PERISHABLE          = 'perishable';
 	public const REASON_UNSUPPORTED_PRODUCT = 'unsupported_product';
+	public const REASON_TAX_CHANGED         = 'tax_changed';
 
 	/**
 	 * Constructor.

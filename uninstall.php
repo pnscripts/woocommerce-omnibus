@@ -33,6 +33,7 @@ function pnscripts_omnibus_uninstall_site(): void {
 		'pnscripts_omnibus_resume',
 		'pnscripts_omnibus_backfill_status',
 		'pnscripts_omnibus_import_status',
+		'pnscripts_omnibus_tax_changed_at',
 	) as $option ) {
 		delete_option( $option );
 	}

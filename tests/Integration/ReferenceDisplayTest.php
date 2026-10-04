@@ -186,6 +186,7 @@ final class ReferenceDisplayTest extends IntegrationTestCase {
 				'tax_rate_class'    => '',
 			)
 		);
+		delete_option( 'pnscripts_omnibus_tax_changed_at' ); // Tax setup long ago.
 
 		try {
 			$product = $this->product_on_sale();
@@ -198,6 +199,53 @@ final class ReferenceDisplayTest extends IntegrationTestCase {
 			WC_Tax::_delete_tax_rate( $rate_id );
 			update_option( 'woocommerce_calc_taxes', 'no' );
 			update_option( 'woocommerce_tax_display_shop', 'excl' );
+			delete_option( 'pnscripts_omnibus_tax_changed_at' );
+		}
+	}
+
+	public function test_tax_change_inside_the_period_hides_the_reference(): void {
+		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'woocommerce_prices_include_tax', 'no' );
+		update_option( 'woocommerce_tax_display_shop', 'incl' );
+		update_option( 'woocommerce_default_country', 'BG' );
+		update_option( 'woocommerce_tax_based_on', 'base' );
+		$rate    = array(
+			'tax_rate_country'  => '',
+			'tax_rate'          => '20.0000',
+			'tax_rate_name'     => 'VAT',
+			'tax_rate_priority' => '1',
+			'tax_rate_shipping' => '1',
+			'tax_rate_order'    => '1',
+			'tax_rate_class'    => '',
+		);
+		$rate_id = WC_Tax::_insert_tax_rate( $rate );
+		delete_option( 'pnscripts_omnibus_tax_changed_at' ); // Tax setup long ago.
+
+		try {
+			$product = $this->product_on_sale();
+			$this->assertSame( ReferenceResult::KNOWN, $this->plugin->reference->compute( $product, time() )->status );
+
+			// Net prices, gross display: a VAT increase would turn net 100 into 125 although customers paid 120.
+			WC_Tax::_update_tax_rate( $rate_id, array_merge( $rate, array( 'tax_rate' => '25.0000' ) ) );
+			$result = $this->plugin->reference->compute( $product, time() );
+			$this->assertSame( ReferenceResult::UNKNOWN, $result->status );
+			$this->assertSame( ReferenceResult::REASON_TAX_CHANGED, $result->reason );
+
+			// Gross prices shown gross: a rate change does not change what customers paid.
+			update_option( 'woocommerce_prices_include_tax', 'yes' );
+			delete_option( 'pnscripts_omnibus_tax_changed_at' );
+			WC_Tax::_update_tax_rate( $rate_id, array_merge( $rate, array( 'tax_rate' => '22.0000' ) ) );
+			$this->assertSame( ReferenceResult::KNOWN, $this->plugin->reference->compute( $product, time() )->status );
+
+			// Switching between gross and net entry changes the meaning of every stored amount.
+			update_option( 'woocommerce_prices_include_tax', 'no' );
+			$this->assertSame( ReferenceResult::REASON_TAX_CHANGED, $this->plugin->reference->compute( $product, time() )->reason );
+		} finally {
+			WC_Tax::_delete_tax_rate( $rate_id );
+			update_option( 'woocommerce_calc_taxes', 'no' );
+			update_option( 'woocommerce_prices_include_tax', 'no' );
+			update_option( 'woocommerce_tax_display_shop', 'excl' );
+			delete_option( 'pnscripts_omnibus_tax_changed_at' );
 		}
 	}
 

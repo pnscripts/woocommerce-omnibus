@@ -46,6 +46,7 @@ final class Labels {
 			ReferenceResult::REASON_NOT_CAPTURED        => __( 'WooCommerce shows a discount that is not in the recorded prices (for example a price changed by another plugin on the fly).', 'pnscripts-omnibus' ),
 			ReferenceResult::REASON_PERISHABLE          => __( 'Marked as perishable and the perishable-goods exemption is enabled.', 'pnscripts-omnibus' ),
 			ReferenceResult::REASON_UNSUPPORTED_PRODUCT => __( 'Variable and grouped products are evaluated per variation or child product.', 'pnscripts-omnibus' ),
+			ReferenceResult::REASON_TAX_CHANGED         => __( 'The tax settings or rates changed during the period, so earlier prices cannot be converted with today\'s taxes.', 'pnscripts-omnibus' ),
 			default                                     => '',
 		};
 	}

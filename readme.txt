@@ -99,7 +99,7 @@ Yes. Every price that was in force during the period counts, including an earlie
 
 = Does it show prices with or without tax? =
 
-The same way as your shop: it follows WooCommerce's "Display prices in the shop" setting.
+The same way as your shop: it follows WooCommerce's "Display prices in the shop" setting. Prices are stored as entered, so after a change of the tax rates (when prices are entered without tax or shown without tax), of "Prices entered with tax" or of "Enable taxes", and after a change of the shop currency, the notice is hidden until the whole period lies after the change.
 
 = Does it work with variable products? =
 

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Pnscripts\Omnibus\Reference;
 
 use Pnscripts\Omnibus\Capture\PriceRecorder;
+use Pnscripts\Omnibus\Capture\TaxWatcher;
 use Pnscripts\Omnibus\Domain\Clock;
 use Pnscripts\Omnibus\Domain\PriceTimeline;
 use Pnscripts\Omnibus\Domain\ReferencePriceCalculator;
@@ -113,6 +114,11 @@ final class ReferenceService {
 		$timeline = PriceTimeline::from_records( $records );
 		$result   = ( new ReferencePriceCalculator( wp_timezone() ) )->calculate( $timeline, $now, $policy, $this->launch_time( $product ) );
 
+		$tax_changed = TaxWatcher::changed_at();
+		if ( $result->is_known() && null !== $tax_changed && null !== $result->window_start && $tax_changed > $result->window_start ) {
+			// Prices in the period were entered under other tax settings; converting them with today's is wrong.
+			return ReferenceResult::unknown( ReferenceResult::REASON_TAX_CHANGED, $result->anchor, $result->period_days );
+		}
 		if ( ReferenceResult::NOT_ON_SALE === $result->status && $product->is_on_sale() ) {
 			// WooCommerce shows a reduction that the stored prices do not explain (e.g. a price filter).
 			return ReferenceResult::unknown( ReferenceResult::REASON_NOT_CAPTURED, null, $policy->period_days );
