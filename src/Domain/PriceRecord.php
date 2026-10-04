@@ -15,8 +15,8 @@ namespace Pnscripts\Omnibus\Domain;
  * A record with a regular price describes the full WooCommerce price configuration (regular, sale and
  * sale schedule), so the effective price at any later moment can be derived until the next record.
  * Imported records from other plugins usually only know the effective price ("price"), optionally with
- * an on-sale flag. Without the flag such a price is treated as a regular (not reduced) price: it then counts
- * as a prior price, which can only make the shown reference lower, never higher.
+ * an on-sale flag. Without the flag the price counts as a prior price, but whether it was a reduction is
+ * unknown: a reduction that starts right after such a price has an unknown start (it may have begun earlier).
  *
  * All timestamps are Unix timestamps (UTC).
  */
@@ -102,7 +102,7 @@ final class PriceRecord {
 	 * Effective price state at a moment covered by this record.
 	 *
 	 * @param int $at UTC timestamp.
-	 * @return array{kind: string, price: string|null, reduced: bool}
+	 * @return array{kind: string, price: string|null, reduced: bool, reduced_known: bool}
 	 */
 	public function state_at( int $at ): array {
 		if ( null !== $this->regular ) {
@@ -112,28 +112,32 @@ final class PriceRecord {
 				&& ( null === $this->sale_to || $at <= $this->sale_to );
 			if ( $sale_active && null !== $this->sale ) {
 				return array(
-					'kind'    => PriceSegment::PRICED,
-					'price'   => $this->sale,
-					'reduced' => true,
+					'kind'          => PriceSegment::PRICED,
+					'price'         => $this->sale,
+					'reduced'       => true,
+					'reduced_known' => true,
 				);
 			}
 			return array(
-				'kind'    => PriceSegment::PRICED,
-				'price'   => $this->regular,
-				'reduced' => false,
+				'kind'          => PriceSegment::PRICED,
+				'price'         => $this->regular,
+				'reduced'       => false,
+				'reduced_known' => true,
 			);
 		}
 		if ( null !== $this->price ) {
 			return array(
-				'kind'    => PriceSegment::PRICED,
-				'price'   => $this->price,
-				'reduced' => true === $this->on_sale,
+				'kind'          => PriceSegment::PRICED,
+				'price'         => $this->price,
+				'reduced'       => true === $this->on_sale,
+				'reduced_known' => null !== $this->on_sale,
 			);
 		}
 		return array(
-			'kind'    => PriceSegment::NO_PRICE,
-			'price'   => null,
-			'reduced' => false,
+			'kind'          => PriceSegment::NO_PRICE,
+			'price'         => null,
+			'reduced'       => false,
+			'reduced_known' => true,
 		);
 	}
 

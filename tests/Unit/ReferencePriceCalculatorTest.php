@@ -501,12 +501,24 @@ final class ReferencePriceCalculatorTest extends TestCase {
 		$records = array(
 			new PriceRecord( $this->ago( 60 ), null, null, null, null, '100' ),
 			new PriceRecord( $this->ago( 20 ), null, null, null, null, '97' ),
+			$this->rec( 10, '100' ),
 			$this->rec( 3, '100', '80' ),
 		);
 		$result  = $this->calc( $records );
 
 		$this->assertSame( $this->ago( 3 ), $result->anchor );
-		$this->assertPrice( '97', $result->price, 'Unflagged imported prices are never treated as reductions, so the reference can only get lower.' );
+		$this->assertPrice( '97', $result->price, 'Unflagged imported prices count as prior prices inside the period.' );
+	}
+
+
+	public function test_reduction_starting_right_after_unflagged_import_is_unknown(): void {
+		$records = array(
+			new PriceRecord( $this->ago( 60 ), null, null, null, null, '100' ),
+			new PriceRecord( $this->ago( 20 ), null, null, null, null, '97' ),
+			$this->rec( 3, '100', '80' ),
+		);
+
+		$this->assertSame( ReferenceResult::REASON_START_UNKNOWN, $this->calc( $records )->reason, 'The unflagged 97 may already have been the reduction.' );
 	}
 
 	public function test_imported_lower_price_without_flag_is_not_on_sale(): void {
@@ -517,6 +529,37 @@ final class ReferencePriceCalculatorTest extends TestCase {
 
 		$this->assertSame( ReferenceResult::NOT_ON_SALE, $this->calc( $records )->status );
 	}
+
+	public function test_imported_price_only_segment_before_reduction_makes_its_start_unknown(): void {
+		// Imported effective prices carry no sale flag: 80 from day 20 may already have been the reduction
+		// (then the period would be days 50..20 with 60 in it). Showing 80 would be too high.
+		$records = array(
+			new PriceRecord( $this->ago( 60 ), null, null, null, null, '60' ),
+			new PriceRecord( $this->ago( 45 ), null, null, null, null, '100' ),
+			new PriceRecord( $this->ago( 20 ), null, null, null, null, '80' ),
+			$this->rec( 10, '100', '70' ),
+		);
+		$result  = $this->calc( $records );
+
+		$this->assertSame( ReferenceResult::UNKNOWN, $result->status );
+		$this->assertSame( ReferenceResult::REASON_START_UNKNOWN, $result->reason );
+		$this->assertNull( $this->calculator->current_anchor( PriceTimeline::from_records( $records ), $this->now ) );
+	}
+
+
+	public function test_imported_price_only_segments_inside_period_still_count(): void {
+		$records = array(
+			new PriceRecord( $this->ago( 60 ), null, null, null, null, '100' ),
+			new PriceRecord( $this->ago( 25 ), null, null, null, null, '90' ),
+			$this->rec( 15, '100' ),
+			$this->rec( 5, '100', '80' ),
+		);
+		$result  = $this->calc( $records );
+
+		$this->assertSame( $this->ago( 5 ), $result->anchor );
+		$this->assertPrice( '90', $result->price );
+	}
+
 
 	public function test_current_anchor_helper(): void {
 		$timeline = PriceTimeline::from_records( array( $this->rec( 60, '100' ), $this->rec( 20, '100', '90' ), $this->rec( 10, '100', '80' ) ) );

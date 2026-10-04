@@ -25,14 +25,17 @@ final class PriceSegment {
 	 * @param int|null    $end     End (UTC timestamp, exclusive) or null when still current.
 	 * @param string      $kind    One of the class constants.
 	 * @param string|null $price   Effective price when priced.
-	 * @param bool        $reduced Whether the price is an announced reduction (sale).
+	 * @param bool        $reduced       Whether the price is an announced reduction (sale).
+	 * @param bool        $reduced_known False when the source did not say whether the price was a reduction
+	 *                                   (imported effective prices without an on-sale flag).
 	 */
 	public function __construct(
 		public readonly int $start,
 		public readonly ?int $end,
 		public readonly string $kind,
 		public readonly ?string $price,
-		public readonly bool $reduced
+		public readonly bool $reduced,
+		public readonly bool $reduced_known = true
 	) {
 	}
 
@@ -61,7 +64,7 @@ final class PriceSegment {
 	 * @param int|null $end New end.
 	 */
 	public function with_end( ?int $end ): self {
-		return new self( $this->start, $end, $this->kind, $this->price, $this->reduced );
+		return new self( $this->start, $end, $this->kind, $this->price, $this->reduced, $this->reduced_known );
 	}
 
 	/**
@@ -70,7 +73,7 @@ final class PriceSegment {
 	 * @param PriceSegment $other Other segment.
 	 */
 	public function same_state( PriceSegment $other ): bool {
-		if ( $this->kind !== $other->kind || $this->reduced !== $other->reduced ) {
+		if ( $this->kind !== $other->kind || $this->reduced !== $other->reduced || $this->reduced_known !== $other->reduced_known ) {
 			return false;
 		}
 		if ( null === $this->price || null === $other->price ) {

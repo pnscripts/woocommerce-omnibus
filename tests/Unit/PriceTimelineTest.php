@@ -126,4 +126,17 @@ final class PriceTimelineTest extends TestCase {
 		$this->assertFalse( $a->same_state( $c ) );
 		$this->assertFalse( $c->same_state( $d ), 'A new schedule is a new state.' );
 	}
+
+	public function test_price_only_record_has_unknown_reduction_state(): void {
+		$segments = PriceTimeline::from_records(
+			array(
+				new PriceRecord( 1000, null, null, null, null, '100' ),
+				new PriceRecord( 2000, null, null, null, null, '100', false ),
+			)
+		)->segments();
+
+		$this->assertCount( 2, $segments, 'Same price, but only the second one is known not to be a reduction.' );
+		$this->assertFalse( $segments[0]->reduced_known );
+		$this->assertTrue( $segments[1]->reduced_known );
+	}
 }

@@ -203,9 +203,12 @@ final class JobsImportTest extends IntegrationTestCase {
 		$table = $wpdb->prefix . 'wc_price_history';
 		$wpdb->query( "CREATE TABLE IF NOT EXISTS {$table} (id bigint(20) unsigned NOT NULL AUTO_INCREMENT, product_id bigint(20) unsigned NOT NULL, price decimal(19,4) NOT NULL, sale_price decimal(19,4) DEFAULT NULL, previous_price decimal(19,4) DEFAULT NULL, previous_sale_price decimal(19,4) DEFAULT NULL, date datetime NOT NULL, date_gmt datetime NOT NULL, include_in_history tinyint(1) DEFAULT 1, PRIMARY KEY (id))" ); // phpcs:ignore WordPress.DB
 
-		$product = $this->simple( '100', '80' );
+		$product = $this->simple( '100' );
 		$id      = $product->get_id();
-		$this->age( array( $id ), 3 );
+		$this->age( array( $id ), 10 );
+		$product = $this->fresh( $id );
+		$product->set_sale_price( '80' );
+		$product->save();
 		$wpdb->insert(
 			$table,
 			array(
@@ -223,6 +226,20 @@ final class JobsImportTest extends IntegrationTestCase {
 		$result = $this->plugin->reference->compute( $this->fresh( $id ), time() );
 		$this->assertSame( ReferenceResult::KNOWN, $result->status, 'Imported history completes the period before our first record.' );
 		$this->assertSame( '97.000000', $result->price );
+
+		// Already on sale when our recording started: the unflagged imported 97 may have been that sale.
+		$on_sale = $this->simple( '100', '80' );
+		$this->age( array( $on_sale->get_id() ), 3 );
+		add_post_meta(
+			$on_sale->get_id(),
+			'_wc_price_history',
+			array(
+				time() - 50 * self::DAY => 100.0,
+				time() - 20 * self::DAY => 97.0,
+			)
+		);
+		$this->run_import( 'wc-price-history' );
+		$this->assertSame( ReferenceResult::REASON_START_UNKNOWN, $this->plugin->reference->compute( $this->fresh( $on_sale->get_id() ), time() )->reason );
 
 		$wpdb->query( "DROP TABLE IF EXISTS {$table}" ); // phpcs:ignore WordPress.DB
 	}

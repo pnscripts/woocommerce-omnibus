@@ -59,7 +59,7 @@ final class PriceTimeline {
 				$cursor = $start;
 				foreach ( array_merge( $record->breakpoints( $start, $known_end ), array( $known_end ) ) as $point ) {
 					$state      = $record->state_at( $cursor );
-					$segments[] = new PriceSegment( $cursor, $point, $state['kind'], $state['price'], $state['reduced'] );
+					$segments[] = new PriceSegment( $cursor, $point, $state['kind'], $state['price'], $state['reduced'], $state['reduced_known'] );
 					if ( null === $point ) {
 						break;
 					}

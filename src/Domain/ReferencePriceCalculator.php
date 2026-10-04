@@ -21,8 +21,8 @@ use DateTimeZone;
  * - The period ends at the anchor and starts at midnight (shop time zone) N calendar days before the anchor day,
  *   so it is never shorter than N days and daylight saving changes do not shorten it.
  * - Every price in force at any moment of the period counts, including earlier promotions.
- * - Anything the history cannot prove (gaps, history starting after the period start, unknown reduction start)
- *   yields UNKNOWN, never a guess.
+ * - Anything the history cannot prove (gaps, history starting after the period start, unknown reduction start,
+ *   a reduction right after an imported price that may itself have been a reduction) yields UNKNOWN, never a guess.
  */
 final class ReferencePriceCalculator {
 
@@ -67,7 +67,7 @@ final class ReferencePriceCalculator {
 			}
 			return ReferenceResult::unknown( ReferenceResult::REASON_START_UNKNOWN, null, $days );
 		}
-		if ( PriceSegment::UNKNOWN === $before->kind ) {
+		if ( ! $this->start_is_known( $before ) ) {
 			return ReferenceResult::unknown( ReferenceResult::REASON_START_UNKNOWN, null, $days );
 		}
 
@@ -125,7 +125,7 @@ final class ReferencePriceCalculator {
 			return null;
 		}
 		list( $first, $before ) = $this->reduction_run( $segments, $index, $current );
-		return null === $before || PriceSegment::UNKNOWN === $before->kind ? null : $first->start;
+		return null === $before || ! $this->start_is_known( $before ) ? null : $first->start;
 	}
 
 	/**
@@ -151,6 +151,16 @@ final class ReferencePriceCalculator {
 			$first = $segment;
 		}
 		return array( $first, $before );
+	}
+
+	/**
+	 * Whether the segment right before a reduction proves where the reduction started: its prices must be known
+	 * and it must be known not to be a reduction itself (an unflagged imported price may have been the reduction).
+	 *
+	 * @param PriceSegment $before Segment before the reduction run.
+	 */
+	private function start_is_known( PriceSegment $before ): bool {
+		return PriceSegment::UNKNOWN !== $before->kind && $before->reduced_known;
 	}
 
 	/**
