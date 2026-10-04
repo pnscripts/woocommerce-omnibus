@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Pnscripts\Omnibus\Reference;
 
+use Pnscripts\Omnibus\Capture\PriceRecorder;
 use Pnscripts\Omnibus\Domain\Clock;
 use Pnscripts\Omnibus\Domain\PriceTimeline;
 use Pnscripts\Omnibus\Domain\ReferencePriceCalculator;
@@ -99,7 +100,16 @@ final class ReferenceService {
 			return ReferenceResult::exempt( ReferenceResult::REASON_PERISHABLE );
 		}
 
-		$records  = $this->repository->for_product( $product->get_id() );
+		$records = $this->repository->for_product( $product->get_id() );
+
+		// While the resume job has not checked this product after an inactive period, its prices in that period
+		// are unknown: the latest record may predate changes nobody recorded.
+		$window = PriceRecorder::resume_window();
+		$latest = end( $records );
+		if ( null !== $window && false !== $latest && $latest->changed_at < $window['to'] ) {
+			return ReferenceResult::unknown( ReferenceResult::REASON_GAP, null, $policy->period_days );
+		}
+
 		$timeline = PriceTimeline::from_records( $records );
 		$result   = ( new ReferencePriceCalculator( wp_timezone() ) )->calculate( $timeline, $now, $policy, $this->launch_time( $product ) );
 

@@ -11,6 +11,7 @@ namespace Pnscripts\Omnibus\Tests\Integration;
 
 use Pnscripts\Omnibus\Display\Shortcode;
 use Pnscripts\Omnibus\Domain\ReferenceResult;
+use Pnscripts\Omnibus\Storage\HistoryRepository;
 use WC_Product;
 use WC_Tax;
 
@@ -51,6 +52,29 @@ final class ReferenceDisplayTest extends IntegrationTestCase {
 
 		$this->assertSame( '100.000000', $result->price );
 		$this->assertEqualsWithDelta( time() - 12 * self::DAY, $result->anchor, 5 );
+	}
+
+	public function test_inactive_period_not_yet_checked_hides_the_reference(): void {
+		// Recorded 100 days ago: regular 100, sale 80 scheduled from 10 days ago. The plugin was inactive from
+		// day 30 to day 1; meanwhile the regular price was 60 for five days. The resume job has not run yet.
+		$product = $this->simple( '100' );
+		$product->set_sale_price( '80' );
+		$product->set_date_on_sale_from( (string) ( time() - 10 * self::DAY ) );
+		$product->save();
+		$this->age( array( $product->get_id() ), 100 );
+		update_option(
+			\Pnscripts\Omnibus\Capture\PriceRecorder::RESUME_OPTION,
+			array(
+				'from' => time() - 30 * self::DAY,
+				'to'   => time() - self::DAY,
+			)
+		);
+		HistoryRepository::bump_cache();
+
+		$result = $this->plugin->reference->compute( $this->fresh( $product->get_id() ), time() );
+
+		$this->assertSame( ReferenceResult::UNKNOWN, $result->status );
+		$this->assertSame( ReferenceResult::REASON_GAP, $result->reason );
 	}
 
 	public function test_price_html_contains_notice(): void {
