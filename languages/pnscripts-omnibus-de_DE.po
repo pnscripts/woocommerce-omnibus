@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PN Omnibus 1.0.0\n"
-"Report-Msgid-Bugs-To: https://pnscripts.com/marketplace/pnscripts-omnibus\n"
+"Report-Msgid-Bugs-To: https://pnscripts.com/marketplace/pn-omnibus\n"
 "Last-Translator: PN Scripts (machine-assisted, needs native review)\n"
 "Language-Team: PN Scripts <https://pnscripts.com>\n"
 "MIME-Version: 1.0\n"
@@ -23,8 +23,8 @@ msgstr "Omnibus: niedrigster Preis der letzten 30 Tage für WooCommerce – PN O
 
 #. Plugin URI of the plugin
 #: pnscripts-omnibus.php:4
-msgid "https://pnscripts.com/marketplace/pnscripts-omnibus"
-msgstr "https://pnscripts.com/marketplace/pnscripts-omnibus"
+msgid "https://pnscripts.com/marketplace/pn-omnibus"
+msgstr "https://pnscripts.com/marketplace/pn-omnibus"
 
 #. Description of the plugin
 #: pnscripts-omnibus.php:5

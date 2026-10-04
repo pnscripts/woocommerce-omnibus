@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:          Omnibus Lowest Price 30 Days for WooCommerce – PN Omnibus
- * Plugin URI:           https://pnscripts.com/marketplace/pnscripts-omnibus
+ * Plugin URI:           https://pnscripts.com/marketplace/pn-omnibus
  * Description:          Records every product and variation price change and shows the lowest price in the 30 days before a discount (EU Price Indication Directive, Art. 6a). Shows nothing when the history is incomplete.
  * Version:              1.0.0
  * Requires at least:    6.5

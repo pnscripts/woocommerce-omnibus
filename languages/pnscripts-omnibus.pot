@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PN Omnibus 1.0.0\n"
-"Report-Msgid-Bugs-To: https://pnscripts.com/marketplace/pnscripts-omnibus\n"
+"Report-Msgid-Bugs-To: https://pnscripts.com/marketplace/pn-omnibus\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: PN Scripts <https://pnscripts.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: pnscripts-omnibus.php:4
-msgid "https://pnscripts.com/marketplace/pnscripts-omnibus"
+msgid "https://pnscripts.com/marketplace/pn-omnibus"
 msgstr ""
 
 #. Description of the plugin
