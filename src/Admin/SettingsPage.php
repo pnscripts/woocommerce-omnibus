@@ -209,6 +209,7 @@ final class SettingsPage {
 		$values = $this->plugin->settings->all();
 		$name   = static fn ( string $key ): string => Settings::OPTION . '[' . $key . ']';
 
+		settings_errors();
 		echo '<form method="post" action="options.php">';
 		settings_fields( self::GROUP );
 
