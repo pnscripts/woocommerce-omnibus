@@ -62,9 +62,9 @@ final class ReferencePriceCalculatorTest extends TestCase {
 	/**
 	 * @param PriceRecord[] $records Records.
 	 */
-	private function calc( array $records, ?ReferencePolicy $policy = null, ?int $launched = null, ?int $at = null, ?string $current_regular = null ): ReferenceResult {
+	private function calc( array $records, ?ReferencePolicy $policy = null, ?int $launched = null, ?int $at = null ): ReferenceResult {
 		return $this->calculator->calculate(
-			PriceTimeline::from_records( $records, $current_regular ),
+			PriceTimeline::from_records( $records ),
 			$at ?? $this->now,
 			$policy ?? new ReferencePolicy(),
 			$launched
@@ -497,15 +497,25 @@ final class ReferencePriceCalculatorTest extends TestCase {
 		$this->assertPrice( '85', $result->price );
 	}
 
-	public function test_imported_effective_prices_without_flag_use_current_regular_price(): void {
+	public function test_imported_effective_prices_without_flag_count_as_prior_prices(): void {
+		$records = array(
+			new PriceRecord( $this->ago( 60 ), null, null, null, null, '100' ),
+			new PriceRecord( $this->ago( 20 ), null, null, null, null, '97' ),
+			$this->rec( 3, '100', '80' ),
+		);
+		$result  = $this->calc( $records );
+
+		$this->assertSame( $this->ago( 3 ), $result->anchor );
+		$this->assertPrice( '97', $result->price, 'Unflagged imported prices are never treated as reductions, so the reference can only get lower.' );
+	}
+
+	public function test_imported_lower_price_without_flag_is_not_on_sale(): void {
 		$records = array(
 			new PriceRecord( $this->ago( 60 ), null, null, null, null, '100' ),
 			new PriceRecord( $this->ago( 10 ), null, null, null, null, '80' ),
 		);
-		$result  = $this->calc( $records, null, null, null, '100.000000' );
 
-		$this->assertSame( $this->ago( 10 ), $result->anchor );
-		$this->assertPrice( '100', $result->price );
+		$this->assertSame( ReferenceResult::NOT_ON_SALE, $this->calc( $records )->status );
 	}
 
 	public function test_current_anchor_helper(): void {

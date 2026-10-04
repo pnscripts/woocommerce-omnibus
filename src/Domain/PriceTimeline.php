@@ -29,11 +29,10 @@ final class PriceTimeline {
 	 * Each record is in force from its changed_at until the next record. Scheduled sale dates split a record's
 	 * interval. A record with unknown_since cuts the previous record short and inserts an unknown segment.
 	 *
-	 * @param PriceRecord[] $records         Records of one product, any order.
+	 * @param PriceRecord[] $records Records of one product, any order.
 	 * @phpstan-param list<PriceRecord> $records
-	 * @param string|null   $current_regular Current regular price (for imported records without a flag).
 	 */
-	public static function from_records( array $records, ?string $current_regular = null ): self {
+	public static function from_records( array $records ): self {
 		usort(
 			$records,
 			static fn ( PriceRecord $a, PriceRecord $b ): int => array( $a->changed_at, $a->id ) <=> array( $b->changed_at, $b->id )
@@ -59,7 +58,7 @@ final class PriceTimeline {
 			if ( null === $known_end || $known_end > $start ) {
 				$cursor = $start;
 				foreach ( array_merge( $record->breakpoints( $start, $known_end ), array( $known_end ) ) as $point ) {
-					$state      = $record->state_at( $cursor, $current_regular );
+					$state      = $record->state_at( $cursor );
 					$segments[] = new PriceSegment( $cursor, $point, $state['kind'], $state['price'], $state['reduced'] );
 					if ( null === $point ) {
 						break;

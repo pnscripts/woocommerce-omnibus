@@ -106,7 +106,7 @@ final class ReferencePriceCalculator {
 			return ReferenceResult::unknown( ReferenceResult::REASON_NO_PRIOR_PRICE, $anchor, $days );
 		}
 
-		$period_days = $shortened ? max( 1, (int) ceil( ( $anchor - $search_from ) / 86400 ) ) : $days;
+		$period_days = $shortened ? max( 1, (int) round( ( $anchor - $search_from ) / 86400 ) ) : $days;
 
 		return ReferenceResult::known( $lowest, $anchor, $search_from, $period_days, $shortened );
 	}

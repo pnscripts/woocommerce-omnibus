@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Pnscripts\Omnibus\Reference;
 
 use Pnscripts\Omnibus\Domain\Clock;
-use Pnscripts\Omnibus\Domain\Money;
 use Pnscripts\Omnibus\Domain\PriceTimeline;
 use Pnscripts\Omnibus\Domain\ReferencePriceCalculator;
 use Pnscripts\Omnibus\Domain\ReferenceResult;
@@ -101,7 +100,7 @@ final class ReferenceService {
 		}
 
 		$records  = $this->repository->for_product( $product->get_id() );
-		$timeline = PriceTimeline::from_records( $records, Money::normalize( $product->get_regular_price( 'edit' ) ) );
+		$timeline = PriceTimeline::from_records( $records );
 		$result   = ( new ReferencePriceCalculator( wp_timezone() ) )->calculate( $timeline, $now, $policy, $this->launch_time( $product ) );
 
 		if ( ReferenceResult::NOT_ON_SALE === $result->status && $product->is_on_sale() ) {

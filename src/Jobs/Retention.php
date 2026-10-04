@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Pnscripts\Omnibus\Jobs;
 
 use Pnscripts\Omnibus\Domain\Clock;
-use Pnscripts\Omnibus\Domain\Money;
 use Pnscripts\Omnibus\Domain\PriceTimeline;
 use Pnscripts\Omnibus\Domain\ReferencePriceCalculator;
 use Pnscripts\Omnibus\Settings;
@@ -79,9 +78,7 @@ final class Retention {
 			$records = $this->repository->for_product( $product_id );
 			$keep    = $cutoff;
 
-			$product  = wc_get_product( $product_id );
-			$regular  = $product ? Money::normalize( $product->get_regular_price( 'edit' ) ) : null;
-			$timeline = PriceTimeline::from_records( $records, $regular );
+			$timeline = PriceTimeline::from_records( $records );
 			$anchor   = $calculator->current_anchor( $timeline, $now );
 			if ( null !== $anchor ) {
 				$keep = min( $keep, $calculator->window_start( $anchor, $days ) );

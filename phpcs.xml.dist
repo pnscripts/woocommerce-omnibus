@@ -4,6 +4,7 @@
 
 	<file>.</file>
 	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/tests/.wp/*</exclude-pattern>
 	<exclude-pattern>/node_modules/*</exclude-pattern>
 	<exclude-pattern>/build/*</exclude-pattern>
 	<exclude-pattern>/languages/*</exclude-pattern>
@@ -53,7 +54,13 @@
 		</properties>
 	</rule>
 
-	<!-- Tests: PHPUnit naming and docs conventions. -->
+	<!-- Tests: PHPUnit naming and docs conventions; direct SQL and file access are part of the fixtures. -->
+	<rule ref="WordPress.DB">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.WP.AlternativeFunctions">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>

@@ -15,7 +15,8 @@ namespace Pnscripts\Omnibus\Domain;
  * A record with a regular price describes the full WooCommerce price configuration (regular, sale and
  * sale schedule), so the effective price at any later moment can be derived until the next record.
  * Imported records from other plugins usually only know the effective price ("price"), optionally with
- * an on-sale flag.
+ * an on-sale flag. Without the flag such a price is treated as a regular (not reduced) price: it then counts
+ * as a prior price, which can only make the shown reference lower, never higher.
  *
  * All timestamps are Unix timestamps (UTC).
  */
@@ -100,11 +101,10 @@ final class PriceRecord {
 	/**
 	 * Effective price state at a moment covered by this record.
 	 *
-	 * @param int         $at              UTC timestamp.
-	 * @param string|null $current_regular Current regular price, used for records without configuration and without an on-sale flag.
+	 * @param int $at UTC timestamp.
 	 * @return array{kind: string, price: string|null, reduced: bool}
 	 */
-	public function state_at( int $at, ?string $current_regular ): array {
+	public function state_at( int $at ): array {
 		if ( null !== $this->regular ) {
 			$sale_active = null !== $this->sale
 				&& Money::compare( $this->sale, $this->regular ) < 0
@@ -124,11 +124,10 @@ final class PriceRecord {
 			);
 		}
 		if ( null !== $this->price ) {
-			$reduced = $this->on_sale ?? ( null !== $current_regular && Money::compare( $this->price, $current_regular ) < 0 );
 			return array(
 				'kind'    => PriceSegment::PRICED,
 				'price'   => $this->price,
-				'reduced' => $reduced,
+				'reduced' => true === $this->on_sale,
 			);
 		}
 		return array(
