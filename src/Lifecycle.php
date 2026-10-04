@@ -36,11 +36,38 @@ final class Lifecycle {
 	}
 
 	/**
-	 * Activation (single site; network sites are handled lazily by install_site()).
+	 * Activation. Network-wide: every site of the network resumes tracking (tables and defaults are created
+	 * lazily by install_site() on each site's next request).
+	 *
+	 * @param bool|mixed $network_wide Whether the plugin was network-activated.
 	 */
-	public static function activate(): void {
+	public static function activate( $network_wide = false ): void {
+		if ( true === (bool) $network_wide && is_multisite() ) {
+			self::for_each_site( array( self::class, 'resume_site' ) );
+			return;
+		}
 		self::install_site();
 		self::resume_site();
+	}
+
+	/**
+	 * Run a callback on every site of the current network.
+	 *
+	 * @param callable $callback Callback.
+	 */
+	private static function for_each_site( callable $callback ): void {
+		$ids = get_sites(
+			array(
+				'fields'     => 'ids',
+				'number'     => 0,
+				'network_id' => get_current_network_id(),
+			)
+		);
+		foreach ( $ids as $id ) {
+			switch_to_blog( (int) $id );
+			$callback();
+			restore_current_blog();
+		}
 	}
 
 	/**
@@ -85,9 +112,23 @@ final class Lifecycle {
 	}
 
 	/**
-	 * Deactivation: remember when tracking stopped and remove scheduled actions.
+	 * Deactivation: remember when tracking stopped and remove scheduled actions (on every site when
+	 * network-deactivated, otherwise their gaps would go unnoticed).
+	 *
+	 * @param bool|mixed $network_wide Whether the plugin was network-deactivated.
 	 */
-	public static function deactivate(): void {
+	public static function deactivate( $network_wide = false ): void {
+		if ( true === (bool) $network_wide && is_multisite() ) {
+			self::for_each_site( array( self::class, 'pause_site' ) );
+			return;
+		}
+		self::pause_site();
+	}
+
+	/**
+	 * Remember when tracking stopped on the current site (the earliest pause wins) and remove its actions.
+	 */
+	public static function pause_site(): void {
 		$paused = get_option( self::PAUSED_OPTION, false );
 		$now    = time();
 		update_option( self::PAUSED_OPTION, is_numeric( $paused ) && (int) $paused > 0 ? min( (int) $paused, $now ) : $now, false );
