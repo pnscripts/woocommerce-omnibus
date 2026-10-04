@@ -86,6 +86,34 @@ final class PriceTimeline {
 	}
 
 	/**
+	 * Records usable for prices in the given currency: everything up to the last record stored in another
+	 * currency is dropped (the shop changed its currency; old amounts are not comparable). The history then
+	 * starts at the first record in the current currency, which the calculator treats as incomplete or as an
+	 * unknown reduction start where needed. Records without a currency are kept.
+	 *
+	 * @param PriceRecord[] $records  Records of one product.
+	 * @param string        $currency Current shop currency, empty to keep everything.
+	 * @phpstan-param list<PriceRecord> $records
+	 * @return list<PriceRecord>
+	 */
+	public static function records_in_currency( array $records, string $currency ): array {
+		if ( '' === $currency ) {
+			return $records;
+		}
+		usort(
+			$records,
+			static fn ( PriceRecord $a, PriceRecord $b ): int => array( $a->changed_at, $a->id ) <=> array( $b->changed_at, $b->id )
+		);
+		$keep_from = 0;
+		foreach ( $records as $index => $record ) {
+			if ( '' !== $record->currency && 0 !== strcasecmp( $record->currency, $currency ) ) {
+				$keep_from = $index + 1;
+			}
+		}
+		return array_slice( $records, $keep_from );
+	}
+
+	/**
 	 * Merge neighbours with the same state.
 	 *
 	 * @param PriceSegment[] $segments Segments.

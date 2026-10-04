@@ -282,21 +282,18 @@ final class PriceRecorder {
 			}
 		}
 
+		$currency = self::currency( $product );
+		$record   = self::with_currency( $record, $currency );
+		if ( null !== $latest && '' !== $latest->currency && '' !== $currency && 0 !== strcasecmp( $latest->currency, $currency ) ) {
+			$force = true; // The shop currency changed: older amounts no longer apply.
+		}
+
 		if ( ! $force && null !== $latest && $latest->same_state( $record ) ) {
 			return 0;
 		}
 		if ( null === $latest && null === $record->price && null === $record->regular ) {
 			return 0; // Nothing to remember yet (product without any price).
 		}
-
-		$currency = (string) get_option( 'woocommerce_currency', '' );
-		/**
-		 * Filters the currency stored with the record (single store currency in the free version).
-		 *
-		 * @param string     $currency ISO code.
-		 * @param WC_Product $product  Product.
-		 */
-		$currency = (string) apply_filters( 'pnscripts_omnibus_currency', $currency, $product );
 
 		$inserted = $this->repository->insert( $id, $product->get_parent_id(), $record, $currency );
 		if ( $inserted > 0 ) {
@@ -316,6 +313,45 @@ final class PriceRecorder {
 	}
 
 	/**
+	 * Currency the product's prices are in.
+	 *
+	 * @param WC_Product $product Product.
+	 */
+	public static function currency( WC_Product $product ): string {
+		$currency = (string) get_option( 'woocommerce_currency', '' );
+		/**
+		 * Filters the currency stored with the record and used to read the history (single store currency in
+		 * the free version).
+		 *
+		 * @param string     $currency ISO code.
+		 * @param WC_Product $product  Product.
+		 */
+		return (string) apply_filters( 'pnscripts_omnibus_currency', $currency, $product );
+	}
+
+	/**
+	 * Copy of a record with a currency.
+	 *
+	 * @param PriceRecord $record   Record.
+	 * @param string      $currency ISO code.
+	 */
+	private static function with_currency( PriceRecord $record, string $currency ): PriceRecord {
+		return new PriceRecord(
+			$record->changed_at,
+			$record->regular,
+			$record->sale,
+			$record->sale_from,
+			$record->sale_to,
+			$record->price,
+			$record->on_sale,
+			$record->unknown_since,
+			$record->source,
+			$record->id,
+			substr( $currency, 0, 3 )
+		);
+	}
+
+	/**
 	 * Copy of a record with a tracking gap before it.
 	 *
 	 * @param PriceRecord $record        Record.
@@ -331,7 +367,9 @@ final class PriceRecorder {
 			$record->price,
 			$record->on_sale,
 			min( $unknown_since, $record->changed_at ),
-			$record->source
+			$record->source,
+			$record->id,
+			$record->currency
 		);
 	}
 

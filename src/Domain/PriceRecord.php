@@ -35,6 +35,7 @@ final class PriceRecord {
 	 * @param int|null    $unknown_since Prices between this moment and $changed_at are unknown (tracking gap).
 	 * @param string      $source        Where the change came from (admin, rest, import:omnibus, ...).
 	 * @param int         $id            Storage id, 0 when not stored.
+	 * @param string      $currency      Shop currency the prices are in (ISO code), empty when unknown.
 	 */
 	public function __construct(
 		public readonly int $changed_at,
@@ -46,7 +47,8 @@ final class PriceRecord {
 		public readonly ?bool $on_sale = null,
 		public readonly ?int $unknown_since = null,
 		public readonly string $source = '',
-		public readonly int $id = 0
+		public readonly int $id = 0,
+		public readonly string $currency = ''
 	) {
 	}
 

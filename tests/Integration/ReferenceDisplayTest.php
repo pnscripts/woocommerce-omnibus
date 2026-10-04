@@ -308,6 +308,42 @@ final class ReferenceDisplayTest extends IntegrationTestCase {
 		$this->assertSame( '', do_shortcode( '[' . Shortcode::TAG . ' id="' . $simple->get_id() . '"]' ), 'Password-protected product: hidden.' );
 	}
 
+	public function test_history_in_a_previous_shop_currency_is_not_used(): void {
+		$original = get_option( 'woocommerce_currency' );
+		try {
+			update_option( 'woocommerce_currency', 'BGN' );
+			$product = $this->simple( '195.58' );
+			$this->age( array( $product->get_id() ), 30 );
+			$product = $this->fresh( $product->get_id() );
+			$product->set_regular_price( '150' );
+			$product->save();
+			$this->age( array( $product->get_id() ), 30 );
+
+			// Switched to EUR; prices converted and a sale started at the same moment.
+			update_option( 'woocommerce_currency', 'EUR' );
+			$this->plugin->recorder->reset();
+			$product = $this->fresh( $product->get_id() );
+			$product->set_regular_price( '100' );
+			$product->set_sale_price( '80' );
+			$product->save();
+			$this->age( array( $product->get_id() ), 20 );
+
+			$result = $this->plugin->reference->compute( $this->fresh( $product->get_id() ), time() );
+			$this->assertSame( ReferenceResult::UNKNOWN, $result->status, 'BGN 150 must not be shown as EUR 150.' );
+
+			// A currency switch without a price change is recorded, so later EUR history starts there.
+			update_option( 'woocommerce_currency', 'USD' );
+			$this->plugin->recorder->reset();
+			$product = $this->fresh( $product->get_id() );
+			$product->set_name( 'Renamed' );
+			$product->save();
+			$records = $this->records( $product->get_id() );
+			$this->assertSame( 'USD', end( $records )->currency );
+		} finally {
+			update_option( 'woocommerce_currency', $original );
+		}
+	}
+
 	public function test_already_on_sale_at_install_is_unknown_until_history_is_complete(): void {
 		$product = $this->simple( '100', '80' );
 		$this->age( array( $product->get_id() ), 45 );

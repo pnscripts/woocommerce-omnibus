@@ -282,7 +282,8 @@ final class HistoryRepository {
 			isset( $row['on_sale'] ) && is_numeric( $row['on_sale'] ) ? (bool) (int) $row['on_sale'] : null,
 			self::from_datetime( is_string( $row['unknown_since'] ?? null ) ? $row['unknown_since'] : '' ),
 			is_string( $row['source'] ?? null ) ? $row['source'] : '',
-			isset( $row['id'] ) && is_numeric( $row['id'] ) ? (int) $row['id'] : 0
+			isset( $row['id'] ) && is_numeric( $row['id'] ) ? (int) $row['id'] : 0,
+			is_string( $row['currency'] ?? null ) ? $row['currency'] : ''
 		);
 	}
 

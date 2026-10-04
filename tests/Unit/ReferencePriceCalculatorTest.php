@@ -595,6 +595,43 @@ final class ReferencePriceCalculatorTest extends TestCase {
 	}
 
 
+	/**
+	 * Record in a currency.
+	 */
+	private function cur( float $days_ago, string $regular, ?string $sale, string $currency ): PriceRecord {
+		$price = null !== $sale ? $sale : $regular;
+		return new PriceRecord( $this->ago( $days_ago ), $regular, $sale, null, null, $price, null, null, 'admin', 0, $currency );
+	}
+
+	public function test_prices_in_a_previous_shop_currency_are_not_mixed_in(): void {
+		// Converted from BGN to EUR 20 days ago and a sale started at the same moment: the BGN 150 must not be
+		// shown as EUR 150.
+		$records = array(
+			$this->cur( 60, '195.58', null, 'BGN' ),
+			$this->cur( 45, '150', null, 'BGN' ),
+			$this->cur( 20, '100', '80', 'EUR' ),
+		);
+
+		$result = $this->calc( PriceTimeline::records_in_currency( $records, 'EUR' ) );
+		$this->assertSame( ReferenceResult::UNKNOWN, $result->status );
+
+		$later  = array_merge( $records, array( $this->cur( 10, '100', null, 'EUR' ), $this->cur( 2, '100', '90', 'EUR' ) ) );
+		$result = $this->calc( PriceTimeline::records_in_currency( $later, 'EUR' ) );
+		$this->assertSame( ReferenceResult::UNKNOWN, $result->status );
+		$this->assertSame( ReferenceResult::REASON_INCOMPLETE, $result->reason, 'The EUR history covers only 20 of the 30 days.' );
+	}
+
+	public function test_records_without_currency_are_kept(): void {
+		$records = array(
+			new PriceRecord( $this->ago( 60 ), '100', null, null, null, '100' ),
+			$this->cur( 10, '100', '80', 'EUR' ),
+		);
+
+		$this->assertCount( 2, PriceTimeline::records_in_currency( $records, 'EUR' ) );
+		$this->assertCount( 2, PriceTimeline::records_in_currency( $records, '' ) );
+		$this->assertCount( 0, PriceTimeline::records_in_currency( $records, 'USD' ) );
+	}
+
 	public function test_current_anchor_helper(): void {
 		$timeline = PriceTimeline::from_records( array( $this->rec( 60, '100' ), $this->rec( 20, '100', '90' ), $this->rec( 10, '100', '80' ) ) );
 

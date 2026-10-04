@@ -100,7 +100,7 @@ final class ReferenceService {
 			return ReferenceResult::exempt( ReferenceResult::REASON_PERISHABLE );
 		}
 
-		$records = $this->repository->for_product( $product->get_id() );
+		$records = PriceTimeline::records_in_currency( $this->repository->for_product( $product->get_id() ), PriceRecorder::currency( $product ) );
 
 		// While the resume job has not checked this product after an inactive period, its prices in that period
 		// are unknown: the latest record may predate changes nobody recorded.
