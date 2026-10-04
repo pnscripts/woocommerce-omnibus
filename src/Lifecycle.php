@@ -14,6 +14,7 @@ use Pnscripts\Omnibus\Capture\PriceRecorder;
 use Pnscripts\Omnibus\Jobs\Backfill;
 use Pnscripts\Omnibus\Jobs\Queue;
 use Pnscripts\Omnibus\Jobs\Retention;
+use Pnscripts\Omnibus\Storage\HistoryRepository;
 use Pnscripts\Omnibus\Storage\Schema;
 
 /**
@@ -39,12 +40,25 @@ final class Lifecycle {
 	 */
 	public static function activate(): void {
 		self::install_site();
-		$paused = get_option( self::PAUSED_OPTION, false );
-		if ( is_numeric( $paused ) && (int) $paused > 0 ) {
+		self::resume_site();
+	}
+
+	/**
+	 * Mark the time since tracking stopped as unchecked and queue the resume job. An earlier inactive period
+	 * the resume job has not finished checking is merged in, never replaced.
+	 */
+	public static function resume_site(): void {
+		$paused   = get_option( self::PAUSED_OPTION, false );
+		$existing = PriceRecorder::resume_window();
+		$from     = is_numeric( $paused ) && (int) $paused > 0 ? (int) $paused : null;
+		if ( null !== $existing ) {
+			$from = null === $from ? $existing['from'] : min( $from, $existing['from'] );
+		}
+		if ( null !== $from ) {
 			update_option(
 				PriceRecorder::RESUME_OPTION,
 				array(
-					'from' => (int) $paused,
+					'from' => $from,
 					'to'   => time(),
 				),
 				true
@@ -52,6 +66,7 @@ final class Lifecycle {
 			update_option( self::PENDING_OPTION, Backfill::MODE_RESUME, true );
 		}
 		delete_option( self::PAUSED_OPTION );
+		HistoryRepository::bump_cache();
 	}
 
 	/**
@@ -73,7 +88,9 @@ final class Lifecycle {
 	 * Deactivation: remember when tracking stopped and remove scheduled actions.
 	 */
 	public static function deactivate(): void {
-		update_option( self::PAUSED_OPTION, time(), false );
+		$paused = get_option( self::PAUSED_OPTION, false );
+		$now    = time();
+		update_option( self::PAUSED_OPTION, is_numeric( $paused ) && (int) $paused > 0 ? min( (int) $paused, $now ) : $now, false );
 		Queue::clear();
 	}
 

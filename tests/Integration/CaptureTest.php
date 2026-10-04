@@ -200,6 +200,37 @@ final class CaptureTest extends IntegrationTestCase {
 		$this->assertEqualsWithDelta( time() - 10 * self::DAY, $latest->unknown_since, 5 );
 	}
 
+	public function test_reactivation_keeps_an_earlier_unchecked_gap(): void {
+		$resume = \Pnscripts\Omnibus\Capture\PriceRecorder::class;
+		$paused = \Pnscripts\Omnibus\Lifecycle::PAUSED_OPTION;
+		// First inactive period (days 30..20) not yet checked when the plugin was switched off again on day 5.
+		update_option(
+			$resume::RESUME_OPTION,
+			array(
+				'from' => time() - 30 * self::DAY,
+				'to'   => time() - 20 * self::DAY,
+			)
+		);
+		update_option( $paused, time() - 5 * self::DAY );
+
+		\Pnscripts\Omnibus\Lifecycle::activate();
+
+		$window = $resume::resume_window();
+		$this->assertNotNull( $window );
+		$this->assertEqualsWithDelta( time() - 30 * self::DAY, $window['from'], 5, 'The earlier gap is kept.' );
+		$this->assertEqualsWithDelta( time(), $window['to'], 5 );
+		$this->assertSame( \Pnscripts\Omnibus\Jobs\Backfill::MODE_RESUME, get_option( \Pnscripts\Omnibus\Lifecycle::PENDING_OPTION ) );
+		$this->assertFalse( get_option( $paused ) );
+
+		// A second deactivation keeps the earliest pause.
+		update_option( $paused, time() - 3 * self::DAY );
+		\Pnscripts\Omnibus\Lifecycle::deactivate();
+		$this->assertEqualsWithDelta( time() - 3 * self::DAY, (int) get_option( $paused ), 5 );
+
+		delete_option( $paused );
+		delete_option( \Pnscripts\Omnibus\Lifecycle::PENDING_OPTION );
+	}
+
 	public function test_woocommerce_feature_compatibility_is_declared(): void {
 		$file = plugin_basename( PNSCRIPTS_OMNIBUS_FILE );
 		$hpos = FeaturesUtil::get_compatible_plugins_for_feature( 'custom_order_tables' );
