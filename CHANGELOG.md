@@ -14,6 +14,7 @@ Not yet published.
 
 - Price history capture for products and variations (regular price, sale price, sale schedule, stored price) on every product save and on direct price meta writes, in a custom table.
 - Lowest prior price calculation: anchor at the start of the current reduction, progressive reductions, calendar-day period in the shop time zone (at least 30 days), earlier promotions counted, "unknown" for gaps and incomplete history.
+- "Unknown" also after a shop currency change or a tax configuration change inside the period, while an inactive period is not yet checked, and when a reduction starts right after an imported price without an on-sale flag; prices written outside all hooks are marked as a gap at the next save.
 - New-product rule (hide or period since launch) and optional perishable-goods exemption per product and category.
 - Notice under the price in classic and block themes, for variations and in product lists; shortcode `[pnscripts_omnibus_price]`; customisable text with `{price}`, `{days}`, `{date}`.
 - Settings page with rule presets, coverage report, import and tools; price history metabox on the product screen.

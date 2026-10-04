@@ -108,6 +108,10 @@ msgstr "Oznaczony jako szybko psujący się, a wyłączenie dla towarów szybko 
 msgid "Variable and grouped products are evaluated per variation or child product."
 msgstr "Produkty z wariantami i produkty grupowe są oceniane osobno dla każdego wariantu lub produktu podrzędnego."
 
+#: src/Admin/Labels.php:49
+msgid "The tax settings or rates changed during the period, so earlier prices cannot be converted with today's taxes."
+msgstr "Ustawienia lub stawki podatku zmieniły się w tym okresie, więc wcześniejszych cen nie można przeliczyć według dzisiejszych podatków."
+
 #: src/Admin/Labels.php:61
 msgid "Product editor"
 msgstr "Edytor produktu"

@@ -108,6 +108,10 @@ msgstr "Маркиран е като бързо развалящ се и изк�
 msgid "Variable and grouped products are evaluated per variation or child product."
 msgstr "Вариативните и групираните продукти се оценяват поотделно за всяка вариация или подпродукт."
 
+#: src/Admin/Labels.php:49
+msgid "The tax settings or rates changed during the period, so earlier prices cannot be converted with today's taxes."
+msgstr "Данъчните настройки или ставки са променени през периода, затова по-старите цени не могат да се преизчислят с днешните данъци."
+
 #: src/Admin/Labels.php:61
 msgid "Product editor"
 msgstr "Редактор на продукта"

@@ -108,6 +108,10 @@ msgstr "Als schnell verderblich markiert, und die Ausnahme für schnell verderbl
 msgid "Variable and grouped products are evaluated per variation or child product."
 msgstr "Variable und gruppierte Produkte werden pro Variante bzw. Einzelprodukt bewertet."
 
+#: src/Admin/Labels.php:49
+msgid "The tax settings or rates changed during the period, so earlier prices cannot be converted with today's taxes."
+msgstr "Die Steuereinstellungen oder Steuersätze wurden im Zeitraum geändert, daher können frühere Preise nicht mit den heutigen Steuern umgerechnet werden."
+
 #: src/Admin/Labels.php:61
 msgid "Product editor"
 msgstr "Produkteditor"
