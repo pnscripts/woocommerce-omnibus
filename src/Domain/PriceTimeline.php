@@ -50,9 +50,19 @@ final class PriceTimeline {
 				continue; // Superseded within the same second.
 			}
 
+			// Every record starting at $end can declare a gap; the earliest one wins (records in the same second
+			// supersede each other, but their gaps must not be lost).
+			$unknown_since = null;
+			for ( $j = $i + 1; $j < $count && null !== $end && $records[ $j ]->changed_at === $end; $j++ ) {
+				$since = $records[ $j ]->unknown_since;
+				if ( null !== $since && ( null === $unknown_since || $since < $unknown_since ) ) {
+					$unknown_since = $since;
+				}
+			}
+
 			$known_end = $end;
-			if ( null !== $next && null !== $next->unknown_since && null !== $end && $next->unknown_since < $end ) {
-				$known_end = max( $start, $next->unknown_since );
+			if ( null !== $unknown_since && null !== $end && $unknown_since < $end ) {
+				$known_end = max( $start, $unknown_since );
 			}
 
 			if ( null === $known_end || $known_end > $start ) {

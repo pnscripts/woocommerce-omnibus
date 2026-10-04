@@ -139,4 +139,18 @@ final class PriceTimelineTest extends TestCase {
 		$this->assertFalse( $segments[0]->reduced_known );
 		$this->assertTrue( $segments[1]->reduced_known );
 	}
+
+	public function test_gap_of_a_later_record_in_the_same_second_is_kept(): void {
+		$segments = PriceTimeline::from_records(
+			array(
+				new PriceRecord( 1000, '100', null, null, null, '100', null, null, '', 1 ),
+				new PriceRecord( 5000, '100', null, null, null, '100', null, null, '', 2 ),
+				new PriceRecord( 5000, '90', null, null, null, '90', null, 2000, '', 3 ),
+			)
+		)->segments();
+
+		$this->assertSame( array( 1000, 2000 ), array( $segments[0]->start, $segments[0]->end ) );
+		$this->assertSame( PriceSegment::UNKNOWN, $segments[1]->kind );
+		$this->assertSame( array( 2000, 5000 ), array( $segments[1]->start, $segments[1]->end ) );
+	}
 }
