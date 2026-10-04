@@ -110,18 +110,14 @@ final class PriceRecord {
 				&& Money::compare( $this->sale, $this->regular ) < 0
 				&& ( null === $this->sale_from || $this->sale_from <= $at )
 				&& ( null === $this->sale_to || $at <= $this->sale_to );
-			if ( $sale_active && null !== $this->sale ) {
-				return array(
-					'kind'          => PriceSegment::PRICED,
-					'price'         => $this->sale,
-					'reduced'       => true,
-					'reduced_known' => true,
-				);
-			}
+			$configured  = $sale_active && null !== $this->sale ? $this->sale : $this->regular;
+			// A lower stored price (_price written directly by other software, or a sale price WooCommerce kept
+			// after the schedule ended because its cron has not run yet) is the price customers were charged.
+			$applied = null !== $this->price && Money::compare( $this->price, $configured ) < 0 ? $this->price : $configured;
 			return array(
 				'kind'          => PriceSegment::PRICED,
-				'price'         => $this->regular,
-				'reduced'       => false,
+				'price'         => $applied,
+				'reduced'       => $sale_active,
 				'reduced_known' => true,
 			);
 		}

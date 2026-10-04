@@ -43,11 +43,15 @@ final class ReferencePriceCalculatorTest extends TestCase {
 	}
 
 	/**
-	 * Configuration record N days before now.
+	 * Configuration record N days before now, with the stored price WooCommerce would write at that moment
+	 * (the sale price only while the schedule is active).
 	 */
 	private function rec( float $days_ago, ?string $regular, ?string $sale = null, ?int $from = null, ?int $to = null, ?int $unknown_since = null ): PriceRecord {
-		$effective = ( null !== $sale && null !== $regular && (float) $sale < (float) $regular ) ? $sale : $regular;
-		return new PriceRecord( $this->ago( $days_ago ), $regular, $sale, $from, $to, $effective, null, $unknown_since );
+		$at        = $this->ago( $days_ago );
+		$active    = null !== $sale && null !== $regular && (float) $sale < (float) $regular
+			&& ( null === $from || $from <= $at ) && ( null === $to || $at <= $to );
+		$effective = $active ? $sale : $regular;
+		return new PriceRecord( $at, $regular, $sale, $from, $to, $effective, null, $unknown_since );
 	}
 
 	private function assertPrice( string $expected, ?string $actual, string $message = '' ): void {
@@ -558,6 +562,36 @@ final class ReferencePriceCalculatorTest extends TestCase {
 
 		$this->assertSame( $this->ago( 5 ), $result->anchor );
 		$this->assertPrice( '90', $result->price );
+	}
+
+
+	public function test_effective_price_below_configuration_is_the_applied_price(): void {
+		// Another plugin wrote _price = 60 directly for ten days while the regular price stayed 100.
+		$records = array(
+			$this->rec( 60, '100' ),
+			new PriceRecord( $this->ago( 25 ), '100', null, null, null, '60' ),
+			$this->rec( 15, '100' ),
+			$this->rec( 5, '100', '80' ),
+		);
+		$result  = $this->calc( $records );
+
+		$this->assertSame( $this->ago( 5 ), $result->anchor );
+		$this->assertPrice( '60', $result->price );
+	}
+
+
+	public function test_effective_price_below_active_sale_keeps_the_reduction_run(): void {
+		$records = array(
+			$this->rec( 80, '50' ),
+			$this->rec( 50, '100' ),
+			$this->rec( 20, '100', '80' ),
+			new PriceRecord( $this->ago( 15 ), '100', '80', null, null, '70' ),
+			$this->rec( 12, '100', '80' ),
+		);
+		$result  = $this->calc( $records );
+
+		$this->assertSame( $this->ago( 20 ), $result->anchor, 'A lower effective price during a sale is still part of the same reduction.' );
+		$this->assertPrice( '50', $result->price );
 	}
 
 
