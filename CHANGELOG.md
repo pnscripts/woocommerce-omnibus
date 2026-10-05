@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [1.0.1] - 2026-10-05
 
+### Changed
+
+- Plugin name is now "PN Omnibus – Lowest Price in 30 Days" (was "Omnibus Lowest Price 30 Days for WooCommerce – PN Omnibus"): WordPress.org does not allow the term "WooCommerce" in a plugin's name or permalink. Slug, text domain, folder and code are unchanged; the bundled translations of the name are updated.
+
 ### Security
 
 - Every PHP file under `src/` exits when it is requested directly (WordPress.org plugin review: direct file access).

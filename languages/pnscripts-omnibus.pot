@@ -16,7 +16,7 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: pnscripts-omnibus.php:3
-msgid "Omnibus Lowest Price 30 Days for WooCommerce – PN Omnibus"
+msgid "PN Omnibus – Lowest Price in 30 Days"
 msgstr ""
 
 #. Plugin URI of the plugin

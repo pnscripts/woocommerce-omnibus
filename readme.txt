@@ -1,4 +1,4 @@
-=== Omnibus Lowest Price 30 Days for WooCommerce – PN Omnibus ===
+=== PN Omnibus – Lowest Price in 30 Days ===
 Contributors: pnscripts
 Tags: omnibus, lowest price, price history, discount, sale price
 Requires at least: 6.5

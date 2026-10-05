@@ -10,6 +10,7 @@ Form: https://wordpress.org/plugins/developers/add/ (log in first; the account n
    (absolute: `/media/petar/c8fc2986-4b79-4d7b-9a8c-e6db653915ac/DEV/Projects/pnscripts/marketplace/woocommerce-omnibus/build/pnscripts-omnibus-1.0.1.zip`).
    The version header and readme `Stable tag` must match (the script refuses otherwise).
 4. Plugin Check 2.1.0 on WordPress 7.1.2 + WooCommerce 11.1.2 with that zip installed: `wp plugin check pnscripts-omnibus --include-experimental --include-low-severity-errors --include-low-severity-warnings` must print "No errors found" (it did on 2026-10-05).
+5. The name in `Plugin Name:` and in the readme's `=== … ===` line must be identical and must not contain restricted terms such as "WooCommerce" or "WordPress" (the form rejected "…for WooCommerce…" on 2026-10-05). "WooCommerce" in the description and body text is fine.
 
 ## On the form
 
@@ -20,7 +21,7 @@ Form: https://wordpress.org/plugins/developers/add/ (log in first; the account n
 
 ## Right after uploading
 
-- The page shows the slug WordPress.org derived from `Plugin Name`: `omnibus-lowest-price-30-days-for-woocommerce-pn-omnibus`. **Use the one-time "change slug" link on that page and request `pnscripts-omnibus`.** The text domain, folder and main file all use `pnscripts-omnibus`; a slug that does not match the text domain is a review finding. If the link is gone, reply to the review email (or write to plugins@wordpress.org) before approval; it cannot change after approval.
+- The page shows the slug WordPress.org derived from `Plugin Name` ("PN Omnibus – Lowest Price in 30 Days"): expect `pn-omnibus-lowest-price-in-30-days`. **Use the one-time "change slug" link on that page and request `pnscripts-omnibus`.** The text domain, folder and main file all use `pnscripts-omnibus`; a slug that does not match the text domain is a review finding. If the link is gone, reply to the review email (or write to plugins@wordpress.org) before approval; it cannot change after approval.
 
 ## Notes for the review email (paste if asked)
 

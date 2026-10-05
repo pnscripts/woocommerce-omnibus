@@ -18,8 +18,8 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: pnscripts-omnibus.php:3
-msgid "Omnibus Lowest Price 30 Days for WooCommerce – PN Omnibus"
-msgstr "Omnibus: niedrigster Preis der letzten 30 Tage für WooCommerce – PN Omnibus"
+msgid "PN Omnibus – Lowest Price in 30 Days"
+msgstr "PN Omnibus – niedrigster Preis der letzten 30 Tage"
 
 #. Plugin URI of the plugin
 #: pnscripts-omnibus.php:4

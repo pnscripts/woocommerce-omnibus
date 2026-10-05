@@ -1,4 +1,4 @@
-# PN Omnibus: 30-day lowest price & honest discounts for WooCommerce
+# PN Omnibus – Lowest Price in 30 Days
 
 WooCommerce plugin by [PN Scripts](https://pnscripts.com) that records every price change of products and variations and shows the **lowest price in the 30 days before a discount**, as required in the EU by the Price Indication Directive 98/6/EC, Art. 6a (added by Directive (EU) 2019/2161, the "Omnibus" Directive; see also CJEU C-330/23 of 26 September 2024).
 
