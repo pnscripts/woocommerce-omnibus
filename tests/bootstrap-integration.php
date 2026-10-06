@@ -29,6 +29,6 @@ $_SERVER['REQUEST_URI'] = '/';
 require_once $pnscripts_omnibus_wp_dir . '/wp-load.php';
 
 if ( null === \Pnscripts\Omnibus\Plugin::instance() ) {
-	fwrite( STDERR, "PN Omnibus is not active on the test site.\n" );
+	fwrite( STDERR, "Pricetrail is not active on the test site.\n" );
 	exit( 1 );
 }

@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-10-06
+
+### Changed
+
+- Renamed to "PN Scripts Pricetrail – 30-Day Lowest Price for Sales" (was "PN Omnibus – Lowest Price in 30 Days"): the WordPress.org review found the old name too close to an existing plugin. Slug, folder, main file (`pnscripts-pricetrail.php`) and text domain are now `pnscripts-pricetrail`; bundled translations renamed and recompiled.
+- Admin page is WooCommerce → Pricetrail (`admin.php?page=pnscripts-pricetrail`); WP-CLI command is `wp pnscripts-pricetrail`.
+- Shortcode is `[pnscripts_pricetrail_price]`; `[pnscripts_omnibus_price]` keeps working.
+- Code prefixes, hooks, option names, CSS classes and the `{prefix}pnscripts_omnibus_price_history` table are unchanged, so settings and price history are kept. A site running 1.0.x from GitHub must activate the plugin again after replacing the folder, because the main file name changed.
+
 ## [1.0.1] - 2026-10-05
 
 ### Changed
@@ -33,6 +42,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Translations: Bulgarian, Polish, German.
 - HPOS and Cart/Checkout blocks compatibility declarations.
 
-[Unreleased]: https://github.com/pnscripts/woocommerce-omnibus/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/pnscripts/woocommerce-omnibus/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/pnscripts/woocommerce-omnibus/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/pnscripts/woocommerce-omnibus/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/pnscripts/woocommerce-omnibus/releases/tag/v1.0.0

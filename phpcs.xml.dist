@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="PN Omnibus">
-	<description>WordPress Coding Standards for PN Omnibus.</description>
+<ruleset name="PN Scripts Pricetrail">
+	<description>WordPress Coding Standards for PN Scripts Pricetrail.</description>
 
 	<file>.</file>
 	<exclude-pattern>/vendor/*</exclude-pattern>
@@ -29,7 +29,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="pnscripts-omnibus"/>
+				<element value="pnscripts-pricetrail"/>
 			</property>
 		</properties>
 	</rule>

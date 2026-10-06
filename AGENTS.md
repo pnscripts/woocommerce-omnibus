@@ -8,7 +8,7 @@ This repository is part of the DEV workspace and uses the shared **AI Brain** (`
 
 Project rules:
 
-- Slug, text domain and folder: `pnscripts-omnibus`. Prefix: `pnscripts_omnibus` / `PNSCRIPTS_OMNIBUS_` / `Pnscripts\Omnibus`.
+- Plugin name: "PN Scripts Pricetrail – 30-Day Lowest Price for Sales". Slug, text domain, folder and main file: `pnscripts-pricetrail` (renamed from `pnscripts-omnibus` in 1.0.2 after the WordPress.org review). Code prefix stays `pnscripts_omnibus` / `PNSCRIPTS_OMNIBUS_` / `Pnscripts\Omnibus` (option names, hooks, DB table).
 - Free edition for WordPress.org: GPL-2.0-or-later, no locked features, no external requests, no licence checks.
 - "Show nothing rather than a wrong number": any change to the reference rules needs unit tests in `tests/Unit/ReferencePriceCalculatorTest.php`.
 - Before committing: `composer test`, `composer test:integration`, `composer lint`, `composer analyse`.

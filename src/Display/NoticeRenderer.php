@@ -40,7 +40,7 @@ final class NoticeRenderer {
 	 */
 	public static function default_text(): string {
 		/* translators: Keep the placeholders {days} (number of days) and {price} (formatted price) unchanged. */
-		return __( 'Lowest price in the {days} days before the discount: {price}', 'pnscripts-omnibus' );
+		return __( 'Lowest price in the {days} days before the discount: {price}', 'pnscripts-pricetrail' );
 	}
 
 	/**
@@ -48,7 +48,7 @@ final class NoticeRenderer {
 	 */
 	public static function default_text_short(): string {
 		/* translators: Keep the placeholders {days} (number of days) and {price} (formatted price) unchanged. */
-		return __( 'Lowest price since this product was launched ({days} days) before the discount: {price}', 'pnscripts-omnibus' );
+		return __( 'Lowest price since this product was launched ({days} days) before the discount: {price}', 'pnscripts-pricetrail' );
 	}
 
 	/**
@@ -56,7 +56,7 @@ final class NoticeRenderer {
 	 */
 	public static function default_unknown_text(): string {
 		/* translators: Keep the placeholder {days} (number of days) unchanged. */
-		return __( 'The lowest price in the {days} days before the discount is not available.', 'pnscripts-omnibus' );
+		return __( 'The lowest price in the {days} days before the discount is not available.', 'pnscripts-pricetrail' );
 	}
 
 	/**

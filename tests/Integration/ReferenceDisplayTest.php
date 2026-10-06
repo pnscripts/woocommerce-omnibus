@@ -309,6 +309,7 @@ final class ReferenceDisplayTest extends IntegrationTestCase {
 
 		$this->assertStringContainsString( 'pnscripts-omnibus-notice--shortcode', do_shortcode( '[' . Shortcode::TAG . ' id="' . $product->get_id() . '"]' ) );
 		$this->assertSame( '', do_shortcode( '[' . Shortcode::TAG . ' id="999999999"]' ) );
+		$this->assertStringContainsString( 'pnscripts-omnibus-notice--shortcode', do_shortcode( '[' . Shortcode::LEGACY_TAG . ' id="' . $product->get_id() . '"]' ), 'The 1.0.x tag still works.' );
 
 		$product->set_status( 'draft' );
 		$product->save();

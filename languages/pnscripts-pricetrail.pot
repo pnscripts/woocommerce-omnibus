@@ -2,568 +2,568 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: PN Omnibus 1.0.0\n"
+"Project-Id-Version: PN Scripts Pricetrail 1.0.2\n"
 "Report-Msgid-Bugs-To: https://pnscripts.com/marketplace/pn-omnibus\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: PN Scripts <https://pnscripts.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-04T14:15:47+00:00\n"
+"POT-Creation-Date: 2026-10-06T07:41:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: pnscripts-omnibus\n"
+"X-Domain: pnscripts-pricetrail\n"
 
 #. Plugin Name of the plugin
-#: pnscripts-omnibus.php:3
-msgid "PN Omnibus – Lowest Price in 30 Days"
+#: pnscripts-pricetrail.php
+msgid "PN Scripts Pricetrail – 30-Day Lowest Price for Sales"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: pnscripts-omnibus.php:4
+#: pnscripts-pricetrail.php
 msgid "https://pnscripts.com/marketplace/pn-omnibus"
 msgstr ""
 
 #. Description of the plugin
-#: pnscripts-omnibus.php:5
+#: pnscripts-pricetrail.php
 msgid "Records every product and variation price change and shows the lowest price in the 30 days before a discount (EU Price Indication Directive, Art. 6a). Shows nothing when the history is incomplete."
 msgstr ""
 
 #. Author of the plugin
-#: pnscripts-omnibus.php:12
+#: pnscripts-pricetrail.php
 msgid "PN Scripts"
 msgstr ""
 
 #. Author URI of the plugin
-#: pnscripts-omnibus.php:13
+#: pnscripts-pricetrail.php
 msgid "https://pnscripts.com"
 msgstr ""
 
-#: src/Admin/CategoryFields.php:41
-#: src/Admin/CategoryFields.php:53
-#: src/Admin/ProductPanel.php:204
-#: src/Admin/SettingsPage.php:257
+#: src/Admin/CategoryFields.php:43
+#: src/Admin/CategoryFields.php:55
+#: src/Admin/ProductPanel.php:206
+#: src/Admin/SettingsPage.php:260
 msgid "Perishable goods"
 msgstr ""
 
-#: src/Admin/CategoryFields.php:42
-msgid "Products in this category perish or expire quickly. Only used when the perishable-goods exemption is enabled in PN Omnibus settings."
+#: src/Admin/CategoryFields.php:44
+msgid "Products in this category perish or expire quickly. Only used when the perishable-goods exemption is enabled in Pricetrail settings."
 msgstr ""
 
-#: src/Admin/CategoryFields.php:59
+#: src/Admin/CategoryFields.php:61
 msgid "Products in this category perish or expire quickly."
 msgstr ""
 
-#: src/Admin/Labels.php:26
+#: src/Admin/Labels.php:28
 msgid "Shown"
 msgstr ""
 
-#: src/Admin/Labels.php:27
+#: src/Admin/Labels.php:29
 msgid "Not on sale"
 msgstr ""
 
-#: src/Admin/Labels.php:28
+#: src/Admin/Labels.php:30
 msgid "Exempt"
 msgstr ""
 
-#: src/Admin/Labels.php:29
+#: src/Admin/Labels.php:31
 msgid "Unknown, hidden"
 msgstr ""
 
-#: src/Admin/Labels.php:40
+#: src/Admin/Labels.php:42
 msgid "No price history has been recorded yet."
 msgstr ""
 
-#: src/Admin/Labels.php:41
+#: src/Admin/Labels.php:43
 msgid "Prices during part of the period are unknown (the plugin was inactive or prices were changed outside WooCommerce)."
 msgstr ""
 
-#: src/Admin/Labels.php:42
+#: src/Admin/Labels.php:44
 msgid "The recorded history does not cover the whole period before the discount yet."
 msgstr ""
 
-#: src/Admin/Labels.php:43
+#: src/Admin/Labels.php:45
 msgid "The product was launched less than the period before the discount and the current rules hide the notice for such products."
 msgstr ""
 
-#: src/Admin/Labels.php:44
+#: src/Admin/Labels.php:46
 msgid "The product was already on sale when recording started, so the start of the discount is unknown."
 msgstr ""
 
-#: src/Admin/Labels.php:45
+#: src/Admin/Labels.php:47
 msgid "There is no price before the discount (the product was launched on sale or had no price)."
 msgstr ""
 
-#: src/Admin/Labels.php:46
+#: src/Admin/Labels.php:48
 msgid "WooCommerce shows a discount that is not in the recorded prices (for example a price changed by another plugin on the fly)."
 msgstr ""
 
-#: src/Admin/Labels.php:47
+#: src/Admin/Labels.php:49
 msgid "Marked as perishable and the perishable-goods exemption is enabled."
 msgstr ""
 
-#: src/Admin/Labels.php:48
+#: src/Admin/Labels.php:50
 msgid "Variable and grouped products are evaluated per variation or child product."
 msgstr ""
 
-#: src/Admin/Labels.php:49
+#: src/Admin/Labels.php:51
 msgid "The tax settings or rates changed during the period, so earlier prices cannot be converted with today's taxes."
 msgstr ""
 
-#: src/Admin/Labels.php:61
+#: src/Admin/Labels.php:64
 msgid "Product editor"
 msgstr ""
 
-#: src/Admin/Labels.php:62
+#: src/Admin/Labels.php:65
 msgid "Quick edit"
 msgstr ""
 
-#: src/Admin/Labels.php:63
+#: src/Admin/Labels.php:66
 msgid "Bulk edit"
 msgstr ""
 
-#: src/Admin/Labels.php:64
+#: src/Admin/Labels.php:67
 msgid "CSV import"
 msgstr ""
 
-#: src/Admin/Labels.php:65
+#: src/Admin/Labels.php:68
 msgid "REST API"
 msgstr ""
 
-#: src/Admin/Labels.php:66
+#: src/Admin/Labels.php:69
 msgid "WP-CLI"
 msgstr ""
 
-#: src/Admin/Labels.php:67
+#: src/Admin/Labels.php:70
 msgid "Background task"
 msgstr ""
 
-#: src/Admin/Labels.php:68
+#: src/Admin/Labels.php:71
 msgid "Scheduled sale"
 msgstr ""
 
-#: src/Admin/Labels.php:69
+#: src/Admin/Labels.php:72
 msgid "AJAX"
 msgstr ""
 
-#: src/Admin/Labels.php:70
+#: src/Admin/Labels.php:73
 msgid "Code"
 msgstr ""
 
-#: src/Admin/Labels.php:71
-#: src/Admin/SettingsPage.php:297
+#: src/Admin/Labels.php:74
+#: src/Admin/SettingsPage.php:300
 msgid "First record"
 msgstr ""
 
-#: src/Admin/Labels.php:72
+#: src/Admin/Labels.php:75
 msgid "After inactivity"
 msgstr ""
 
-#: src/Admin/Labels.php:73
+#: src/Admin/Labels.php:76
 msgid "Repair"
 msgstr ""
 
-#: src/Admin/Labels.php:74
+#: src/Admin/Labels.php:77
 msgid "Imported (Omnibus by iWorks)"
 msgstr ""
 
-#: src/Admin/Labels.php:75
+#: src/Admin/Labels.php:78
 msgid "Imported (WC Price History)"
 msgstr ""
 
-#: src/Admin/Labels.php:76
+#: src/Admin/Labels.php:79
 msgid "Imported (Omnibus by iLabs)"
 msgstr ""
 
-#: src/Admin/ProductPanel.php:64
+#: src/Admin/ProductPanel.php:66
 msgid "Price history and lowest prior price"
 msgstr ""
 
-#: src/Admin/ProductPanel.php:83
+#: src/Admin/ProductPanel.php:85
 msgid "Recorded automatically on every price change. This plugin helps display prices; you remain responsible for compliance."
 msgstr ""
 
-#: src/Admin/ProductPanel.php:88
+#: src/Admin/ProductPanel.php:90
 msgid "No variations yet."
 msgstr ""
 
-#: src/Admin/ProductPanel.php:98
+#: src/Admin/ProductPanel.php:100
 msgid "Grouped products have no own price; see each child product."
 msgstr ""
 
-#: src/Admin/ProductPanel.php:116
+#: src/Admin/ProductPanel.php:118
 msgid "No prices recorded yet."
 msgstr ""
 
-#: src/Admin/ProductPanel.php:121
+#: src/Admin/ProductPanel.php:123
 msgid "From"
 msgstr ""
 
-#: src/Admin/ProductPanel.php:122
+#: src/Admin/ProductPanel.php:124
 msgid "Regular"
 msgstr ""
 
-#: src/Admin/ProductPanel.php:123
+#: src/Admin/ProductPanel.php:125
 msgid "Sale"
 msgstr ""
 
-#: src/Admin/ProductPanel.php:124
+#: src/Admin/ProductPanel.php:126
 msgid "Sale schedule"
 msgstr ""
 
-#: src/Admin/ProductPanel.php:125
+#: src/Admin/ProductPanel.php:127
 msgid "Price"
 msgstr ""
 
-#: src/Admin/ProductPanel.php:126
+#: src/Admin/ProductPanel.php:128
 msgid "Source"
 msgstr ""
 
-#: src/Admin/ProductPanel.php:135
+#: src/Admin/ProductPanel.php:137
 msgid "Prices as entered in the shop (before the tax display setting). Newest first, up to 30 rows."
 msgstr ""
 
-#: src/Admin/ProductPanel.php:162
+#: src/Admin/ProductPanel.php:164
 msgid "(unknown before)"
 msgstr ""
 
 #. translators: 1: number of days, 2: date when the discount started
-#: src/Admin/ProductPanel.php:181
+#: src/Admin/ProductPanel.php:183
 #, php-format
 msgid "lowest price in the %1$d days before the discount that started on %2$s:"
 msgstr ""
 
-#: src/Admin/ProductPanel.php:205
-msgid "Goods that perish or expire quickly. Only used when the perishable-goods exemption is enabled in PN Omnibus settings."
+#: src/Admin/ProductPanel.php:207
+msgid "Goods that perish or expire quickly. Only used when the perishable-goods exemption is enabled in Pricetrail settings."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:68
-msgid "PN Omnibus: lowest price in the 30 days before a discount"
+#: src/Admin/SettingsPage.php:70
+msgid "Pricetrail: lowest price in the 30 days before a discount"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:69
-msgid "PN Omnibus"
+#: src/Admin/SettingsPage.php:71
+msgid "Pricetrail"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:86
-#: src/Admin/SettingsPage.php:143
+#: src/Admin/SettingsPage.php:88
+#: src/Admin/SettingsPage.php:145
 msgid "Settings"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:138
+#: src/Admin/SettingsPage.php:140
 msgid "Sorry, you are not allowed to access this page."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:144
+#: src/Admin/SettingsPage.php:146
 msgid "Coverage report"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:145
+#: src/Admin/SettingsPage.php:147
 msgid "Import and tools"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:159
-msgid "PN Omnibus: lowest price before a discount"
+#: src/Admin/SettingsPage.php:161
+msgid "Pricetrail: lowest price before a discount"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:171
+#: src/Admin/SettingsPage.php:173
 msgid "This plugin helps display prices; you remain responsible for compliance. It does not give legal advice. Check the rules that apply to your shop."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:200
+#: src/Admin/SettingsPage.php:202
 msgid "The action could not be started. Action Scheduler (part of WooCommerce) is not available."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:201
+#: src/Admin/SettingsPage.php:203
 msgid "Started in the background. Refresh this page to see the progress."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:215
+#: src/Admin/SettingsPage.php:218
 msgid "Rules"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:218
+#: src/Admin/SettingsPage.php:221
 msgid "Preset"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:224
+#: src/Admin/SettingsPage.php:227
 msgid "A preset fills the three rules below when you save. Presets are starting points, not legal advice: confirm the rules of the country you sell to. Choose \"Custom rules\" to set them yourself."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:228
+#: src/Admin/SettingsPage.php:231
 msgid "Period before the discount (days)"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:237
+#: src/Admin/SettingsPage.php:240
 msgid "At least 30 days. The period ends when the current discount started and begins at midnight that many days earlier. For progressive discounts it ends when the first discount started."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:239
+#: src/Admin/SettingsPage.php:242
 msgid "Products on the market for less than the period"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:241
+#: src/Admin/SettingsPage.php:244
 msgid "Hide the notice (strict)"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:242
+#: src/Admin/SettingsPage.php:245
 msgid "Use the lowest price since the product was launched (only where your country allows a shorter period)"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:258
+#: src/Admin/SettingsPage.php:261
 msgid "Do not show the notice for products (or categories) marked as perishable. Only where your country exempts perishable goods."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:264
+#: src/Admin/SettingsPage.php:267
 msgid "Display"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:266
+#: src/Admin/SettingsPage.php:269
 msgid "Product page"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:266
+#: src/Admin/SettingsPage.php:269
 msgid "Show the notice under the price on product pages (classic templates and the Product Price block)."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:267
+#: src/Admin/SettingsPage.php:270
 msgid "Shop and category pages"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:267
+#: src/Admin/SettingsPage.php:270
 msgid "Show the notice in product lists, related products and product blocks."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:268
+#: src/Admin/SettingsPage.php:271
 msgid "Variations"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:268
+#: src/Admin/SettingsPage.php:271
 msgid "Show the notice for the selected variation of variable products."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:269
+#: src/Admin/SettingsPage.php:272
 msgid "Incomplete history"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:269
+#: src/Admin/SettingsPage.php:272
 msgid "Hide the notice when the price history does not cover the whole period (recommended). When unchecked, the text below is shown instead."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:271
+#: src/Admin/SettingsPage.php:274
 msgid "Notice text"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:272
+#: src/Admin/SettingsPage.php:275
 msgid "Notice text (period since launch)"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:273
+#: src/Admin/SettingsPage.php:276
 msgid "Text when the history is incomplete"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:274
+#: src/Admin/SettingsPage.php:277
 msgid "Placeholders"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:275
+#: src/Admin/SettingsPage.php:278
 msgid "{price} the lowest price, {days} the number of days, {date} the day the discount started. Leave a text empty to use the translated default."
 msgstr ""
 
 #. translators: %s: shortcode
-#: src/Admin/SettingsPage.php:279
+#: src/Admin/SettingsPage.php:282
 #, php-format
 msgid "To place the notice elsewhere, use the shortcode %s."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:285
+#: src/Admin/SettingsPage.php:288
 msgid "Data"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:287
+#: src/Admin/SettingsPage.php:290
 msgid "Keep history for (days)"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:294
+#: src/Admin/SettingsPage.php:297
 msgid "Older prices are deleted daily, except the ones still needed for a running discount. Minimum 31 days."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:298
+#: src/Admin/SettingsPage.php:301
 msgid "When recording starts for an existing product, assume its current price has applied since the product was last modified. Leave unchecked if other software changes prices without updating products (strict)."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:303
+#: src/Admin/SettingsPage.php:306
 msgid "Uninstall"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:304
+#: src/Admin/SettingsPage.php:307
 msgid "Delete the price history and settings when the plugin is deleted."
 msgstr ""
 
 #. translators: %d: number of products and variations
-#: src/Admin/SettingsPage.php:386
+#: src/Admin/SettingsPage.php:402
 #, php-format
 msgid "%d product or variation is on sale."
 msgid_plural "%d products and variations are on sale."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/SettingsPage.php:389
+#: src/Admin/SettingsPage.php:405
 msgid "For each one: whether the lowest prior price is known and shown, and if not, why."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:397
+#: src/Admin/SettingsPage.php:413
 msgid "Product"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:398
+#: src/Admin/SettingsPage.php:414
 msgid "Current price"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:399
+#: src/Admin/SettingsPage.php:415
 msgid "Lowest prior price"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:400
+#: src/Admin/SettingsPage.php:416
 msgid "Discount started"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:401
-#: src/Admin/SettingsPage.php:450
+#: src/Admin/SettingsPage.php:417
+#: src/Admin/SettingsPage.php:466
 msgid "Status"
 msgstr ""
 
 #. translators: 1: number of stored price records, 2: number of products and variations
-#: src/Admin/SettingsPage.php:454
+#: src/Admin/SettingsPage.php:470
 #, php-format
 msgid "%1$d price records for %2$d products and variations."
 msgstr ""
 
 #. translators: 1: date and time, 2: number of products checked, 3: number of records added
-#: src/Admin/SettingsPage.php:467
+#: src/Admin/SettingsPage.php:483
 #, php-format
 msgid "Last catalogue check finished %1$s: %2$d products checked, %3$d records added."
 msgstr ""
 
 #. translators: %d: number of products checked so far
-#: src/Admin/SettingsPage.php:474
+#: src/Admin/SettingsPage.php:490
 #, php-format
 msgid "Catalogue check running: %d products checked so far."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:480
+#: src/Admin/SettingsPage.php:496
 msgid "Check the catalogue"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:481
+#: src/Admin/SettingsPage.php:497
 msgid "Records the current price of products that have no history yet, and marks products whose price changed without passing through WooCommerce. Runs in the background."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:482
+#: src/Admin/SettingsPage.php:498
 msgid "Check the catalogue now"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:484
+#: src/Admin/SettingsPage.php:500
 msgid "Import history from another plugin"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:485
-msgid "Reads (never changes) the price history saved by another plugin and adds the prices from before PN Omnibus started recording each product. Only import from a plugin that was active until now; a plugin that was switched off long ago has gaps that cannot be detected. Running an import twice is safe."
+#: src/Admin/SettingsPage.php:501
+msgid "Reads (never changes) the price history saved by another plugin and adds the prices from before Pricetrail started recording each product. Only import from a plugin that was active until now; a plugin that was switched off long ago has gaps that cannot be detected. Running an import twice is safe."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:486
+#: src/Admin/SettingsPage.php:502
 msgid "Plugin"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:486
+#: src/Admin/SettingsPage.php:502
 msgid "Data found"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:486
+#: src/Admin/SettingsPage.php:502
 msgid "Last import"
 msgstr ""
 
 #. translators: 1: date and time, 2: imported records, 3: skipped entries
-#: src/Admin/SettingsPage.php:500
+#: src/Admin/SettingsPage.php:516
 #, php-format
 msgid "%1$s: %2$d imported, %3$d skipped"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:505
+#: src/Admin/SettingsPage.php:521
 msgid "Running…"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:512
+#: src/Admin/SettingsPage.php:528
 msgid "Import"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:518
+#: src/Admin/SettingsPage.php:534
 msgid "Background tasks"
 msgstr ""
 
 #. translators: %d: number of pending background tasks
-#: src/Admin/SettingsPage.php:524
+#: src/Admin/SettingsPage.php:540
 #, php-format
 msgid "Pending tasks: %d."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:539
+#: src/Admin/SettingsPage.php:555
 msgid "View in WooCommerce → Status → Scheduled Actions"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:565
+#: src/Admin/SettingsPage.php:581
 msgid "Sorry, you are not allowed to do that."
 msgstr ""
 
 #. translators: Keep the placeholders {days} (number of days) and {price} (formatted price) unchanged.
-#: src/Display/NoticeRenderer.php:41
+#: src/Display/NoticeRenderer.php:43
 msgid "Lowest price in the {days} days before the discount: {price}"
 msgstr ""
 
 #. translators: Keep the placeholders {days} (number of days) and {price} (formatted price) unchanged.
-#: src/Display/NoticeRenderer.php:49
+#: src/Display/NoticeRenderer.php:51
 msgid "Lowest price since this product was launched ({days} days) before the discount: {price}"
 msgstr ""
 
 #. translators: Keep the placeholder {days} (number of days) unchanged.
-#: src/Display/NoticeRenderer.php:57
+#: src/Display/NoticeRenderer.php:59
 msgid "The lowest price in the {days} days before the discount is not available."
 msgstr ""
 
-#: src/Import/Importers.php:45
+#: src/Import/Importers.php:47
 msgid "Omnibus — show the lowest price (by iWorks)"
 msgstr ""
 
-#: src/Import/Importers.php:46
+#: src/Import/Importers.php:48
 msgid "WC Price History for Omnibus"
 msgstr ""
 
-#: src/Import/Importers.php:47
+#: src/Import/Importers.php:49
 msgid "Omnibus by iLabs"
 msgstr ""
 
 #. translators: %s: minimum WooCommerce version
-#: src/Plugin.php:259
+#: src/Plugin.php:263
 #, php-format
-msgid "PN Omnibus needs WooCommerce %s or newer to be active."
-msgstr ""
-
-#: src/Settings.php:126
-msgid "EU, strict: 30 days, no optional exemptions"
-msgstr ""
-
-#: src/Settings.php:127
-msgid "Bulgaria: 30 days, no optional exemptions"
+msgid "Pricetrail needs WooCommerce %s or newer to be active."
 msgstr ""
 
 #: src/Settings.php:128
-msgid "Germany: 30 days, perishable goods may be excluded"
+msgid "EU, strict: 30 days, no optional exemptions"
 msgstr ""
 
 #: src/Settings.php:129
-msgid "Poland: 30 days, products offered for less than 30 days use the period since launch"
+msgid "Bulgaria: 30 days, no optional exemptions"
 msgstr ""
 
 #: src/Settings.php:130
+msgid "Germany: 30 days, perishable goods may be excluded"
+msgstr ""
+
+#: src/Settings.php:131
+msgid "Poland: 30 days, products offered for less than 30 days use the period since launch"
+msgstr ""
+
+#: src/Settings.php:132
 msgid "Custom rules"
 msgstr ""

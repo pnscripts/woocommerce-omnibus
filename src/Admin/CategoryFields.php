@@ -40,8 +40,8 @@ final class CategoryFields {
 		printf(
 			'<div class="form-field"><label><input type="checkbox" name="%1$s" value="yes" /> %2$s</label><p>%3$s</p></div>',
 			esc_attr( ReferenceService::PERISHABLE_TERM ),
-			esc_html__( 'Perishable goods', 'pnscripts-omnibus' ),
-			esc_html__( 'Products in this category perish or expire quickly. Only used when the perishable-goods exemption is enabled in PN Omnibus settings.', 'pnscripts-omnibus' )
+			esc_html__( 'Perishable goods', 'pnscripts-pricetrail' ),
+			esc_html__( 'Products in this category perish or expire quickly. Only used when the perishable-goods exemption is enabled in Pricetrail settings.', 'pnscripts-pricetrail' )
 		);
 	}
 
@@ -52,13 +52,13 @@ final class CategoryFields {
 	 */
 	public function edit_field( $term ): void {
 		$checked = 'yes' === get_term_meta( $term->term_id, ReferenceService::PERISHABLE_TERM, true );
-		echo '<tr class="form-field"><th scope="row">' . esc_html__( 'Perishable goods', 'pnscripts-omnibus' ) . '</th><td>';
+		echo '<tr class="form-field"><th scope="row">' . esc_html__( 'Perishable goods', 'pnscripts-pricetrail' ) . '</th><td>';
 		wp_nonce_field( 'pnscripts_omnibus_term', self::NONCE );
 		printf(
 			'<label><input type="checkbox" name="%1$s" value="yes" %2$s /> %3$s</label>',
 			esc_attr( ReferenceService::PERISHABLE_TERM ),
 			checked( $checked, true, false ),
-			esc_html__( 'Products in this category perish or expire quickly.', 'pnscripts-omnibus' )
+			esc_html__( 'Products in this category perish or expire quickly.', 'pnscripts-pricetrail' )
 		);
 		echo '</td></tr>';
 	}

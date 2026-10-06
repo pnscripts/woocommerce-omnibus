@@ -1,6 +1,6 @@
 <?php
 /**
- * [pnscripts_omnibus_price] shortcode.
+ * [pnscripts_pricetrail_price] shortcode.
  *
  * @package Pnscripts\Omnibus
  */
@@ -14,11 +14,14 @@ use WC_Product;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Prints the notice anywhere: [pnscripts_omnibus_price] for the current product or [pnscripts_omnibus_price id="123"].
+ * Prints the notice anywhere: [pnscripts_pricetrail_price] for the current product or [pnscripts_pricetrail_price id="123"].
+ * The 1.0.x tag [pnscripts_omnibus_price] keeps working for content written before the rename.
  */
 final class Shortcode {
 
-	public const TAG = 'pnscripts_omnibus_price';
+	public const TAG = 'pnscripts_pricetrail_price';
+
+	public const LEGACY_TAG = 'pnscripts_omnibus_price';
 
 	/**
 	 * Constructor.
@@ -33,6 +36,7 @@ final class Shortcode {
 	 */
 	public function register(): void {
 		add_shortcode( self::TAG, array( $this, 'render' ) );
+		add_shortcode( self::LEGACY_TAG, array( $this, 'render' ) );
 	}
 
 	/**

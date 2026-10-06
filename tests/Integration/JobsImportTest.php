@@ -270,7 +270,7 @@ final class JobsImportTest extends IntegrationTestCase {
 		global $wpdb;
 		$product = $this->simple( '10' );
 
-		define( 'WP_UNINSTALL_PLUGIN', 'pnscripts-omnibus/pnscripts-omnibus.php' );
+		define( 'WP_UNINSTALL_PLUGIN', 'pnscripts-pricetrail/pnscripts-pricetrail.php' );
 		include dirname( __DIR__, 2 ) . '/uninstall.php';
 		$this->assertSame( Schema::table(), $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', Schema::table() ) ) );
 		$this->assertCount( 1, $this->records( $product->get_id() ) );

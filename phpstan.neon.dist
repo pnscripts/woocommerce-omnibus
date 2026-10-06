@@ -4,7 +4,7 @@ includes:
 parameters:
     level: 8
     paths:
-        - pnscripts-omnibus.php
+        - pnscripts-pricetrail.php
         - uninstall.php
         - src
     bootstrapFiles:

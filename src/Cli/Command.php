@@ -24,11 +24,11 @@ defined( 'ABSPATH' ) || exit;
  *
  * ## EXAMPLES
  *
- *     wp pnscripts-omnibus reference 123
- *     wp pnscripts-omnibus history 123
- *     wp pnscripts-omnibus backfill --mode=repair
- *     wp pnscripts-omnibus import omnibus
- *     wp pnscripts-omnibus prune
+ *     wp pnscripts-pricetrail reference 123
+ *     wp pnscripts-pricetrail history 123
+ *     wp pnscripts-pricetrail backfill --mode=repair
+ *     wp pnscripts-pricetrail import omnibus
+ *     wp pnscripts-pricetrail prune
  */
 final class Command {
 

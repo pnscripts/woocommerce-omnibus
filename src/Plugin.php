@@ -186,7 +186,7 @@ final class Plugin {
 		}
 
 		if ( defined( 'WP_CLI' ) && WP_CLI && class_exists( '\WP_CLI' ) ) {
-			\WP_CLI::add_command( 'pnscripts-omnibus', new Command( $this ) );
+			\WP_CLI::add_command( 'pnscripts-pricetrail', new Command( $this ) );
 		}
 	}
 
@@ -206,13 +206,13 @@ final class Plugin {
 	 */
 	private static function load_bundled_translations(): void {
 		$locale   = determine_locale();
-		$official = WP_LANG_DIR . '/plugins/pnscripts-omnibus-' . $locale;
+		$official = WP_LANG_DIR . '/plugins/pnscripts-pricetrail-' . $locale;
 		if ( is_readable( $official . '.mo' ) || is_readable( $official . '.l10n.php' ) ) {
 			return;
 		}
-		$bundled = PNSCRIPTS_OMNIBUS_DIR . 'languages/pnscripts-omnibus-' . $locale . '.mo';
+		$bundled = PNSCRIPTS_OMNIBUS_DIR . 'languages/pnscripts-pricetrail-' . $locale . '.mo';
 		if ( is_readable( $bundled ) ) {
-			load_textdomain( 'pnscripts-omnibus', $bundled, $locale );
+			load_textdomain( 'pnscripts-pricetrail', $bundled, $locale );
 		}
 	}
 
@@ -260,7 +260,7 @@ final class Plugin {
 			esc_html(
 				sprintf(
 					/* translators: %s: minimum WooCommerce version */
-					__( 'PN Omnibus needs WooCommerce %s or newer to be active.', 'pnscripts-omnibus' ),
+					__( 'Pricetrail needs WooCommerce %s or newer to be active.', 'pnscripts-pricetrail' ),
 					PNSCRIPTS_OMNIBUS_MIN_WC
 				)
 			)
