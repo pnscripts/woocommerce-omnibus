@@ -46,6 +46,6 @@
         "test": "phpunit --testsuite Unit --colors=always",
         "test:integration": "phpunit -c phpunit-integration.xml.dist --colors=always",
         "lint": "phpcs",
-        "analyse": "phpstan analyse --memory-limit=1G"
+        "analyse": "phpstan analyse --memory-limit=2G"
     }
 }
