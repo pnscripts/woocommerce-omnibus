@@ -1,14 +1,20 @@
 {
-    "name": "pnscripts/woocommerce-omnibus",
+    "name": "pnscripts/pnscripts-price-history",
     "description": "WooCommerce plugin: records price history and shows the lowest price in the 30 days before a discount (EU Omnibus Directive, Price Indication Directive Art. 6a).",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
+    "homepage": "https://pnscripts.com/marketplace/pnscripts-price-history",
     "authors": [
         {
             "name": "PN Scripts",
             "homepage": "https://pnscripts.com"
         }
     ],
+    "support": {
+        "issues": "https://github.com/pnscripts/pnscripts-price-history/issues",
+        "source": "https://github.com/pnscripts/pnscripts-price-history",
+        "security": "https://github.com/pnscripts/pnscripts-price-history/security/policy"
+    },
     "require": {
         "php": ">=8.1"
     },
