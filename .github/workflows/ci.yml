@@ -33,7 +33,7 @@ jobs:
         with:
           php-version: '8.1'
           coverage: none
-      - run: find src pnscripts-pricetrail.php uninstall.php -name '*.php' -print0 | xargs -0 -n1 php -l
+      - run: find src pnscripts-price-history.php uninstall.php -name '*.php' -print0 | xargs -0 -n1 php -l
 
   unit:
     name: Unit tests (PHP ${{ matrix.php }})
@@ -79,4 +79,4 @@ jobs:
         run: bin/build-zip.sh
       - uses: wordpress/plugin-check-action@v1
         with:
-          build-dir: build/pnscripts-pricetrail
+          build-dir: build/pnscripts-price-history

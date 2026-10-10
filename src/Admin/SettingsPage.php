@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce → Pricetrail admin page (settings, coverage report, tools).
+ * WooCommerce → Price History admin page (settings, coverage report, tools).
  *
  * @package Pnscripts\Omnibus
  */
@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class SettingsPage {
 
-	public const SLUG       = 'pnscripts-pricetrail';
+	public const SLUG       = 'pnscripts-price-history';
 	public const CAPABILITY = 'manage_woocommerce';
 	private const GROUP     = 'pnscripts_omnibus';
 	private const TOOL      = 'pnscripts_omnibus_tool';
@@ -67,8 +67,8 @@ final class SettingsPage {
 	public function menu(): void {
 		add_submenu_page(
 			'woocommerce',
-			__( 'Pricetrail: lowest price in the 30 days before a discount', 'pnscripts-pricetrail' ),
-			__( 'Pricetrail', 'pnscripts-pricetrail' ),
+			__( 'Price History: lowest price in the 30 days before a discount', 'pnscripts-price-history' ),
+			__( 'Price History', 'pnscripts-price-history' ),
 			self::CAPABILITY,
 			self::SLUG,
 			array( $this, 'render' )
@@ -85,7 +85,7 @@ final class SettingsPage {
 		$links = is_array( $links ) ? $links : array();
 		array_unshift(
 			$links,
-			sprintf( '<a href="%s">%s</a>', esc_url( self::url() ), esc_html__( 'Settings', 'pnscripts-pricetrail' ) )
+			sprintf( '<a href="%s">%s</a>', esc_url( self::url() ), esc_html__( 'Settings', 'pnscripts-price-history' ) )
 		);
 		return $links;
 	}
@@ -137,14 +137,14 @@ final class SettingsPage {
 	 */
 	public function render(): void {
 		if ( ! current_user_can( self::CAPABILITY ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pnscripts-pricetrail' ), 403 );
+			wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pnscripts-price-history' ), 403 );
 		}
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Tab navigation only.
 		$tab  = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'settings';
 		$tabs = array(
-			'settings' => __( 'Settings', 'pnscripts-pricetrail' ),
-			'report'   => __( 'Coverage report', 'pnscripts-pricetrail' ),
-			'tools'    => __( 'Import and tools', 'pnscripts-pricetrail' ),
+			'settings' => __( 'Settings', 'pnscripts-price-history' ),
+			'report'   => __( 'Coverage report', 'pnscripts-price-history' ),
+			'tools'    => __( 'Import and tools', 'pnscripts-price-history' ),
 		);
 
 		/**
@@ -158,7 +158,7 @@ final class SettingsPage {
 		}
 
 		echo '<div class="wrap pnscripts-omnibus-admin">';
-		echo '<h1>' . esc_html__( 'Pricetrail: lowest price before a discount', 'pnscripts-pricetrail' ) . '</h1>';
+		echo '<h1>' . esc_html__( 'Price History: lowest price before a discount', 'pnscripts-price-history' ) . '</h1>';
 		echo '<nav class="nav-tab-wrapper">';
 		foreach ( $tabs as $id => $label ) {
 			printf(
@@ -170,7 +170,7 @@ final class SettingsPage {
 		}
 		echo '</nav>';
 		$this->render_notices();
-		echo '<p class="pnscripts-omnibus-disclaimer">' . esc_html__( 'This plugin helps display prices; you remain responsible for compliance. It does not give legal advice. Check the rules that apply to your shop.', 'pnscripts-pricetrail' ) . '</p>';
+		echo '<p class="pnscripts-omnibus-disclaimer">' . esc_html__( 'This plugin helps display prices; you remain responsible for compliance. It does not give legal advice. Check the rules that apply to your shop.', 'pnscripts-price-history' ) . '</p>';
 
 		switch ( $tab ) {
 			case 'report':
@@ -199,8 +199,8 @@ final class SettingsPage {
 			return;
 		}
 		$message = 'error' === $done
-			? __( 'The action could not be started. Action Scheduler (part of WooCommerce) is not available.', 'pnscripts-pricetrail' )
-			: __( 'Started in the background. Refresh this page to see the progress.', 'pnscripts-pricetrail' );
+			? __( 'The action could not be started. Action Scheduler (part of WooCommerce) is not available.', 'pnscripts-price-history' )
+			: __( 'Started in the background. Refresh this page to see the progress.', 'pnscripts-price-history' );
 		printf( '<div class="notice notice-%1$s is-dismissible"><p>%2$s</p></div>', 'error' === $done ? 'error' : 'success', esc_html( $message ) );
 	}
 
@@ -215,20 +215,20 @@ final class SettingsPage {
 		echo '<form method="post" action="options.php">';
 		settings_fields( self::GROUP );
 
-		echo '<h2>' . esc_html__( 'Rules', 'pnscripts-pricetrail' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Rules', 'pnscripts-price-history' ) . '</h2>';
 		echo '<table class="form-table" role="presentation"><tbody>';
 
-		echo '<tr><th scope="row"><label for="pnscripts-omnibus-preset">' . esc_html__( 'Preset', 'pnscripts-pricetrail' ) . '</label></th><td>';
+		echo '<tr><th scope="row"><label for="pnscripts-omnibus-preset">' . esc_html__( 'Preset', 'pnscripts-price-history' ) . '</label></th><td>';
 		printf( '<select id="pnscripts-omnibus-preset" name="%s">', esc_attr( $name( 'preset' ) ) );
 		foreach ( Settings::preset_labels() as $id => $label ) {
 			printf( '<option value="%1$s" %2$s>%3$s</option>', esc_attr( $id ), selected( $values['preset'], $id, false ), esc_html( $label ) );
 		}
 		echo '</select>';
-		echo '<p class="description">' . esc_html__( 'A preset fills the three rules below when you save. Presets are starting points, not legal advice: confirm the rules of the country you sell to. Choose "Custom rules" to set them yourself.', 'pnscripts-pricetrail' ) . '</p></td></tr>';
+		echo '<p class="description">' . esc_html__( 'A preset fills the three rules below when you save. Presets are starting points, not legal advice: confirm the rules of the country you sell to. Choose "Custom rules" to set them yourself.', 'pnscripts-price-history' ) . '</p></td></tr>';
 
 		$disabled = 'custom' !== $values['preset'];
 
-		echo '<tr><th scope="row"><label for="pnscripts-omnibus-period">' . esc_html__( 'Period before the discount (days)', 'pnscripts-pricetrail' ) . '</label></th><td>';
+		echo '<tr><th scope="row"><label for="pnscripts-omnibus-period">' . esc_html__( 'Period before the discount (days)', 'pnscripts-price-history' ) . '</label></th><td>';
 		printf(
 			'<input type="number" id="pnscripts-omnibus-period" name="%1$s" value="%2$d" min="%3$d" max="%4$d" class="small-text" %5$s />',
 			esc_attr( $name( 'period_days' ) ),
@@ -237,12 +237,12 @@ final class SettingsPage {
 			(int) ReferencePolicy::MAX_PERIOD_DAYS,
 			$disabled ? 'readonly' : ''
 		);
-		echo '<p class="description">' . esc_html__( 'At least 30 days. The period ends when the current discount started and begins at midnight that many days earlier. For progressive discounts it ends when the first discount started.', 'pnscripts-pricetrail' ) . '</p></td></tr>';
+		echo '<p class="description">' . esc_html__( 'At least 30 days. The period ends when the current discount started and begins at midnight that many days earlier. For progressive discounts it ends when the first discount started.', 'pnscripts-price-history' ) . '</p></td></tr>';
 
-		echo '<tr><th scope="row">' . esc_html__( 'Products on the market for less than the period', 'pnscripts-pricetrail' ) . '</th><td><fieldset>';
+		echo '<tr><th scope="row">' . esc_html__( 'Products on the market for less than the period', 'pnscripts-price-history' ) . '</th><td><fieldset>';
 		foreach ( array(
-			ReferencePolicy::NEW_PRODUCT_HIDE         => __( 'Hide the notice (strict)', 'pnscripts-pricetrail' ),
-			ReferencePolicy::NEW_PRODUCT_SINCE_LAUNCH => __( 'Use the lowest price since the product was launched (only where your country allows a shorter period)', 'pnscripts-pricetrail' ),
+			ReferencePolicy::NEW_PRODUCT_HIDE         => __( 'Hide the notice (strict)', 'pnscripts-price-history' ),
+			ReferencePolicy::NEW_PRODUCT_SINCE_LAUNCH => __( 'Use the lowest price since the product was launched (only where your country allows a shorter period)', 'pnscripts-price-history' ),
 		) as $value => $label ) {
 			printf(
 				'<label><input type="radio" name="%1$s" value="%2$s" %3$s %4$s /> %5$s</label><br />',
@@ -257,54 +257,54 @@ final class SettingsPage {
 
 		$this->checkbox_row(
 			$name( 'perishable_exemption' ),
-			__( 'Perishable goods', 'pnscripts-pricetrail' ),
-			__( 'Do not show the notice for products (or categories) marked as perishable. Only where your country exempts perishable goods.', 'pnscripts-pricetrail' ),
+			__( 'Perishable goods', 'pnscripts-price-history' ),
+			__( 'Do not show the notice for products (or categories) marked as perishable. Only where your country exempts perishable goods.', 'pnscripts-price-history' ),
 			$values['perishable_exemption'],
 			$disabled
 		);
 		echo '</tbody></table>';
 
-		echo '<h2>' . esc_html__( 'Display', 'pnscripts-pricetrail' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Display', 'pnscripts-price-history' ) . '</h2>';
 		echo '<table class="form-table" role="presentation"><tbody>';
-		$this->checkbox_row( $name( 'show_single' ), __( 'Product page', 'pnscripts-pricetrail' ), __( 'Show the notice under the price on product pages (classic templates and the Product Price block).', 'pnscripts-pricetrail' ), $values['show_single'] );
-		$this->checkbox_row( $name( 'show_loop' ), __( 'Shop and category pages', 'pnscripts-pricetrail' ), __( 'Show the notice in product lists, related products and product blocks.', 'pnscripts-pricetrail' ), $values['show_loop'] );
-		$this->checkbox_row( $name( 'show_variations' ), __( 'Variations', 'pnscripts-pricetrail' ), __( 'Show the notice for the selected variation of variable products.', 'pnscripts-pricetrail' ), $values['show_variations'] );
-		$this->checkbox_row( $name( 'hide_when_unknown' ), __( 'Incomplete history', 'pnscripts-pricetrail' ), __( 'Hide the notice when the price history does not cover the whole period (recommended). When unchecked, the text below is shown instead.', 'pnscripts-pricetrail' ), $values['hide_when_unknown'] );
+		$this->checkbox_row( $name( 'show_single' ), __( 'Product page', 'pnscripts-price-history' ), __( 'Show the notice under the price on product pages (classic templates and the Product Price block).', 'pnscripts-price-history' ), $values['show_single'] );
+		$this->checkbox_row( $name( 'show_loop' ), __( 'Shop and category pages', 'pnscripts-price-history' ), __( 'Show the notice in product lists, related products and product blocks.', 'pnscripts-price-history' ), $values['show_loop'] );
+		$this->checkbox_row( $name( 'show_variations' ), __( 'Variations', 'pnscripts-price-history' ), __( 'Show the notice for the selected variation of variable products.', 'pnscripts-price-history' ), $values['show_variations'] );
+		$this->checkbox_row( $name( 'hide_when_unknown' ), __( 'Incomplete history', 'pnscripts-price-history' ), __( 'Hide the notice when the price history does not cover the whole period (recommended). When unchecked, the text below is shown instead.', 'pnscripts-price-history' ), $values['hide_when_unknown'] );
 
-		$this->text_row( $name( 'notice_text' ), __( 'Notice text', 'pnscripts-pricetrail' ), $values['notice_text'], NoticeRenderer::default_text() );
-		$this->text_row( $name( 'notice_text_short' ), __( 'Notice text (period since launch)', 'pnscripts-pricetrail' ), $values['notice_text_short'], NoticeRenderer::default_text_short() );
-		$this->text_row( $name( 'unknown_text' ), __( 'Text when the history is incomplete', 'pnscripts-pricetrail' ), $values['unknown_text'], NoticeRenderer::default_unknown_text() );
-		echo '<tr><th scope="row">' . esc_html__( 'Placeholders', 'pnscripts-pricetrail' ) . '</th><td><p class="description">';
-		echo esc_html__( '{price} the lowest price, {days} the number of days, {date} the day the discount started. Leave a text empty to use the translated default.', 'pnscripts-pricetrail' );
+		$this->text_row( $name( 'notice_text' ), __( 'Notice text', 'pnscripts-price-history' ), $values['notice_text'], NoticeRenderer::default_text() );
+		$this->text_row( $name( 'notice_text_short' ), __( 'Notice text (period since launch)', 'pnscripts-price-history' ), $values['notice_text_short'], NoticeRenderer::default_text_short() );
+		$this->text_row( $name( 'unknown_text' ), __( 'Text when the history is incomplete', 'pnscripts-price-history' ), $values['unknown_text'], NoticeRenderer::default_unknown_text() );
+		echo '<tr><th scope="row">' . esc_html__( 'Placeholders', 'pnscripts-price-history' ) . '</th><td><p class="description">';
+		echo esc_html__( '{price} the lowest price, {days} the number of days, {date} the day the discount started. Leave a text empty to use the translated default.', 'pnscripts-price-history' );
 		echo '</p><p class="description">';
 		printf(
 			/* translators: %s: shortcode */
-			esc_html__( 'To place the notice elsewhere, use the shortcode %s.', 'pnscripts-pricetrail' ),
-			'<code>[pnscripts_pricetrail_price]</code>'
+			esc_html__( 'To place the notice elsewhere, use the shortcode %s.', 'pnscripts-price-history' ),
+			'<code>[pnscripts_price_history]</code>'
 		);
 		echo '</p></td></tr>';
 		echo '</tbody></table>';
 
-		echo '<h2>' . esc_html__( 'Data', 'pnscripts-pricetrail' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Data', 'pnscripts-price-history' ) . '</h2>';
 		echo '<table class="form-table" role="presentation"><tbody>';
-		echo '<tr><th scope="row"><label for="pnscripts-omnibus-retention">' . esc_html__( 'Keep history for (days)', 'pnscripts-pricetrail' ) . '</label></th><td>';
+		echo '<tr><th scope="row"><label for="pnscripts-omnibus-retention">' . esc_html__( 'Keep history for (days)', 'pnscripts-price-history' ) . '</label></th><td>';
 		printf(
 			'<input type="number" id="pnscripts-omnibus-retention" name="%1$s" value="%2$d" min="%3$d" max="3650" class="small-text" />',
 			esc_attr( $name( 'retention_days' ) ),
 			(int) $values['retention_days'],
 			(int) Settings::MIN_RETENTION_DAYS
 		);
-		echo '<p class="description">' . esc_html__( 'Older prices are deleted daily, except the ones still needed for a running discount. Minimum 31 days.', 'pnscripts-pricetrail' ) . '</p></td></tr>';
+		echo '<p class="description">' . esc_html__( 'Older prices are deleted daily, except the ones still needed for a running discount. Minimum 31 days.', 'pnscripts-price-history' ) . '</p></td></tr>';
 		$this->checkbox_row(
 			$name( 'trust_last_modified' ),
-			__( 'First record', 'pnscripts-pricetrail' ),
-			__( 'When recording starts for an existing product, assume its current price has applied since the product was last modified. Leave unchecked if other software changes prices without updating products (strict).', 'pnscripts-pricetrail' ),
+			__( 'First record', 'pnscripts-price-history' ),
+			__( 'When recording starts for an existing product, assume its current price has applied since the product was last modified. Leave unchecked if other software changes prices without updating products (strict).', 'pnscripts-price-history' ),
 			$values['trust_last_modified']
 		);
 		$this->checkbox_row(
 			$name( 'delete_data_on_uninstall' ),
-			__( 'Uninstall', 'pnscripts-pricetrail' ),
-			__( 'Delete the price history and settings when the plugin is deleted.', 'pnscripts-pricetrail' ),
+			__( 'Uninstall', 'pnscripts-price-history' ),
+			__( 'Delete the price history and settings when the plugin is deleted.', 'pnscripts-price-history' ),
 			$values['delete_data_on_uninstall']
 		);
 		echo '</tbody></table>';
@@ -399,10 +399,10 @@ final class SettingsPage {
 		echo '<p>' . esc_html(
 			sprintf(
 				/* translators: %d: number of products and variations */
-				_n( '%d product or variation is on sale.', '%d products and variations are on sale.', $total, 'pnscripts-pricetrail' ),
+				_n( '%d product or variation is on sale.', '%d products and variations are on sale.', $total, 'pnscripts-price-history' ),
 				$total
 			)
-		) . ' ' . esc_html__( 'For each one: whether the lowest prior price is known and shown, and if not, why.', 'pnscripts-pricetrail' ) . '</p>';
+		) . ' ' . esc_html__( 'For each one: whether the lowest prior price is known and shown, and if not, why.', 'pnscripts-price-history' ) . '</p>';
 
 		if ( 0 === $total ) {
 			return;
@@ -410,11 +410,11 @@ final class SettingsPage {
 
 		echo '<table class="widefat striped pnscripts-omnibus-report"><thead><tr>';
 		foreach ( array(
-			__( 'Product', 'pnscripts-pricetrail' ),
-			__( 'Current price', 'pnscripts-pricetrail' ),
-			__( 'Lowest prior price', 'pnscripts-pricetrail' ),
-			__( 'Discount started', 'pnscripts-pricetrail' ),
-			__( 'Status', 'pnscripts-pricetrail' ),
+			__( 'Product', 'pnscripts-price-history' ),
+			__( 'Current price', 'pnscripts-price-history' ),
+			__( 'Lowest prior price', 'pnscripts-price-history' ),
+			__( 'Discount started', 'pnscripts-price-history' ),
+			__( 'Status', 'pnscripts-price-history' ),
 		) as $heading ) {
 			printf( '<th scope="col">%s</th>', esc_html( $heading ) );
 		}
@@ -463,11 +463,11 @@ final class SettingsPage {
 	private function render_tools(): void {
 		$stats = $this->plugin->repository->stats();
 
-		echo '<h2>' . esc_html__( 'Status', 'pnscripts-pricetrail' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Status', 'pnscripts-price-history' ) . '</h2>';
 		echo '<p>' . esc_html(
 			sprintf(
 				/* translators: 1: number of stored price records, 2: number of products and variations */
-				__( '%1$d price records for %2$d products and variations.', 'pnscripts-pricetrail' ),
+				__( '%1$d price records for %2$d products and variations.', 'pnscripts-price-history' ),
 				$stats['rows'],
 				$stats['products']
 			)
@@ -480,26 +480,26 @@ final class SettingsPage {
 				$finished > 0
 					? sprintf(
 						/* translators: 1: date and time, 2: number of products checked, 3: number of records added */
-						__( 'Last catalogue check finished %1$s: %2$d products checked, %3$d records added.', 'pnscripts-pricetrail' ),
+						__( 'Last catalogue check finished %1$s: %2$d products checked, %3$d records added.', 'pnscripts-price-history' ),
 						(string) wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $finished ),
 						(int) ( $status['processed'] ?? 0 ),
 						(int) ( $status['recorded'] ?? 0 )
 					)
 					: sprintf(
 						/* translators: %d: number of products checked so far */
-						__( 'Catalogue check running: %d products checked so far.', 'pnscripts-pricetrail' ),
+						__( 'Catalogue check running: %d products checked so far.', 'pnscripts-price-history' ),
 						(int) ( $status['processed'] ?? 0 )
 					)
 			) . '</p>';
 		}
 
-		echo '<h2>' . esc_html__( 'Check the catalogue', 'pnscripts-pricetrail' ) . '</h2>';
-		echo '<p>' . esc_html__( 'Records the current price of products that have no history yet, and marks products whose price changed without passing through WooCommerce. Runs in the background.', 'pnscripts-pricetrail' ) . '</p>';
-		$this->tool_button( 'repair', '', __( 'Check the catalogue now', 'pnscripts-pricetrail' ) );
+		echo '<h2>' . esc_html__( 'Check the catalogue', 'pnscripts-price-history' ) . '</h2>';
+		echo '<p>' . esc_html__( 'Records the current price of products that have no history yet, and marks products whose price changed without passing through WooCommerce. Runs in the background.', 'pnscripts-price-history' ) . '</p>';
+		$this->tool_button( 'repair', '', __( 'Check the catalogue now', 'pnscripts-price-history' ) );
 
-		echo '<h2>' . esc_html__( 'Import history from another plugin', 'pnscripts-pricetrail' ) . '</h2>';
-		echo '<p>' . esc_html__( 'Reads (never changes) the price history saved by another plugin and adds the prices from before Pricetrail started recording each product. Only import from a plugin that was active until now; a plugin that was switched off long ago has gaps that cannot be detected. Running an import twice is safe.', 'pnscripts-pricetrail' ) . '</p>';
-		echo '<table class="widefat striped"><thead><tr><th scope="col">' . esc_html__( 'Plugin', 'pnscripts-pricetrail' ) . '</th><th scope="col">' . esc_html__( 'Data found', 'pnscripts-pricetrail' ) . '</th><th scope="col">' . esc_html__( 'Last import', 'pnscripts-pricetrail' ) . '</th><th scope="col"></th></tr></thead><tbody>';
+		echo '<h2>' . esc_html__( 'Import history from another plugin', 'pnscripts-price-history' ) . '</h2>';
+		echo '<p>' . esc_html__( 'Reads (never changes) the price history saved by another plugin and adds the prices from before this plugin started recording each product. Only import from a plugin that was active until now; a plugin that was switched off long ago has gaps that cannot be detected. Running an import twice is safe.', 'pnscripts-price-history' ) . '</p>';
+		echo '<table class="widefat striped"><thead><tr><th scope="col">' . esc_html__( 'Plugin', 'pnscripts-price-history' ) . '</th><th scope="col">' . esc_html__( 'Data found', 'pnscripts-price-history' ) . '</th><th scope="col">' . esc_html__( 'Last import', 'pnscripts-price-history' ) . '</th><th scope="col"></th></tr></thead><tbody>';
 		foreach ( Importers::labels() as $group => $label ) {
 			$found  = $this->plugin->importers->count( $group );
 			$status = ImportRunner::status( $group );
@@ -513,31 +513,31 @@ final class SettingsPage {
 					$finished > 0
 						? sprintf(
 							/* translators: 1: date and time, 2: imported records, 3: skipped entries */
-							__( '%1$s: %2$d imported, %3$d skipped', 'pnscripts-pricetrail' ),
+							__( '%1$s: %2$d imported, %3$d skipped', 'pnscripts-price-history' ),
 							(string) wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $finished ),
 							(int) ( $status['imported'] ?? 0 ),
 							(int) ( $status['skipped'] ?? 0 )
 						)
-						: __( 'Running…', 'pnscripts-pricetrail' )
+						: __( 'Running…', 'pnscripts-price-history' )
 				);
 			} else {
 				echo '&mdash;';
 			}
 			echo '</td><td>';
 			if ( $found > 0 ) {
-				$this->tool_button( 'import', $group, __( 'Import', 'pnscripts-pricetrail' ) );
+				$this->tool_button( 'import', $group, __( 'Import', 'pnscripts-price-history' ) );
 			}
 			echo '</td></tr>';
 		}
 		echo '</tbody></table>';
 
-		echo '<h2>' . esc_html__( 'Background tasks', 'pnscripts-pricetrail' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Background tasks', 'pnscripts-price-history' ) . '</h2>';
 		printf(
 			'<p>%s <a href="%s">%s</a></p>',
 			esc_html(
 				sprintf(
 					/* translators: %d: number of pending background tasks */
-					__( 'Pending tasks: %d.', 'pnscripts-pricetrail' ),
+					__( 'Pending tasks: %d.', 'pnscripts-price-history' ),
 					Queue::pending( Backfill::HOOK ) + Queue::pending( ImportRunner::HOOK ) + Queue::pending( Retention::HOOK )
 				)
 			),
@@ -552,7 +552,7 @@ final class SettingsPage {
 					admin_url( 'admin.php' )
 				)
 			),
-			esc_html__( 'View in WooCommerce → Status → Scheduled Actions', 'pnscripts-pricetrail' )
+			esc_html__( 'View in WooCommerce → Status → Scheduled Actions', 'pnscripts-price-history' )
 		);
 	}
 
@@ -578,7 +578,7 @@ final class SettingsPage {
 	 */
 	public function handle_tool(): void {
 		if ( ! current_user_can( self::CAPABILITY ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to do that.', 'pnscripts-pricetrail' ), 403 );
+			wp_die( esc_html__( 'Sorry, you are not allowed to do that.', 'pnscripts-price-history' ), 403 );
 		}
 		$tool = isset( $_POST['tool'] ) ? sanitize_key( wp_unslash( $_POST['tool'] ) ) : '';
 		check_admin_referer( self::TOOL . '_' . $tool );

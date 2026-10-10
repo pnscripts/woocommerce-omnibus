@@ -1,10 +1,10 @@
-=== PN Scripts Pricetrail – 30-Day Lowest Price for Sales ===
+=== PN Scripts Price History for Discounts ===
 Contributors: pnscripts
 Tags: lowest price, price history, discount, sale price, price indication
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Shows the lowest price in the 30 days before a discount, based on a complete pri
 
 When a shop in the EU announces a price reduction, the prior price it shows must be the lowest price applied during at least the 30 days before the reduction (Price Indication Directive 98/6/EC, Art. 6a, added by the "Omnibus" Directive (EU) 2019/2161).
 
-**PN Scripts Pricetrail** records every price change of your products and variations, works out that lowest prior price and prints it under the price:
+**PN Scripts Price History for Discounts** records every price change of your products and variations, works out that lowest prior price and prints it under the price:
 
 > Lowest price in the 30 days before the discount: €21.00
 
@@ -43,19 +43,19 @@ It is built around one promise: **if the price history cannot prove the number, 
 
 * Product pages, shop and category pages, related products and product blocks (the Product Price block and product collections in block themes such as Twenty Twenty-Five).
 * The selected **variation** of a variable product.
-* Anywhere else with the shortcode `[pnscripts_pricetrail_price]` or `[pnscripts_pricetrail_price id="123"]`.
+* Anywhere else with the shortcode `[pnscripts_price_history]` or `[pnscripts_price_history id="123"]`.
 * Your own wording with `{price}`, `{days}` and `{date}` placeholders, or the translated default.
 
 = Brings your existing history =
 
-One-click, read-only import of the price history saved by Omnibus — show the lowest price (iWorks), WC Price History for Omnibus and Omnibus by iLabs (separate plugins by other authors). Imported prices only fill the time before Pricetrail started recording.
+One-click, read-only import of the price history saved by Omnibus — show the lowest price (iWorks), WC Price History for Omnibus and Omnibus by iLabs (separate plugins by other authors). Imported prices only fill the time before this plugin started recording.
 
 = Admin tools =
 
-* Settings under WooCommerce → Pricetrail, with rule presets (EU strict, Bulgaria, Germany, Poland, custom).
+* Settings under WooCommerce → Price History, with rule presets (EU strict, Bulgaria, Germany, Poland, custom).
 * **Coverage report**: every product and variation on sale, the prior price shown, or why nothing is shown.
 * A price history table and the computed prior price on the product edit screen.
-* WP-CLI: `wp pnscripts-pricetrail reference|history|backfill|import|prune`.
+* WP-CLI: `wp pnscripts-price-history reference|history|backfill|import|prune`.
 
 = Compatibility =
 
@@ -74,8 +74,8 @@ The plugin stores product prices only. It stores no personal data, sets no cooki
 == Installation ==
 
 1. Install and activate WooCommerce 9.0 or newer.
-2. Upload the `pnscripts-pricetrail` folder to `/wp-content/plugins/` or install the plugin from the Plugins screen, then activate it.
-3. Open **WooCommerce → Pricetrail**, choose a preset and check the display options.
+2. Upload the `pnscripts-price-history` folder to `/wp-content/plugins/` or install the plugin from the Plugins screen, then activate it.
+3. Open **WooCommerce → Price History**, choose a preset and check the display options.
 4. Optional: on the **Import and tools** tab, import the history of another lowest-price plugin you used before.
 5. Wait: for products that were already on sale when you installed the plugin, the notice appears once the history covers the whole period. The **Coverage report** tab tells you, product by product.
 
@@ -111,7 +111,7 @@ No. The free plugin adds the notice only.
 
 = Can I place the notice somewhere else? =
 
-Use the shortcode `[pnscripts_pricetrail_price]` on a product page or `[pnscripts_pricetrail_price id="123"]` anywhere, and switch off the automatic notice on product pages if you want only the shortcode.
+Use the shortcode `[pnscripts_price_history]` on a product page or `[pnscripts_price_history id="123"]` anywhere, and switch off the automatic notice on product pages if you want only the shortcode.
 
 = Does it slow down my shop? =
 
@@ -138,8 +138,11 @@ Omnibus — show the lowest price (iWorks), WC Price History for Omnibus, and Om
 
 == Changelog ==
 
+= 1.0.3 =
+* Renamed to PN Scripts Price History for Discounts (slug and text domain `pnscripts-price-history`) after the WordPress.org review. Settings move to WooCommerce → Price History, the WP-CLI command is `wp pnscripts-price-history`, the shortcode is `[pnscripts_price_history]` (the 1.0.0 tag `[pnscripts_omnibus_price]` still works). Settings and price history are kept.
+
 = 1.0.2 =
-* Renamed to PN Scripts Pricetrail (slug and text domain `pnscripts-pricetrail`) for WordPress.org. Settings move to WooCommerce → Pricetrail, the WP-CLI command is `wp pnscripts-pricetrail`, the shortcode is `[pnscripts_pricetrail_price]` (the old `[pnscripts_omnibus_price]` still works). Settings and price history are kept.
+* Interim rename during the WordPress.org review (not published).
 
 = 1.0.1 =
 * Direct-access guard in every PHP file (WordPress.org review). No functional change.
@@ -149,8 +152,8 @@ Omnibus — show the lowest price (iWorks), WC Price History for Omnibus, and Om
 
 == Upgrade Notice ==
 
-= 1.0.2 =
-New name and slug (pnscripts-pricetrail). Settings and price history are kept.
+= 1.0.3 =
+New name and slug (pnscripts-price-history). Settings and price history are kept.
 
 = 1.0.1 =
 Hardening only, no functional change.

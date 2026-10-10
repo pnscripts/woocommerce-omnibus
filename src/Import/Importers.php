@@ -44,9 +44,9 @@ final class Importers {
 	 */
 	public static function labels(): array {
 		return array(
-			'omnibus'          => __( 'Omnibus — show the lowest price (by iWorks)', 'pnscripts-pricetrail' ),
-			'wc-price-history' => __( 'WC Price History for Omnibus', 'pnscripts-pricetrail' ),
-			'omnibus-by-ilabs' => __( 'Omnibus by iLabs', 'pnscripts-pricetrail' ),
+			'omnibus'          => __( 'Omnibus — show the lowest price (by iWorks)', 'pnscripts-price-history' ),
+			'wc-price-history' => __( 'WC Price History for Omnibus', 'pnscripts-price-history' ),
+			'omnibus-by-ilabs' => __( 'Omnibus by iLabs', 'pnscripts-price-history' ),
 		);
 	}
 

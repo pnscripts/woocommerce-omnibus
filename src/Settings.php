@@ -125,11 +125,11 @@ final class Settings {
 	 */
 	public static function preset_labels(): array {
 		return array(
-			'eu_strict' => __( 'EU, strict: 30 days, no optional exemptions', 'pnscripts-pricetrail' ),
-			'bg'        => __( 'Bulgaria: 30 days, no optional exemptions', 'pnscripts-pricetrail' ),
-			'de'        => __( 'Germany: 30 days, perishable goods may be excluded', 'pnscripts-pricetrail' ),
-			'pl'        => __( 'Poland: 30 days, products offered for less than 30 days use the period since launch', 'pnscripts-pricetrail' ),
-			'custom'    => __( 'Custom rules', 'pnscripts-pricetrail' ),
+			'eu_strict' => __( 'EU, strict: 30 days, no optional exemptions', 'pnscripts-price-history' ),
+			'bg'        => __( 'Bulgaria: 30 days, no optional exemptions', 'pnscripts-price-history' ),
+			'de'        => __( 'Germany: 30 days, perishable goods may be excluded', 'pnscripts-price-history' ),
+			'pl'        => __( 'Poland: 30 days, products offered for less than 30 days use the period since launch', 'pnscripts-price-history' ),
+			'custom'    => __( 'Custom rules', 'pnscripts-price-history' ),
 		);
 	}
 

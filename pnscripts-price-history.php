@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:          PN Scripts Pricetrail – 30-Day Lowest Price for Sales
+ * Plugin Name:          PN Scripts Price History for Discounts
  * Plugin URI:           https://pnscripts.com/marketplace/pn-omnibus
  * Description:          Records every product and variation price change and shows the lowest price in the 30 days before a discount (EU Price Indication Directive, Art. 6a). Shows nothing when the history is incomplete.
- * Version:              1.0.2
+ * Version:              1.0.3
  * Requires at least:    6.5
  * Requires PHP:         8.1
  * Requires Plugins:     woocommerce
@@ -13,7 +13,7 @@
  * Author URI:           https://pnscripts.com
  * License:              GPL-2.0-or-later
  * License URI:          https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:          pnscripts-pricetrail
+ * Text Domain:          pnscripts-price-history
  * Domain Path:          /languages
  *
  * @package Pnscripts\Omnibus
@@ -35,7 +35,7 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'PNSCRIPTS_OMNIBUS_VERSION', '1.0.2' );
+define( 'PNSCRIPTS_OMNIBUS_VERSION', '1.0.3' );
 define( 'PNSCRIPTS_OMNIBUS_DB_VERSION', '1' );
 define( 'PNSCRIPTS_OMNIBUS_FILE', __FILE__ );
 define( 'PNSCRIPTS_OMNIBUS_DIR', plugin_dir_path( __FILE__ ) );

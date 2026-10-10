@@ -1,5 +1,5 @@
 /**
- * PN Scripts Pricetrail settings: unlock the rule fields when "Custom rules" is selected.
+ * PN Scripts Price History settings: unlock the rule fields when "Custom rules" is selected.
  */
 ( function () {
 	'use strict';

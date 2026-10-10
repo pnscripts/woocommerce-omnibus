@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.0.3] - 2026-10-10
+
+### Changed
+
+- Renamed to "PN Scripts Price History for Discounts" (was "PN Scripts Pricetrail – 30-Day Lowest Price for Sales"): the WordPress.org review (2026-10-07) found "PriceTrail" already used by unrelated price-monitoring and price-history services. Slug, folder, main file (`pnscripts-price-history.php`) and text domain are now `pnscripts-price-history`; bundled translations renamed and recompiled.
+- Admin page is WooCommerce → Price History (`admin.php?page=pnscripts-price-history`); WP-CLI command is `wp pnscripts-price-history`.
+- Shortcode is `[pnscripts_price_history]`; the 1.0.0 tag `[pnscripts_omnibus_price]` keeps working. The 1.0.2 tag `[pnscripts_pricetrail_price]` is dropped (1.0.2 was never published).
+- Code prefixes, hooks, option and meta names, CSS classes and the `{prefix}pnscripts_omnibus_price_history` table are unchanged, so settings and price history are kept.
+
 ## [1.0.2] - 2026-10-06
 
 ### Changed

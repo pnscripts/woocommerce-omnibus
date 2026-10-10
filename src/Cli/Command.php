@@ -24,11 +24,11 @@ defined( 'ABSPATH' ) || exit;
  *
  * ## EXAMPLES
  *
- *     wp pnscripts-pricetrail reference 123
- *     wp pnscripts-pricetrail history 123
- *     wp pnscripts-pricetrail backfill --mode=repair
- *     wp pnscripts-pricetrail import omnibus
- *     wp pnscripts-pricetrail prune
+ *     wp pnscripts-price-history reference 123
+ *     wp pnscripts-price-history history 123
+ *     wp pnscripts-price-history backfill --mode=repair
+ *     wp pnscripts-price-history import omnibus
+ *     wp pnscripts-price-history prune
  */
 final class Command {
 

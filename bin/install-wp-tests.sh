@@ -38,7 +38,7 @@ unzip -q "$DL/sqlite.zip" -d "$SITE/wp-content/plugins"
 SQLITE="$SITE/wp-content/plugins/sqlite-database-integration"
 sed -e "s#{SQLITE_IMPLEMENTATION_FOLDER_PATH}#$SQLITE#" -e "s#{SQLITE_PLUGIN}#sqlite-database-integration/load.php#g" \
 	"$SQLITE/db.copy" > "$SITE/wp-content/db.php"
-ln -s "$ROOT" "$SITE/wp-content/plugins/pnscripts-pricetrail"
+ln -s "$ROOT" "$SITE/wp-content/plugins/pnscripts-price-history"
 
 $WP_CLI --path="$SITE" config create --dbname=wp --dbuser=wp --dbpass=wp --skip-check --extra-php <<'PHP'
 define( 'WP_DEBUG', true );
@@ -47,10 +47,10 @@ define( 'WP_DEBUG_LOG', true );
 define( 'DISABLE_WP_CRON', true );
 define( 'WP_ENVIRONMENT_TYPE', 'local' );
 PHP
-$WP_CLI --path="$SITE" core install --url=http://localhost --title="Pricetrail tests" \
+$WP_CLI --path="$SITE" core install --url=http://localhost --title="Price History tests" \
 	--admin_user=admin --admin_password="$(head -c 18 /dev/urandom | base64)" --admin_email=admin@example.test --skip-email
 $WP_CLI --path="$SITE" option update timezone_string Europe/Sofia
-$WP_CLI --path="$SITE" plugin activate woocommerce pnscripts-pricetrail
+$WP_CLI --path="$SITE" plugin activate woocommerce pnscripts-price-history
 $WP_CLI --path="$SITE" option update woocommerce_currency EUR
 
 echo "Test site ready: $SITE"

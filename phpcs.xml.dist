@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="PN Scripts Pricetrail">
-	<description>WordPress Coding Standards for PN Scripts Pricetrail.</description>
+<ruleset name="PN Scripts Price History">
+	<description>WordPress Coding Standards for PN Scripts Price History.</description>
 
 	<file>.</file>
 	<exclude-pattern>/vendor/*</exclude-pattern>
@@ -29,7 +29,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="pnscripts-pricetrail"/>
+				<element value="pnscripts-price-history"/>
 			</property>
 		</properties>
 	</rule>

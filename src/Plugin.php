@@ -186,7 +186,7 @@ final class Plugin {
 		}
 
 		if ( defined( 'WP_CLI' ) && WP_CLI && class_exists( '\WP_CLI' ) ) {
-			\WP_CLI::add_command( 'pnscripts-pricetrail', new Command( $this ) );
+			\WP_CLI::add_command( 'pnscripts-price-history', new Command( $this ) );
 		}
 	}
 
@@ -206,13 +206,13 @@ final class Plugin {
 	 */
 	private static function load_bundled_translations(): void {
 		$locale   = determine_locale();
-		$official = WP_LANG_DIR . '/plugins/pnscripts-pricetrail-' . $locale;
+		$official = WP_LANG_DIR . '/plugins/pnscripts-price-history-' . $locale;
 		if ( is_readable( $official . '.mo' ) || is_readable( $official . '.l10n.php' ) ) {
 			return;
 		}
-		$bundled = PNSCRIPTS_OMNIBUS_DIR . 'languages/pnscripts-pricetrail-' . $locale . '.mo';
+		$bundled = PNSCRIPTS_OMNIBUS_DIR . 'languages/pnscripts-price-history-' . $locale . '.mo';
 		if ( is_readable( $bundled ) ) {
-			load_textdomain( 'pnscripts-pricetrail', $bundled, $locale );
+			load_textdomain( 'pnscripts-price-history', $bundled, $locale );
 		}
 	}
 
@@ -260,7 +260,7 @@ final class Plugin {
 			esc_html(
 				sprintf(
 					/* translators: %s: minimum WooCommerce version */
-					__( 'Pricetrail needs WooCommerce %s or newer to be active.', 'pnscripts-pricetrail' ),
+					__( 'PN Scripts Price History needs WooCommerce %s or newer to be active.', 'pnscripts-price-history' ),
 					PNSCRIPTS_OMNIBUS_MIN_WC
 				)
 			)

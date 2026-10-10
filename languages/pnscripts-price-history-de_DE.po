@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PN Scripts Pricetrail 1.0.2\n"
+"Project-Id-Version: PN Scripts Price History 1.0.3\n"
 "Report-Msgid-Bugs-To: https://pnscripts.com/marketplace/pn-omnibus\n"
 "Last-Translator: PN Scripts (machine-assisted, needs native review)\n"
 "Language-Team: PN Scripts <https://pnscripts.com>\n"
@@ -8,34 +8,34 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-04T14:15:47+00:00\n"
-"PO-Revision-Date: 2026-10-04 17:00+0300\n"
+"PO-Revision-Date: 2026-10-10 12:00+0300\n"
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: pnscripts-pricetrail\n"
+"X-Domain: pnscripts-price-history\n"
 
 #. Plugin Name of the plugin
-#: pnscripts-pricetrail.php
-msgid "PN Scripts Pricetrail – 30-Day Lowest Price for Sales"
-msgstr "PN Scripts Pricetrail – niedrigster 30-Tage-Preis für Rabattaktionen"
+#: pnscripts-price-history.php
+msgid "PN Scripts Price History for Discounts"
+msgstr "PN Scripts Price History für Rabattaktionen"
 
 #. Plugin URI of the plugin
-#: pnscripts-pricetrail.php
+#: pnscripts-price-history.php
 msgid "https://pnscripts.com/marketplace/pn-omnibus"
 msgstr "https://pnscripts.com/marketplace/pn-omnibus"
 
 #. Description of the plugin
-#: pnscripts-pricetrail.php
+#: pnscripts-price-history.php
 msgid "Records every product and variation price change and shows the lowest price in the 30 days before a discount (EU Price Indication Directive, Art. 6a). Shows nothing when the history is incomplete."
 msgstr "Speichert jede Preisänderung von Produkten und Varianten und zeigt den niedrigsten Preis der 30 Tage vor einer Preisermäßigung (Preisangabenrichtlinie, Art. 6a). Zeigt nichts an, wenn die Preishistorie unvollständig ist."
 
 #. Author of the plugin
-#: pnscripts-pricetrail.php
+#: pnscripts-price-history.php
 msgid "PN Scripts"
 msgstr "PN Scripts"
 
 #. Author URI of the plugin
-#: pnscripts-pricetrail.php
+#: pnscripts-price-history.php
 msgid "https://pnscripts.com"
 msgstr "https://pnscripts.com"
 
@@ -47,8 +47,8 @@ msgid "Perishable goods"
 msgstr "Schnell verderbliche Waren"
 
 #: src/Admin/CategoryFields.php:44
-msgid "Products in this category perish or expire quickly. Only used when the perishable-goods exemption is enabled in Pricetrail settings."
-msgstr "Produkte dieser Kategorie verderben schnell oder haben eine kurze Haltbarkeit. Wird nur verwendet, wenn die Ausnahme für schnell verderbliche Waren in den Pricetrail-Einstellungen aktiviert ist."
+msgid "Products in this category perish or expire quickly. Only used when the perishable-goods exemption is enabled in the Price History settings."
+msgstr "Produkte dieser Kategorie verderben schnell oder haben eine kurze Haltbarkeit. Wird nur verwendet, wenn die Ausnahme für schnell verderbliche Waren in den Price-History-Einstellungen aktiviert ist."
 
 #: src/Admin/CategoryFields.php:61
 msgid "Products in this category perish or expire quickly."
@@ -234,16 +234,16 @@ msgid "lowest price in the %1$d days before the discount that started on %2$s:"
 msgstr "niedrigster Preis der %1$d Tage vor der Preisermäßigung, die am %2$s begann:"
 
 #: src/Admin/ProductPanel.php:207
-msgid "Goods that perish or expire quickly. Only used when the perishable-goods exemption is enabled in Pricetrail settings."
-msgstr "Waren, die schnell verderben oder eine kurze Haltbarkeit haben. Wird nur verwendet, wenn die Ausnahme für schnell verderbliche Waren in den Pricetrail-Einstellungen aktiviert ist."
+msgid "Goods that perish or expire quickly. Only used when the perishable-goods exemption is enabled in the Price History settings."
+msgstr "Waren, die schnell verderben oder eine kurze Haltbarkeit haben. Wird nur verwendet, wenn die Ausnahme für schnell verderbliche Waren in den Price-History-Einstellungen aktiviert ist."
 
 #: src/Admin/SettingsPage.php:70
-msgid "Pricetrail: lowest price in the 30 days before a discount"
-msgstr "Pricetrail: niedrigster Preis der 30 Tage vor einer Preisermäßigung"
+msgid "Price History: lowest price in the 30 days before a discount"
+msgstr "Price History: niedrigster Preis der 30 Tage vor einer Preisermäßigung"
 
 #: src/Admin/SettingsPage.php:71
-msgid "Pricetrail"
-msgstr "Pricetrail"
+msgid "Price History"
+msgstr "Price History"
 
 #: src/Admin/SettingsPage.php:88
 #: src/Admin/SettingsPage.php:145
@@ -263,8 +263,8 @@ msgid "Import and tools"
 msgstr "Import und Werkzeuge"
 
 #: src/Admin/SettingsPage.php:161
-msgid "Pricetrail: lowest price before a discount"
-msgstr "Pricetrail: niedrigster Preis vor einer Preisermäßigung"
+msgid "Price History: lowest price before a discount"
+msgstr "Price History: niedrigster Preis vor einer Preisermäßigung"
 
 #: src/Admin/SettingsPage.php:173
 msgid "This plugin helps display prices; you remain responsible for compliance. It does not give legal advice. Check the rules that apply to your shop."
@@ -468,8 +468,8 @@ msgid "Import history from another plugin"
 msgstr "Historie aus einem anderen Plugin importieren"
 
 #: src/Admin/SettingsPage.php:501
-msgid "Reads (never changes) the price history saved by another plugin and adds the prices from before Pricetrail started recording each product. Only import from a plugin that was active until now; a plugin that was switched off long ago has gaps that cannot be detected. Running an import twice is safe."
-msgstr "Liest die von einem anderen Plugin gespeicherte Preishistorie (ohne sie zu ändern) und ergänzt die Preise aus der Zeit, bevor Pricetrail mit der Aufzeichnung des jeweiligen Produkts begann. Importiere nur aus einem Plugin, das bis jetzt aktiv war; ein vor langer Zeit deaktiviertes Plugin hat Lücken, die nicht erkannt werden können. Ein erneuter Import ist unbedenklich."
+msgid "Reads (never changes) the price history saved by another plugin and adds the prices from before this plugin started recording each product. Only import from a plugin that was active until now; a plugin that was switched off long ago has gaps that cannot be detected. Running an import twice is safe."
+msgstr "Liest die von einem anderen Plugin gespeicherte Preishistorie (ohne sie zu ändern) und ergänzt die Preise aus der Zeit, bevor dieses Plugin mit der Aufzeichnung des jeweiligen Produkts begann. Importiere nur aus einem Plugin, das bis jetzt aktiv war; ein vor langer Zeit deaktiviertes Plugin hat Lücken, die nicht erkannt werden können. Ein erneuter Import ist unbedenklich."
 
 #: src/Admin/SettingsPage.php:502
 msgid "Plugin"
@@ -545,8 +545,8 @@ msgstr "Omnibus by iLabs"
 #. translators: %s: minimum WooCommerce version
 #: src/Plugin.php:263
 #, php-format
-msgid "Pricetrail needs WooCommerce %s or newer to be active."
-msgstr "Pricetrail benötigt ein aktives WooCommerce in Version %s oder neuer."
+msgid "PN Scripts Price History needs WooCommerce %s or newer to be active."
+msgstr "PN Scripts Price History benötigt ein aktives WooCommerce in Version %s oder neuer."
 
 #: src/Settings.php:128
 msgid "EU, strict: 30 days, no optional exemptions"
