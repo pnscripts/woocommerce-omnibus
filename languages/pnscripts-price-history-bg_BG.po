@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PN Scripts Price History 1.0.3\n"
-"Report-Msgid-Bugs-To: https://pnscripts.com/marketplace/pn-omnibus\n"
+"Report-Msgid-Bugs-To: https://pnscripts.com/marketplace/pnscripts-price-history\n"
 "Last-Translator: PN Scripts (machine-assisted, needs native review)\n"
 "Language-Team: PN Scripts <https://pnscripts.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,8 +21,8 @@ msgstr "PN Scripts Price History за намаления"
 
 #. Plugin URI of the plugin
 #: pnscripts-price-history.php
-msgid "https://pnscripts.com/marketplace/pn-omnibus"
-msgstr "https://pnscripts.com/marketplace/pn-omnibus"
+msgid "https://pnscripts.com/marketplace/pnscripts-price-history"
+msgstr "https://pnscripts.com/marketplace/pnscripts-price-history"
 
 #. Description of the plugin
 #: pnscripts-price-history.php

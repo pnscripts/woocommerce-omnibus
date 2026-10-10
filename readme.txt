@@ -139,7 +139,7 @@ Omnibus — show the lowest price (iWorks), WC Price History for Omnibus, and Om
 == Changelog ==
 
 = 1.0.3 =
-* Renamed to PN Scripts Price History for Discounts (slug and text domain `pnscripts-price-history`) after the WordPress.org review. Settings move to WooCommerce → Price History, the WP-CLI command is `wp pnscripts-price-history`, the shortcode is `[pnscripts_price_history]` (the 1.0.0 tag `[pnscripts_omnibus_price]` still works). Settings and price history are kept.
+* Renamed to PN Scripts Price History for Discounts (slug and text domain `pnscripts-price-history`) after the WordPress.org review. Settings move to WooCommerce → Price History, the WP-CLI command is `wp pnscripts-price-history`, the shortcode is `[pnscripts_price_history]` (the 1.0.0 tag `[pnscripts_omnibus_price]` still works), and the plugin's address is https://pnscripts.com/marketplace/pnscripts-price-history. Settings and price history are kept.
 
 = 1.0.2 =
 * Interim rename during the WordPress.org review (not published).

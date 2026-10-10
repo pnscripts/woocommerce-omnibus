@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:          PN Scripts Price History for Discounts
- * Plugin URI:           https://pnscripts.com/marketplace/pn-omnibus
+ * Plugin URI:           https://pnscripts.com/marketplace/pnscripts-price-history
  * Description:          Records every product and variation price change and shows the lowest price in the 30 days before a discount (EU Price Indication Directive, Art. 6a). Shows nothing when the history is incomplete.
  * Version:              1.0.3
  * Requires at least:    6.5

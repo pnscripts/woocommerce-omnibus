@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: PN Omnibus dev tools (local testing only)
+ * Plugin Name: PN Scripts Price History dev tools (local testing only)
  * Description: Adds `wp pnscripts-omnibus-dev simulate` to write a simulated price history. NOT part of the
  *              released plugin (excluded by .distignore): fabricating history on a live shop would defeat its purpose.
  *

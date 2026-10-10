@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Admin page is WooCommerce → Price History (`admin.php?page=pnscripts-price-history`); WP-CLI command is `wp pnscripts-price-history`.
 - Shortcode is `[pnscripts_price_history]`; the 1.0.0 tag `[pnscripts_omnibus_price]` keeps working. The 1.0.2 tag `[pnscripts_pricetrail_price]` is dropped (1.0.2 was never published).
 - Code prefixes, hooks, option and meta names, CSS classes and the `{prefix}pnscripts_omnibus_price_history` table are unchanged, so settings and price history are kept.
+- Plugin URI (and the translations' bug-report address) is now https://pnscripts.com/marketplace/pnscripts-price-history, the product page under the new name.
+- Screenshots retaken on a neutral demo shop with the current admin screens, so none shows an old name.
 
 ## [1.0.2] - 2026-10-06
 
